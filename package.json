@@ -21,7 +21,7 @@
   },
   "private": true,
   "dependencies": {
-    "@acrodata/gui": "^2.2.2",
+    "@acrodata/gui": "^2.5.2",
     "@angular/animations": "^18.2.0",
     "@angular/cdk": "^18.2.0",
     "@angular/common": "^18.2.0",
@@ -34,7 +34,6 @@
     "@angular/router": "^18.2.0",
     "@ng-matero/extensions": "^18.5.0",
     "date-fns": "^4.1.0",
-    "gesto": "^1.19.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
