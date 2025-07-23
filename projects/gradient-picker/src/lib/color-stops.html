@@ -1,0 +1,13 @@
+<div class="color-stops-track" #track>
+  @for (stop of stops; track $index) {
+    <div
+      class="color-stop"
+      cdkDrag
+      cdkDragLockAxis="x"
+      [cdkDragBoundary]="track"
+      (cdkDragEnded)="test($event)"
+    >
+      <div class="color-stop-drag-handle"></div>
+    </div>
+  }
+</div>

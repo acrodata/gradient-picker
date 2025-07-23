@@ -26,9 +26,6 @@
     "paths": {
       "@acrodata/gradient-picker": [
         "projects/gradient-picker/src/public-api"
-      ],
-      "gradient-picker": [
-        "./dist/gradient-picker"
       ]
     }
   },

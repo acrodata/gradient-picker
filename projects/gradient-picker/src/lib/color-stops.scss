@@ -1,0 +1,34 @@
+.gradient-color-stops {
+  display: block;
+  width: 200px;
+  padding: 8px;
+  border: 1px solid;
+}
+
+.color-stops-track {
+  position: relative;
+  height: 14px;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 1px #ccc;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAKElEQVQoU2O8du3afwY0oKmpiS7EwDgUFP7//x/DM9evX8f0zBBQCACKKzR8WkcGUAAAAABJRU5ErkJggg==');
+  // cursor: copy;
+}
+
+.color-stop {
+  box-sizing: border-box;
+  position: absolute;
+  height: 14px;
+  width: 0;
+  // border: 1px solid;
+}
+
+.color-stop-drag-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 100%;
+  border: 1px solid;
+  transform: translate(-50%, -50%);
+  cursor: ew-resize;
+}
