@@ -3,4 +3,4 @@
  */
 
 export * from './lib/gradient-picker';
-export * from './lib/color-stops';
+export * from './lib/gradient-stops';

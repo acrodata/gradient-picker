@@ -1,0 +1,37 @@
+<div class="gradient-stops-slider">
+  <div class="gradient-stops-slider-empty"></div>
+  <div
+    #sliderTrack
+    class="gradient-stops-slider-track"
+    [class.is-dragging]="isDragging"
+    [style.background]="gradientColor"
+    (pointerdown)="addStop($event)"
+  >
+    @for (stop of _stops; track $index) {
+      <div
+        class="gradient-stop"
+        cdkDrag
+        cdkDragLockAxis="x"
+        [cdkDragBoundary]="sliderTrack"
+        [cdkDragFreeDragPosition]="stop.position"
+        (cdkDragStarted)="onDragStart($event)"
+        (cdkDragMoved)="onDragMove($event, stop, $index)"
+        (cdkDragEnded)="onDragEnd($event, stop)"
+        (pointerdown)="onClickDragHandle($event)"
+      >
+        <div class="gradient-stop-drag-handle"></div>
+      </div>
+    }
+  </div>
+</div>
+
+<div>
+  <ul>
+    @for (stop of _stops; track $index) {
+      <li>
+        <input type="text" [(ngModel)]="stop.color" (change)="onStopColorChange(stop)" />
+        <input type="text" [(ngModel)]="stop.offset!.value" (change)="onStopOffsetChange(stop)" />
+      </li>
+    }
+  </ul>
+</div>
