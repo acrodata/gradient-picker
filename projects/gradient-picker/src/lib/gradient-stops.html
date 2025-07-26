@@ -17,7 +17,8 @@
         (cdkDragStarted)="onDragStart($event)"
         (cdkDragMoved)="onDragMove($event, stop, $index)"
         (cdkDragEnded)="onDragEnd($event, stop)"
-        (pointerdown)="onClickDragHandle($event)"
+        (pointerdown)="onDragHandleDown($event)"
+        (pointerup)="onDragHandleUp($event)"
       >
         <div class="gradient-stop-drag-handle"></div>
       </div>
@@ -29,8 +30,10 @@
   <ul>
     @for (stop of _stops; track $index) {
       <li>
+        <input type="color" [(ngModel)]="stop.color" (change)="onStopColorChange(stop)" />
         <input type="text" [(ngModel)]="stop.color" (change)="onStopColorChange(stop)" />
         <input type="text" [(ngModel)]="stop.offset!.value" (change)="onStopOffsetChange(stop)" />
+        <button (click)="onStopRemove(stop)">x</button>
       </li>
     }
   </ul>

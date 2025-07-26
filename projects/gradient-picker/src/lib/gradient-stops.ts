@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ColorStop } from 'css-gradient-parser';
+import { reorderArrayElement } from './utils';
 
 export interface IColorStop extends ColorStop {
   offset: { value: string; unit: string };
@@ -38,9 +39,9 @@ export class GradientStops implements OnInit, AfterViewInit {
 
   @Input() colorStops: ColorStop[] = [];
 
-  trackWidth = 0;
-
   _stops: IColorStop[] = [];
+
+  trackWidth = 0;
 
   gradientColor = '';
 
@@ -87,12 +88,6 @@ export class GradientStops implements OnInit, AfterViewInit {
     this.getGradientColor();
   }
 
-  onClickDragHandle(e: PointerEvent) {
-    e.stopPropagation();
-    this.isDragging = true;
-    this.cdr.markForCheck();
-  }
-
   onDragStart(e: CdkDragStart) {}
 
   onDragMove(e: CdkDragMove, stop: IColorStop, index: number) {
@@ -101,7 +96,13 @@ export class GradientStops implements OnInit, AfterViewInit {
     stop.offset.value = xPercent.toString();
     stop.position.x = position.x;
 
-    this.getGradientColor(this.reorderStops(index));
+    const stops = reorderArrayElement<IColorStop>(
+      this._stops,
+      index,
+      (a, b) => a.position.x < b.position.x,
+      (a, b) => a.position.x > b.position.x
+    );
+    this.getGradientColor(stops);
   }
 
   onDragEnd(e: CdkDragEnd, stop: IColorStop) {
@@ -110,29 +111,15 @@ export class GradientStops implements OnInit, AfterViewInit {
     this.cdr.markForCheck();
   }
 
-  reorderStops(index: number) {
-    // Make a copy to avoid modifying the original array reference
-    const newArr = [...this._stops];
+  onDragHandleDown(e: PointerEvent) {
+    e.stopPropagation();
+    this.isDragging = true;
+    this.cdr.markForCheck();
+  }
 
-    // Now, we need to move this potentially out-of-place element
-    // to its correct sorted position.
-    // This is essentially an insertion sort pass for a single element.
-
-    let i = index;
-
-    while (i > 0 && +newArr[i].offset.value < +newArr[i - 1].offset.value) {
-      // Swap elements
-      [newArr[i], newArr[i - 1]] = [newArr[i - 1], newArr[i]];
-      i--;
-    }
-
-    while (i < newArr.length - 1 && +newArr[i].offset.value > +newArr[i + 1].offset.value) {
-      // Swap elements
-      [newArr[i], newArr[i + 1]] = [newArr[i + 1], newArr[i]];
-      i++;
-    }
-
-    return newArr;
+  onDragHandleUp(e: PointerEvent) {
+    this.isDragging = false;
+    this.cdr.markForCheck();
   }
 
   onStopColorChange(stop: IColorStop) {
@@ -145,7 +132,11 @@ export class GradientStops implements OnInit, AfterViewInit {
       y: 0,
     };
     this._stops.sort((a, b) => Number(a.offset.value) - Number(b.offset.value));
+    this.getGradientColor();
+  }
 
+  onStopRemove(stop: IColorStop) {
+    this._stops = this._stops.filter(s => s !== stop);
     this.getGradientColor();
   }
 }
