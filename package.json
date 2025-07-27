@@ -34,7 +34,7 @@
     "@angular/router": "^18.2.0",
     "@ng-matero/extensions": "^18.5.0",
     "css-gradient-parser": "^0.0.16",
-    "date-fns": "^4.1.0",
+    "ngx-color": "^9.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
