@@ -13,7 +13,8 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ColorStop } from 'css-gradient-parser';
-import { reorderArrayElement } from './utils';
+import { GradientColorpicker } from './gradient-colorpicker';
+import { interpolateColor, reorderArrayElement } from './utils';
 
 export interface IColorStop extends ColorStop {
   offset: { value: string; unit: string };
@@ -23,7 +24,7 @@ export interface IColorStop extends ColorStop {
 @Component({
   selector: 'gradient-stops',
   standalone: true,
-  imports: [FormsModule, CdkDrag],
+  imports: [FormsModule, CdkDrag, GradientColorpicker],
   templateUrl: './gradient-stops.html',
   styleUrl: './gradient-stops.scss',
   host: {
@@ -76,10 +77,10 @@ export class GradientStops implements OnInit, AfterViewInit {
   }
 
   addStop(e: PointerEvent) {
-    const xPercent = Math.round((e.offsetX / this.trackWidth) * 100);
+    const xPercentVal = Math.round((e.offsetX / this.trackWidth) * 100);
     const newStop = {
-      color: 'transparent',
-      offset: { value: xPercent.toString(), unit: '%' },
+      color: this.getInsertStopColor(e.offsetX),
+      offset: { value: xPercentVal.toString(), unit: '%' },
       position: { x: Math.round(e.offsetX), y: 0 },
     };
     this._stops.push(newStop);
@@ -138,5 +139,21 @@ export class GradientStops implements OnInit, AfterViewInit {
   onStopRemove(stop: IColorStop) {
     this._stops = this._stops.filter(s => s !== stop);
     this.getGradientColor();
+  }
+
+  getInsertStopColor(offsetX: number) {
+    const prevStop = this._stops.filter(s => s.position.x < offsetX).pop();
+    const nextStop = this._stops.filter(s => s.position.x > offsetX).shift();
+    if (prevStop && nextStop) {
+      const percentage =
+        (offsetX - prevStop.position.x) / (nextStop.position.x - prevStop.position.x);
+      return interpolateColor(prevStop.color, nextStop.color, percentage);
+    } else if (prevStop) {
+      return prevStop.color;
+    } else if (nextStop) {
+      return nextStop.color;
+    } else {
+      return '#000000';
+    }
   }
 }

@@ -1,5 +1,4 @@
 <div class="gradient-stops-slider">
-  <div class="gradient-stops-slider-empty"></div>
   <div
     #sliderTrack
     class="gradient-stops-slider-track"
@@ -26,12 +25,11 @@
   </div>
 </div>
 
-<div>
-  <ul>
+<div class="gradient-stops-list-wrapper">
+  <ul class="gradient-stops-list">
     @for (stop of _stops; track $index) {
-      <li>
-        <input type="color" [(ngModel)]="stop.color" (change)="onStopColorChange(stop)" />
-        <input type="text" [(ngModel)]="stop.color" (change)="onStopColorChange(stop)" />
+      <li class="gradient-stop-item">
+        <gradient-colorpicker [(ngModel)]="stop.color" (ngModelChange)="onStopColorChange(stop)" />
         <input type="text" [(ngModel)]="stop.offset!.value" (change)="onStopOffsetChange(stop)" />
         <button (click)="onStopRemove(stop)">x</button>
       </li>

@@ -80,6 +80,7 @@ export class GradientColorpicker implements ControlValueAccessor {
   }
 
   onColorInput() {
+    this.onChange(this.color);
     this.getFormat();
   }
 
