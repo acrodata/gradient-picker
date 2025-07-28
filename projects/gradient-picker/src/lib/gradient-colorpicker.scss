@@ -1,11 +1,6 @@
 .gradient-colorpicker {
   display: inline-flex;
-  border: 1px solid;
-  align-items: center;
-
-  &:focus-within {
-    border-color: #007bff;
-  }
+  vertical-align: middle;
 }
 
 .gradient-colorpicker-toggle {
@@ -34,13 +29,8 @@
   height: 100%;
 }
 
-.gradient-colorpicker-input {
-  height: 100%;
-  appearance: none;
-  border: none;
-  flex: 1;
-
-  &:focus {
-    outline: none;
+.gradient-colorpicker-panel {
+  input {
+    background-color: inherit;
   }
 }

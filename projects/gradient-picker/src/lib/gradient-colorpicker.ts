@@ -79,11 +79,6 @@ export class GradientColorpicker implements ControlValueAccessor {
     this.onChange(this.color);
   }
 
-  onColorInput() {
-    this.onChange(this.color);
-    this.getFormat();
-  }
-
   getFormat() {
     const color = new TinyColor(this.color);
     if (color.format === 'rgb' || color.format === 'hsl' || color.format === 'hsv') {
