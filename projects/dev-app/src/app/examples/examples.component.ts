@@ -1,4 +1,4 @@
-import { GradientStops, GradientColorpicker } from '@acrodata/gradient-picker';
+import { GradientColorpicker, GradientStops } from '@acrodata/gradient-picker';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -11,9 +11,12 @@ import { FormsModule } from '@angular/forms';
 })
 export class ExamplesComponent {
   colorStops = [
-    { color: '#ff0000', offset: { value: '0', unit: '%' } },
-    { color: '#00ff00', offset: { value: '80', unit: '%' } },
+    { color: '#FF0000', offset: { value: '0', unit: '%' } },
+    { color: '#00FF00', offset: { value: '50', unit: '%' } },
+    { color: '#0000FF', offset: { value: '100', unit: '%' } },
   ];
 
-  color = '#ff0000';
+  color = '#FF0000';
+
+  hideColorInput = false;
 }
