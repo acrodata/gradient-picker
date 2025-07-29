@@ -1,0 +1,1 @@
+import{Za as n,_a as a,ba as o,hb as m,nb as r}from"./chunk-NUO2ZJ33.js";var c=(()=>{class e{static \u0275fac=function(t){return new(t||e)};static \u0275cmp=o({type:e,selectors:[["app-home"]],standalone:!0,features:[r],decls:2,vars:0,template:function(t,p){t&1&&(n(0,"p"),m(1,"home works!"),a())}})}return e})();export{c as HomeComponent};
