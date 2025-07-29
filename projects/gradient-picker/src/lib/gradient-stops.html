@@ -14,14 +14,15 @@
         (cdkDragMoved)="onDragMove($event, stop, $index)"
         (cdkDragEnded)="onDragEnd($event, stop)"
       >
-        <button
+        <div
           class="gradient-stops-slider-thumb"
-          type="button"
           (pointerdown)="onDragHandleDown($event)"
           (pointerup)="onDragHandleUp($event)"
-        >
-          <!--  -->
-        </button>
+          gradientColorpicker
+          [(ngModel)]="stop.color"
+          (ngModelChange)="onStopColorChange(stop)"
+          triggerOn="dblclick"
+        ></div>
       </div>
     }
   </div>

@@ -15,7 +15,7 @@ import { ColorEvent } from 'ngx-color';
 import { ColorChromeModule } from 'ngx-color/chrome';
 
 @Component({
-  selector: 'gradient-colorpicker',
+  selector: 'gradient-colorpicker, [gradientColorpicker]',
   standalone: true,
   imports: [FormsModule, ColorChromeModule, CdkConnectedOverlay, CdkOverlayOrigin],
   templateUrl: './gradient-colorpicker.html',
@@ -35,6 +35,10 @@ import { ColorChromeModule } from 'ngx-color/chrome';
 })
 export class GradientColorpicker implements ControlValueAccessor {
   private cdr = inject(ChangeDetectorRef);
+
+  @Input() triggerOn: 'click' | 'dblclick' = 'click';
+
+  @Input() triggerOrigin?: CdkOverlayOrigin;
 
   @Input({ transform: booleanAttribute }) disabled = false;
 
@@ -87,5 +91,32 @@ export class GradientColorpicker implements ControlValueAccessor {
       this.format = 'hex';
     }
     this.cdr.markForCheck();
+  }
+
+  open() {
+    this.isOpen = true;
+    this.cdr.markForCheck();
+  }
+
+  close() {
+    this.isOpen = false;
+    this.cdr.markForCheck();
+  }
+
+  toggle() {
+    this.isOpen = !this.isOpen;
+    this.cdr.markForCheck();
+  }
+
+  onClick() {
+    if (this.triggerOn === 'click') {
+      this.toggle();
+    }
+  }
+
+  onDblClick() {
+    if (this.triggerOn === 'dblclick') {
+      this.toggle();
+    }
   }
 }
