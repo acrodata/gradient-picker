@@ -1,7 +1,8 @@
-<div class="gradient-stops-slider" [class.is-dragging]="isDragging">
-  <div class="gradient-stops-slider-bar" (pointerdown)="addStop($event)">
-    <div class="gradient-stops-slider-bar-inner" [style.background-image]="gradientColor"></div>
+<div class="gradient-stops-slider" [class.is-dragging]="isDragging" (pointerdown)="addStop($event)">
+  <div class="gradient-stops-slider-bar">
+    <div class="gradient-stops-slider-bar-bg" [style.background-image]="gradientColor"></div>
   </div>
+
   <div #sliderTrack class="gradient-stops-slider-track">
     @for (stop of _stops; track $index) {
       <div
@@ -10,7 +11,6 @@
         cdkDragLockAxis="x"
         [cdkDragBoundary]="sliderTrack"
         [cdkDragFreeDragPosition]="stop.position"
-        (cdkDragStarted)="onDragStart($event)"
         (cdkDragMoved)="onDragMove($event, stop, $index)"
         (cdkDragEnded)="onDragEnd($event, stop)"
       >
@@ -31,8 +31,19 @@
   <ul class="gradient-stops-list">
     @for (stop of _stops; track $index) {
       <li class="gradient-stops-item">
-        <gradient-colorpicker [(ngModel)]="stop.color" (ngModelChange)="onStopColorChange(stop)" />
-        <input type="text" [(ngModel)]="stop.offset!.value" (change)="onStopOffsetChange(stop)" />
+        <div class="gp-stop-color-input">
+          <gradient-colorpicker
+            [(ngModel)]="stop.color"
+            (ngModelChange)="onStopColorChange(stop)"
+          />
+          <input type="text" [(ngModel)]="stop.color" (change)="onStopColorChange(stop)" />
+        </div>
+        <input
+          class="gp-stop-offset-input"
+          type="text"
+          [(ngModel)]="stop.offset!.value"
+          (change)="onStopOffsetChange(stop)"
+        />
         <button type="button" (click)="onStopRemove(stop)">x</button>
       </li>
     }

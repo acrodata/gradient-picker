@@ -16,16 +16,11 @@
 
 .gradient-stops-slider-bar {
   height: 16px;
-  background-image:
-    linear-gradient(45deg, #ccc 25%, transparent 25%),
-    linear-gradient(-45deg, #ccc 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #ccc 75%),
-    linear-gradient(-45deg, transparent 75%, #ccc 75%);
-  background-position:
-    0 0,
-    0 0.25rem,
-    0.25rem -0.25rem,
-    -0.25rem 0;
+  background:
+    linear-gradient(45deg, #ccc 25%, transparent 25%) 0 0,
+    linear-gradient(-45deg, #ccc 25%, transparent 25%) 0 0.25rem,
+    linear-gradient(45deg, transparent 75%, #ccc 75%) 0.25rem -0.25rem,
+    linear-gradient(-45deg, transparent 75%, #ccc 75%) -0.25rem 0;
   background-size: 0.5rem 0.5rem;
   cursor: copy;
 
@@ -34,7 +29,7 @@
   }
 }
 
-.gradient-stops-slider-bar-inner {
+.gradient-stops-slider-bar-bg {
   height: 100%;
 }
 
@@ -53,9 +48,9 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 8px;
+  width: 16px;
   height: 100%;
-  padding: 0;
+  padding: 2px;
   border: 1px solid;
   transform: translate(-50%, -50%);
   cursor: ew-resize;
@@ -76,4 +71,21 @@
   display: flex;
   align-items: center;
   padding: 4px 0;
+  gap: 4px;
+}
+
+.gp-stop-color-input {
+  display: inline-flex;
+  flex: 2;
+  align-items: center;
+
+  > input {
+    flex: 1;
+    width: 0;
+  }
+}
+
+.gp-stop-offset-input {
+  flex: 1;
+  width: 0;
 }

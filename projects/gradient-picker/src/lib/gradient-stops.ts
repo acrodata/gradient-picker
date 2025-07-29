@@ -1,4 +1,4 @@
-import { CdkDrag, CdkDragEnd, CdkDragMove, CdkDragStart } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -76,7 +76,7 @@ export class GradientStops implements OnInit, AfterViewInit {
     this.cdr.markForCheck();
   }
 
-  addStop(e: PointerEvent) {
+  addStop(e: MouseEvent) {
     const xPercentVal = Math.round((e.offsetX / this.trackWidth) * 100);
     const newStop = {
       color: this.getInsertStopColor(e.offsetX),
@@ -88,8 +88,6 @@ export class GradientStops implements OnInit, AfterViewInit {
 
     this.getGradientColor();
   }
-
-  onDragStart(e: CdkDragStart) {}
 
   onDragMove(e: CdkDragMove, stop: IColorStop, index: number) {
     const position = e.source.getFreeDragPosition();
@@ -112,13 +110,14 @@ export class GradientStops implements OnInit, AfterViewInit {
     this.cdr.markForCheck();
   }
 
-  onDragHandleDown(e: PointerEvent) {
+  onDragHandleDown(e: MouseEvent) {
     e.stopPropagation();
     this.isDragging = true;
     this.cdr.markForCheck();
   }
 
-  onDragHandleUp(e: PointerEvent) {
+  onDragHandleUp(e: MouseEvent) {
+    e.stopPropagation();
     this.isDragging = false;
     this.cdr.markForCheck();
   }
