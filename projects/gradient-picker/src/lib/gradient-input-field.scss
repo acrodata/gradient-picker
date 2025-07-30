@@ -1,0 +1,32 @@
+.gradient-input-field {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 4px;
+  overflow: hidden;
+  font-family: system-ui, sans-serif;
+
+  &:focus-within {
+    border-color: #007bff;
+  }
+
+  .gradient-colorpicker-toggle {
+    margin: 1px;
+  }
+
+  input {
+    flex: 1;
+    width: 0;
+    height: 100%;
+    padding: 4px;
+    appearance: none;
+    border: none;
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

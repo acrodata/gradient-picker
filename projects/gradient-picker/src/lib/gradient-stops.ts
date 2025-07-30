@@ -14,6 +14,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { ColorStop } from 'css-gradient-parser';
 import { GradientColorpicker } from './gradient-colorpicker';
+import { GradientInputField } from './gradient-input-field';
 import { interpolateColor, reorderArrayElement } from './utils';
 
 export interface IColorStop extends ColorStop {
@@ -24,7 +25,7 @@ export interface IColorStop extends ColorStop {
 @Component({
   selector: 'gradient-stops',
   standalone: true,
-  imports: [FormsModule, CdkDrag, GradientColorpicker],
+  imports: [FormsModule, CdkDrag, GradientColorpicker, GradientInputField],
   templateUrl: './gradient-stops.html',
   styleUrl: './gradient-stops.scss',
   host: {

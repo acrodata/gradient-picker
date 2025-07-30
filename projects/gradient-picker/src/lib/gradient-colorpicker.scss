@@ -1,10 +1,11 @@
 .gradient-colorpicker {
   display: inline-flex;
+  vertical-align: middle;
 }
 
 .gradient-colorpicker-toggle {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   padding: 0;
   background:
     linear-gradient(45deg, #ccc 25%, transparent 25%) 0 0,
@@ -13,6 +14,8 @@
     linear-gradient(-45deg, transparent 75%, #ccc 75%) -0.25rem 0;
   background-size: 0.5rem 0.5rem;
   border: none;
+  border-radius: 2px;
+  overflow: hidden;
 }
 
 .gradient-colorpicker-color {

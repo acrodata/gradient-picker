@@ -40,18 +40,24 @@
 
 .gradient-stops-slider-pointer {
   position: absolute;
-  height: 16px;
   width: 0;
 }
 
 .gradient-stops-slider-thumb {
   position: absolute;
-  top: 50%;
   left: 50%;
-  border: 1px solid;
-  transform: translate(-50%, -50%);
+  padding: 4px;
+  border-radius: 6px;
+  transform: translate(-50%);
   cursor: ew-resize;
   background-color: #fff;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
+
+  .gradient-colorpicker-toggle {
+    width: 12px;
+    height: 12px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.16);
+  }
 }
 
 .gradient-stops-list-wrapper {
@@ -72,17 +78,9 @@
 }
 
 .gp-stop-color-input {
-  display: inline-flex;
   flex: 2;
-  align-items: center;
-
-  > input {
-    flex: 1;
-    width: 0;
-  }
 }
 
 .gp-stop-offset-input {
   flex: 1;
-  width: 0;
 }
