@@ -16,7 +16,8 @@
       >
         <div
           class="gradient-stops-slider-thumb"
-          (pointerdown)="onDragHandleDown($event)"
+          [class.gradient-stops-slider-thumb-active]="stop === selectedStop"
+          (pointerdown)="onDragHandleDown($event, stop)"
           (pointerup)="onDragHandleUp($event)"
         >
           <gradient-colorpicker-toggle [for]="gc" [color]="stop.color" triggerEvent="dblclick" />
@@ -31,10 +32,14 @@
   </div>
 </div>
 
-<div class="gradient-stops-list-wrapper">
-  <ul class="gradient-stops-list">
+<div class="gradient-stop-list-wrapper">
+  <ul class="gradient-stop-list">
     @for (stop of _stops; track $index) {
-      <li class="gradient-stops-item">
+      <li
+        class="gradient-stop-item"
+        [class.gradient-stop-item-active]="stop === selectedStop"
+        (pointerdown)="onStopItemClick(stop)"
+      >
         <gradient-input-field class="gp-stop-color-input">
           <gradient-colorpicker-toggle [for]="gc" [color]="stop.color" />
           <gradient-colorpicker

@@ -55,6 +55,8 @@ export class GradientStops implements OnInit, AfterViewInit {
 
   isDragging = false;
 
+  selectedStop?: IColorStop;
+
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
@@ -117,8 +119,9 @@ export class GradientStops implements OnInit, AfterViewInit {
     this.cdr.markForCheck();
   }
 
-  onDragHandleDown(e: MouseEvent) {
+  onDragHandleDown(e: MouseEvent, stop: IColorStop) {
     e.stopPropagation();
+    this.selectedStop = stop;
     this.isDragging = true;
     this.cdr.markForCheck();
   }
@@ -127,6 +130,10 @@ export class GradientStops implements OnInit, AfterViewInit {
     e.stopPropagation();
     this.isDragging = false;
     this.cdr.markForCheck();
+  }
+
+  onStopItemClick(stop: IColorStop) {
+    this.selectedStop = stop;
   }
 
   onStopColorChange(stop: IColorStop) {

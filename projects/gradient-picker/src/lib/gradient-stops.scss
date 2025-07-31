@@ -1,5 +1,6 @@
 .gradient-stops-slider {
   position: relative;
+  margin-bottom: 20px;
 
   &.is-dragging {
     cursor: ew-resize;
@@ -27,7 +28,6 @@
 
 .gradient-stops-slider-track {
   position: relative;
-  height: 16px;
 }
 
 .gradient-stops-slider-pointer {
@@ -50,24 +50,33 @@
     width: 12px;
     height: 12px;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.16);
+    cursor: ew-resize;
   }
 }
 
-.gradient-stops-list-wrapper {
+.gradient-stops-slider-thumb-active {
+  background-color: #0d99ff;
+}
+
+.gradient-stop-list-wrapper {
   margin-top: 8px;
 }
 
-.gradient-stops-list {
+.gradient-stop-list {
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
-.gradient-stops-item {
+.gradient-stop-item {
   display: flex;
   align-items: center;
   padding: 4px 0;
   gap: 4px;
+}
+
+.gradient-stop-item-active {
+  background-color: #e5f4ff;
 }
 
 .gp-stop-color-input {
