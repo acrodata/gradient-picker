@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ColorStop } from 'css-gradient-parser';
-import { GradientColorpicker, GradientColorpickerTrigger } from './gradient-colorpicker';
+import { GradientColorpicker, GradientColorpickerToggle } from './gradient-colorpicker';
 import { GradientInputField } from './gradient-input-field';
 import { interpolateColor, reorderArrayElement } from './utils';
 
@@ -29,7 +29,7 @@ export interface IColorStop extends ColorStop {
     FormsModule,
     CdkDrag,
     GradientColorpicker,
-    GradientColorpickerTrigger,
+    GradientColorpickerToggle,
     GradientInputField,
   ],
   templateUrl: './gradient-stops.html',

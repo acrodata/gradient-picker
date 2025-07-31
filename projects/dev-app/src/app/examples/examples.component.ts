@@ -1,8 +1,9 @@
 import {
   GradientColorpicker,
-  GradientColorpickerTrigger,
+  GradientColorpickerToggle,
   GradientStops,
 } from '@acrodata/gradient-picker';
+import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
@@ -14,7 +15,8 @@ import { MatMenuModule } from '@angular/material/menu';
     FormsModule,
     GradientStops,
     GradientColorpicker,
-    GradientColorpickerTrigger,
+    GradientColorpickerToggle,
+    CdkOverlayOrigin,
     MatMenuModule,
   ],
   templateUrl: './examples.component.html',

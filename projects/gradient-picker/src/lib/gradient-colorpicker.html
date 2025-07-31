@@ -1,13 +1,9 @@
 <ng-template
   cdkConnectedOverlay
-  [cdkConnectedOverlayOrigin]="triggerOrigin"
+  [cdkConnectedOverlayOrigin]="overlayOrigin"
   [cdkConnectedOverlayOpen]="isOpen"
   (overlayOutsideClick)="close()"
   (detach)="close()"
 >
-  <color-chrome
-    class="gradient-colorpicker-panel"
-    [color]="color"
-    (onChangeComplete)="onColorChange($event)"
-  />
+  <color-chrome [color]="color" (onChangeComplete)="onColorChange($event)" />
 </ng-template>

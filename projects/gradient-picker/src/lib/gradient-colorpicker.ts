@@ -1,15 +1,14 @@
-/* eslint-disable @angular-eslint/no-input-rename */
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import {
   booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Directive,
   ElementRef,
   forwardRef,
   inject,
   Input,
+  OnInit,
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -17,45 +16,54 @@ import { TinyColor } from '@ctrl/tinycolor';
 import { ColorEvent } from 'ngx-color';
 import { ColorChromeModule } from 'ngx-color/chrome';
 
-@Directive({
-  selector: '[gradientColorpickerTriggerFor]',
+@Component({
+  selector: 'gradient-colorpicker-toggle',
   standalone: true,
+  imports: [],
+  template: `
+    <button
+      type="button"
+      [style.background-color]="color"
+      (click)="onClick($event)"
+      (dblclick)="onDblClick($event)"
+    >
+      toggle
+    </button>
+  `,
   host: {
-    '(click)': 'onClick($event)',
-    '(dblclick)': 'onDblClick($event)',
+    class: 'gradient-colorpicker-toggle',
   },
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GradientColorpickerTrigger {
+export class GradientColorpickerToggle implements OnInit {
+  private cdr = inject(ChangeDetectorRef);
   private elementRef = inject(ElementRef);
 
-  @Input('gradientColorpickerTriggerFor') colorpicker: GradientColorpicker | null = null;
+  @Input('for') colorpicker: GradientColorpicker | null = null;
 
-  @Input('gradientColorpickerTriggerOn') triggerEvent: 'click' | 'dblclick' = 'click';
+  @Input() triggerEvent: 'click' | 'dblclick' = 'click';
 
-  @Input('gradientColorpickerTargetAt') triggerOrigin?: CdkOverlayOrigin;
+  @Input() overlayOrigin: CdkOverlayOrigin | ElementRef | HTMLElement = this.elementRef;
+
+  @Input() color = '';
+
+  ngOnInit(): void {
+    if (this.colorpicker) {
+      this.colorpicker.overlayOrigin = this.overlayOrigin;
+    }
+  }
 
   onClick(e: MouseEvent) {
-    if (!this.colorpicker) {
-      return;
-    }
-
-    this.colorpicker.triggerOrigin =
-      this.triggerOrigin || (this.elementRef.nativeElement as CdkOverlayOrigin);
-
-    if (this.triggerEvent === 'click') {
+    if (this.colorpicker && this.triggerEvent === 'click') {
+      this.colorpicker.overlayOrigin = this.overlayOrigin;
       this.colorpicker.toggle();
     }
   }
 
   onDblClick(e: MouseEvent) {
-    if (!this.colorpicker) {
-      return;
-    }
-
-    this.colorpicker.triggerOrigin =
-      this.triggerOrigin || (this.elementRef.nativeElement as CdkOverlayOrigin);
-
-    if (this.triggerEvent === 'dblclick') {
+    if (this.colorpicker && this.triggerEvent === 'dblclick') {
+      this.colorpicker.overlayOrigin = this.overlayOrigin;
       this.colorpicker.toggle();
     }
   }
@@ -82,10 +90,11 @@ export class GradientColorpickerTrigger {
 })
 export class GradientColorpicker implements ControlValueAccessor {
   private cdr = inject(ChangeDetectorRef);
-
-  @Input() triggerOrigin!: CdkOverlayOrigin;
+  private elementRef = inject(ElementRef);
 
   @Input({ transform: booleanAttribute }) disabled = false;
+
+  @Input() overlayOrigin: CdkOverlayOrigin | ElementRef | HTMLElement = this.elementRef;
 
   isOpen = false;
 
