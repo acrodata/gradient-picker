@@ -46,6 +46,7 @@
 .gradient-stops-slider-thumb {
   position: absolute;
   left: 50%;
+  display: inline-flex;
   padding: 4px;
   border-radius: 6px;
   transform: translate(-50%);

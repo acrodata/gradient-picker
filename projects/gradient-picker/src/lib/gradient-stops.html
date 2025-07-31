@@ -18,11 +18,22 @@
           class="gradient-stops-slider-thumb"
           (pointerdown)="onDragHandleDown($event)"
           (pointerup)="onDragHandleUp($event)"
-          gradientColorpicker
-          [(ngModel)]="stop.color"
-          (ngModelChange)="onStopColorChange(stop)"
-          triggerOn="dblclick"
-        ></div>
+        >
+          <button
+            type="button"
+            class="gradient-colorpicker-toggle"
+            [gradientColorpickerTriggerFor]="gc"
+            gradientColorpickerTriggerOn="dblclick"
+          >
+            <span class="gradient-colorpicker-color" [style.background]="stop.color"></span>
+          </button>
+
+          <gradient-colorpicker
+            #gc
+            [(ngModel)]="stop.color"
+            (ngModelChange)="onStopColorChange(stop)"
+          />
+        </div>
       </div>
     }
   </div>
@@ -33,7 +44,16 @@
     @for (stop of _stops; track $index) {
       <li class="gradient-stops-item">
         <gradient-input-field class="gp-stop-color-input">
+          <button
+            type="button"
+            class="gradient-colorpicker-toggle"
+            [gradientColorpickerTriggerFor]="gc"
+          >
+            <span class="gradient-colorpicker-color" [style.background]="stop.color"></span>
+          </button>
+
           <gradient-colorpicker
+            #gc
             [(ngModel)]="stop.color"
             (ngModelChange)="onStopColorChange(stop)"
           />

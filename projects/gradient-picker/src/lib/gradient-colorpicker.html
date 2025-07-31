@@ -1,17 +1,6 @@
-<button
-  class="gradient-colorpicker-toggle"
-  type="button"
-  cdkOverlayOrigin
-  #trigger="cdkOverlayOrigin"
-  (click)="onClick()"
-  (dblclick)="onDblClick()"
->
-  <span class="gradient-colorpicker-color" [style.background]="color"></span>
-</button>
-
 <ng-template
   cdkConnectedOverlay
-  [cdkConnectedOverlayOrigin]="triggerOrigin || trigger"
+  [cdkConnectedOverlayOrigin]="triggerOrigin"
   [cdkConnectedOverlayOpen]="isOpen"
   (overlayOutsideClick)="close()"
   (detach)="close()"

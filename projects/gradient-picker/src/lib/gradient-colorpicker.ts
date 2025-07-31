@@ -1,9 +1,12 @@
+/* eslint-disable @angular-eslint/no-input-rename */
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import {
   booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Directive,
+  ElementRef,
   forwardRef,
   inject,
   Input,
@@ -14,10 +17,54 @@ import { TinyColor } from '@ctrl/tinycolor';
 import { ColorEvent } from 'ngx-color';
 import { ColorChromeModule } from 'ngx-color/chrome';
 
-@Component({
-  selector: 'gradient-colorpicker, [gradientColorpicker]',
+@Directive({
+  selector: '[gradientColorpickerTriggerFor]',
   standalone: true,
-  imports: [FormsModule, ColorChromeModule, CdkConnectedOverlay, CdkOverlayOrigin],
+  host: {
+    '(click)': 'onClick($event)',
+    '(dblclick)': 'onDblClick($event)',
+  },
+})
+export class GradientColorpickerTrigger {
+  private elementRef = inject(ElementRef);
+
+  @Input('gradientColorpickerTriggerFor') colorpicker: GradientColorpicker | null = null;
+
+  @Input('gradientColorpickerTriggerOn') triggerEvent: 'click' | 'dblclick' = 'click';
+
+  @Input('gradientColorpickerTargetAt') triggerOrigin?: CdkOverlayOrigin;
+
+  onClick(e: MouseEvent) {
+    if (!this.colorpicker) {
+      return;
+    }
+
+    this.colorpicker.triggerOrigin =
+      this.triggerOrigin || (this.elementRef.nativeElement as CdkOverlayOrigin);
+
+    if (this.triggerEvent === 'click') {
+      this.colorpicker.toggle();
+    }
+  }
+
+  onDblClick(e: MouseEvent) {
+    if (!this.colorpicker) {
+      return;
+    }
+
+    this.colorpicker.triggerOrigin =
+      this.triggerOrigin || (this.elementRef.nativeElement as CdkOverlayOrigin);
+
+    if (this.triggerEvent === 'dblclick') {
+      this.colorpicker.toggle();
+    }
+  }
+}
+
+@Component({
+  selector: 'gradient-colorpicker',
+  standalone: true,
+  imports: [FormsModule, ColorChromeModule, CdkConnectedOverlay],
   templateUrl: './gradient-colorpicker.html',
   styleUrl: './gradient-colorpicker.scss',
   host: {
@@ -36,9 +83,7 @@ import { ColorChromeModule } from 'ngx-color/chrome';
 export class GradientColorpicker implements ControlValueAccessor {
   private cdr = inject(ChangeDetectorRef);
 
-  @Input() triggerOn: 'click' | 'dblclick' = 'click';
-
-  @Input() triggerOrigin?: CdkOverlayOrigin;
+  @Input() triggerOrigin!: CdkOverlayOrigin;
 
   @Input({ transform: booleanAttribute }) disabled = false;
 
@@ -106,17 +151,5 @@ export class GradientColorpicker implements ControlValueAccessor {
   toggle() {
     this.isOpen = !this.isOpen;
     this.cdr.markForCheck();
-  }
-
-  onClick() {
-    if (this.triggerOn === 'click') {
-      this.toggle();
-    }
-  }
-
-  onDblClick() {
-    if (this.triggerOn === 'dblclick') {
-      this.toggle();
-    }
   }
 }

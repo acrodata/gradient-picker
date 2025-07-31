@@ -1,11 +1,22 @@
-import { GradientColorpicker, GradientStops } from '@acrodata/gradient-picker';
+import {
+  GradientColorpicker,
+  GradientColorpickerTrigger,
+  GradientStops,
+} from '@acrodata/gradient-picker';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-examples',
   standalone: true,
-  imports: [GradientStops, GradientColorpicker, FormsModule],
+  imports: [
+    FormsModule,
+    GradientStops,
+    GradientColorpicker,
+    GradientColorpickerTrigger,
+    MatMenuModule,
+  ],
   templateUrl: './examples.component.html',
   styleUrl: './examples.component.scss',
 })

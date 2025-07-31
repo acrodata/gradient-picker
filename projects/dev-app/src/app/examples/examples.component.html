@@ -42,5 +42,7 @@
 
 <h2>Color picker</h2>
 
-<gradient-colorpicker [(ngModel)]="color" />
+<gradient-colorpicker #gc [(ngModel)]="color" />
 <input type="text" [(ngModel)]="color" />
+
+<button [gradientColorpickerTriggerFor]="gc">open</button>
