@@ -7,7 +7,9 @@ import {
   ElementRef,
   inject,
   Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -40,7 +42,7 @@ export interface IColorStop extends ColorStop {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GradientStops implements OnInit, AfterViewInit {
+export class GradientStops implements OnChanges, OnInit, AfterViewInit {
   private cdr = inject(ChangeDetectorRef);
 
   @ViewChild('sliderTrack') track!: ElementRef<HTMLElement>;
@@ -61,7 +63,9 @@ export class GradientStops implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.trackWidth = this.track.nativeElement.offsetWidth;
+  }
 
+  ngOnChanges(changes: SimpleChanges): void {
     this._stops = this.colorStops.map(stop => {
       const offset = stop.offset || { value: '0', unit: '%' };
       return {
