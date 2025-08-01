@@ -1,7 +1,24 @@
 <div>
   <span>Angle</span>
   <gradient-input-field>
-    <input type="text" />
+    @if (linearGradient.orientation.type === 'angular') {
+      <input
+        type="number"
+        [(ngModel)]="linearGradient.orientation.value.value"
+        (change)="onGradientChange()"
+      />
+      <input
+        type="text"
+        [(ngModel)]="linearGradient.orientation.value.unit"
+        (change)="onGradientChange()"
+      />
+    } @else {
+      <input
+        type="text"
+        [(ngModel)]="linearGradient.orientation.value"
+        (change)="onGradientChange()"
+      />
+    }
   </gradient-input-field>
 </div>
-<gradient-stops [colorStops]="linearGradient.stops" />
+<gradient-stops [(colorStops)]="linearGradient.stops" (colorStopsChange)="onGradientChange()" />

@@ -9,7 +9,7 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { LinearResult, parseLinearGradient } from 'css-gradient-parser';
 import { GradientInputField } from './gradient-input-field';
 import { GradientStops } from './gradient-stops';
@@ -17,7 +17,7 @@ import { GradientStops } from './gradient-stops';
 @Component({
   selector: 'linear-gradient-picker',
   standalone: true,
-  imports: [GradientStops, GradientInputField],
+  imports: [GradientStops, GradientInputField, FormsModule],
   templateUrl: './linear-gradient-picker.html',
   styleUrl: './linear-gradient-picker.scss',
   host: {
@@ -75,6 +75,15 @@ export class LinearGradientPicker implements OnInit, ControlValueAccessor {
   }
 
   onGradientChange() {
+    const stops = this.linearGradient.stops.map(
+      s => `${s.color} ${s.offset?.value}${s.offset?.unit}`
+    );
+    const orientation =
+      this.linearGradient.orientation.type === 'angular'
+        ? this.linearGradient.orientation.value.value + this.linearGradient.orientation.value.unit
+        : 'to ' + this.linearGradient.orientation.value;
+    this.value = `linear-gradient(${orientation}, ${stops.join(',')})`;
+    console.log(this.value, this.linearGradient.stops);
     this.onChange(this.value);
   }
 }

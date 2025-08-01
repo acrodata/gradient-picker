@@ -115,6 +115,7 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
     this._stops.sort((a, b) => Number(a.offset.value) - Number(b.offset.value));
 
     this.getGradientColor();
+    this.onStopsChange();
   }
 
   onDragMove(e: CdkDragMove, stop: IColorStop, index: number) {
@@ -136,6 +137,8 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
     this._stops.sort((a, b) => Number(a.offset.value) - Number(b.offset.value));
     this.isDragging = false;
     this.cdr.markForCheck();
+
+    this.onStopsChange();
   }
 
   onDragHandleDown(e: MouseEvent, stop: IColorStop) {
@@ -157,6 +160,7 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
 
   onStopColorChange(stop: IColorStop) {
     this.getGradientColor();
+    this.onStopsChange();
   }
 
   onStopOffsetChange(stop: IColorStop) {
@@ -166,11 +170,13 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
     };
     this._stops.sort((a, b) => Number(a.offset.value) - Number(b.offset.value));
     this.getGradientColor();
+    this.onStopsChange();
   }
 
   onStopRemove(stop: IColorStop) {
     this._stops = this._stops.filter(s => s !== stop);
     this.getGradientColor();
+    this.onStopsChange();
   }
 
   getInsertStopColor(offsetX: number) {
@@ -187,5 +193,12 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
     } else {
       return '#000000';
     }
+  }
+
+  onStopsChange() {
+    const stops: ColorStop[] = this._stops.map(stop => {
+      return { color: stop.color, offset: stop.offset };
+    });
+    this.colorStopsChange.next(stops);
   }
 }
