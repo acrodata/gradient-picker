@@ -6,3 +6,16 @@
 details {
   margin: 16px 0;
 }
+
+.gradient-wrap {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin: 16px 0;
+}
+
+.gradient-preview {
+  width: 200px;
+  height: 200px;
+  border: 1px solid;
+}

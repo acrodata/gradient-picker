@@ -9,14 +9,15 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { GradientStops } from './gradient-stops';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { LinearResult, parseLinearGradient } from 'css-gradient-parser';
+import { GradientInputField } from './gradient-input-field';
+import { GradientStops } from './gradient-stops';
 
 @Component({
   selector: 'linear-gradient-picker',
   standalone: true,
-  imports: [GradientStops],
+  imports: [GradientStops, GradientInputField],
   templateUrl: './linear-gradient-picker.html',
   styleUrl: './linear-gradient-picker.scss',
   host: {
@@ -39,12 +40,14 @@ export class LinearGradientPicker implements OnInit, ControlValueAccessor {
 
   linearGradient: LinearResult = {
     orientation: {
-      type: 'directional',
-      value: '',
+      type: 'angular',
+      value: { value: '', unit: '' },
     },
     repeating: false,
     stops: [{ color: '#000' }],
   };
+
+  value = '';
 
   ngOnInit(): void {}
 
@@ -69,5 +72,9 @@ export class LinearGradientPicker implements OnInit, ControlValueAccessor {
   setDisabledState(isDisabled: boolean) {
     this.disabled = isDisabled;
     this.cdr.markForCheck();
+  }
+
+  onGradientChange() {
+    this.onChange(this.value);
   }
 }

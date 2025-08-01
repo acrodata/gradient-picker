@@ -5,10 +5,12 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
   inject,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
   ViewChild,
   ViewEncapsulation,
@@ -17,7 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { ColorStop } from 'css-gradient-parser';
 import { GradientColorpicker, GradientColorpickerToggle } from './gradient-colorpicker';
 import { GradientInputField } from './gradient-input-field';
-import { interpolateColor, reorderArrayElement } from './utils';
+import { fillUndefinedOffsets, interpolateColor, reorderArrayElement } from './utils';
 
 export interface IColorStop extends ColorStop {
   offset: { value: string; unit: string };
@@ -45,9 +47,11 @@ export interface IColorStop extends ColorStop {
 export class GradientStops implements OnChanges, OnInit, AfterViewInit {
   private cdr = inject(ChangeDetectorRef);
 
-  @ViewChild('sliderTrack') track!: ElementRef<HTMLElement>;
+  @ViewChild('sliderTrack') track?: ElementRef<HTMLElement>;
 
   @Input() colorStops: ColorStop[] = [];
+
+  @Output() colorStopsChange = new EventEmitter<ColorStop[]>();
 
   _stops: IColorStop[] = [];
 
@@ -59,14 +63,28 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
 
   selectedStop?: IColorStop;
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['colorStops']) {
+      this.getStops();
+      this.getGradientColor();
+    }
+  }
+
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.trackWidth = this.track.nativeElement.offsetWidth;
+    this.getStops();
+    this.getGradientColor();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this._stops = this.colorStops.map(stop => {
+  getStops() {
+    if (!this.track) {
+      return;
+    }
+
+    this.trackWidth = this.track.nativeElement.offsetWidth;
+
+    this._stops = fillUndefinedOffsets(this.colorStops).map(stop => {
       const offset = stop.offset || { value: '0', unit: '%' };
       return {
         ...stop,
@@ -77,9 +95,6 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
         },
       };
     });
-
-    this.getGradientColor();
-
     this.cdr.markForCheck();
   }
 

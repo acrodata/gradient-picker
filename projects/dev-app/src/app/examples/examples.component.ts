@@ -4,6 +4,7 @@ import {
   GradientStops,
   LinearGradientPicker,
 } from '@acrodata/gradient-picker';
+import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
@@ -18,6 +19,7 @@ import { MatMenuModule } from '@angular/material/menu';
     GradientColorpickerToggle,
     LinearGradientPicker,
     MatMenuModule,
+    JsonPipe,
   ],
   templateUrl: './examples.component.html',
   styleUrl: './examples.component.scss',

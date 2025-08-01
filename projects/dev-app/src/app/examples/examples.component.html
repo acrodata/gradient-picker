@@ -1,6 +1,7 @@
 <h2>Gradient stops</h2>
 
 <gradient-stops [colorStops]="colorStops" />
+{{ colorStops | json }}
 
 <h2>Color picker</h2>
 
@@ -35,7 +36,11 @@
   }
 </select>
 
-<linear-gradient-picker [(ngModel)]="linearGradient" />
+<div class="gradient-wrap">
+  <linear-gradient-picker [(ngModel)]="linearGradient" />
+
+  <div class="gradient-preview" [style.background]="linearGradient"></div>
+</div>
 
 <h2>radial-gradient</h2>
 

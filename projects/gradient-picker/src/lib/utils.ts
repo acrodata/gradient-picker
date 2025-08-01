@@ -1,4 +1,5 @@
 import { TinyColor } from '@ctrl/tinycolor';
+import { ColorStop } from 'css-gradient-parser';
 
 /**
  * Reorders an element at a specified index
@@ -88,4 +89,57 @@ export function interpolateColor(fromColor: string, toColor: string, percentage 
   });
 
   return interpolatedA === 1 ? finalColor.toHexString() : finalColor.toRgbString();
+}
+
+/**
+ * Fill undefined offset in stops.
+ *
+ * @param array
+ * @returns
+ */
+export function fillUndefinedOffsets(array: ColorStop[]): ColorStop[] {
+  // Make a copy to avoid modifying the original array reference
+  const newArr = [...array];
+
+  // Ensure the start and end positions are defined.
+  if (!newArr[0] || newArr[0].offset == null) {
+    newArr[0].offset = { value: '0', unit: '%' };
+  }
+  if (!newArr[newArr.length - 1] || newArr[newArr.length - 1].offset == null) {
+    newArr[newArr.length - 1].offset = { value: '100', unit: '%' };
+  }
+
+  return newArr.map((item, index) => {
+    if (item.offset != null) {
+      return item;
+    }
+
+    // Find the nearest defined offset to the left of the current item by using
+    // findIndex to search backward from the current index.
+    const startIndex = newArr
+      .slice(0, index)
+      .reverse()
+      .findIndex(x => x.offset != null);
+    const prevDefinedIndex = index - 1 - startIndex;
+    const startOffsetValue = parseFloat(newArr[prevDefinedIndex].offset!.value);
+
+    // Find the nearest defined offset to the right of the current item by using
+    // findIndex to search forward from the current index.
+    const endIndex = newArr.slice(index + 1).findIndex(x => x.offset != null);
+    const nextDefinedIndex = index + 1 + endIndex;
+    const endOffsetValue = parseFloat(newArr[nextDefinedIndex].offset!.value);
+
+    // Calculate the number of gaps between two defined values.
+    const totalGaps = nextDefinedIndex - prevDefinedIndex;
+    const totalDifference = endOffsetValue - startOffsetValue;
+
+    // Calculate the index of the current undefined value within the entire gaps.
+    const gapIndex = index - prevDefinedIndex;
+    const newOffsetValue = startOffsetValue + (gapIndex / totalGaps) * totalDifference;
+
+    return {
+      ...item,
+      offset: { value: newOffsetValue.toString(), unit: '%' },
+    };
+  });
 }
