@@ -1,5 +1,5 @@
 import { TinyColor } from '@ctrl/tinycolor';
-import { ColorStop } from 'css-gradient-parser';
+import { ColorStop } from './parser';
 
 /**
  * Reorders an element at a specified index

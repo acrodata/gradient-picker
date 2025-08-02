@@ -9,3 +9,4 @@ export * from './lib/gradient-input-field';
 export * from './lib/linear-gradient-picker';
 export * from './lib/radial-gradient-picker';
 export * from './lib/conic-gradient-picker';
+export * from './lib/parser';

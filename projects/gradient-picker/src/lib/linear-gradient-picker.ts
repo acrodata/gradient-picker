@@ -10,9 +10,9 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { LinearResult, parseLinearGradient } from 'css-gradient-parser';
 import { GradientInputField } from './gradient-input-field';
 import { GradientStops } from './gradient-stops';
+import { LinearResult, parseLinearGradient } from './parser';
 
 @Component({
   selector: 'linear-gradient-picker',
@@ -79,7 +79,7 @@ export class LinearGradientPicker implements OnInit, ControlValueAccessor {
     );
     const orientation =
       this.linearGradient.orientation.type === 'angular'
-        ? this.linearGradient.orientation.value.value + this.linearGradient.orientation.value.unit
+        ? this.linearGradient.orientation.value
         : 'to ' + this.linearGradient.orientation.value;
     this.value = `linear-gradient(${orientation}, ${stops.join(',')})`;
 

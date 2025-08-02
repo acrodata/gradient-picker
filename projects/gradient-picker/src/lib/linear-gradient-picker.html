@@ -9,16 +9,10 @@
   <gradient-input-field>
     @if (linearGradient.orientation.type === 'angular') {
       <input
-        type="number"
-        [(ngModel)]="linearGradient.orientation.value.value"
+        type="text"
+        [(ngModel)]="linearGradient.orientation.value"
         (change)="onGradientChange()"
       />
-      <select [(ngModel)]="linearGradient.orientation.value.unit" (change)="onGradientChange()">
-        <option value="deg">deg</option>
-        <option value="rad">rad</option>
-        <option value="turn">turn</option>
-        <option value="grad">grad</option>
-      </select>
     } @else {
       <input
         type="text"

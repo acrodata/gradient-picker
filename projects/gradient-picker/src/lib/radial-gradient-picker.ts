@@ -9,9 +9,9 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { parseRadialGradient, RadialResult } from 'css-gradient-parser';
 import { GradientInputField } from './gradient-input-field';
 import { GradientStops } from './gradient-stops';
+import { parseRadialGradient, RadialResult } from './parser';
 
 @Component({
   selector: 'radial-gradient-picker',
@@ -79,22 +79,10 @@ export class RadialGradientPicker implements ControlValueAccessor {
     const stops = this.radialGradient.stops.map(
       s => `${s.color} ${s.offset?.value}${s.offset?.unit}`
     );
-    const posX =
-      this.radialGradient.position.x.type === 'length'
-        ? this.radialGradient.position.x.value.value + this.radialGradient.position.x.value.unit
-        : this.radialGradient.position.x.value;
-    const posY =
-      this.radialGradient.position.y.type === 'length'
-        ? this.radialGradient.position.y.value.value + this.radialGradient.position.y.value.unit
-        : this.radialGradient.position.y.value;
+    const posX = this.radialGradient.position.x.value;
+    const posY = this.radialGradient.position.y.value;
     const shape = this.radialGradient.shape;
-    const sizes = this.radialGradient.size.map(s => {
-      if (s.type === 'length') {
-        return s.value.value + s.value.unit;
-      } else {
-        return s.value;
-      }
-    });
+    const sizes = this.radialGradient.size.map(s => s.value);
     this.value = `radial-gradient(${shape} ${sizes.join(' ')} at ${posX} ${posY}, ${stops.join(',')})`;
 
     this.onChange(this.value);

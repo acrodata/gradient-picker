@@ -9,16 +9,9 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ColorStop, parseConicGradient } from 'css-gradient-parser';
-import { GradientStops } from './gradient-stops';
 import { GradientInputField } from './gradient-input-field';
-
-export interface ConicGradient {
-  angle: string;
-  repeating: boolean;
-  position: string;
-  stops: ColorStop[];
-}
+import { GradientStops } from './gradient-stops';
+import { ConicGradient, parseConicGradient } from './parser';
 
 @Component({
   selector: 'conic-gradient-picker',

@@ -16,9 +16,9 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorStop } from 'css-gradient-parser';
 import { GradientColorpicker, GradientColorpickerToggle } from './gradient-colorpicker';
 import { GradientInputField } from './gradient-input-field';
+import { ColorStop } from './parser';
 import { fillUndefinedOffsets, interpolateColor, reorderArrayElement } from './utils';
 
 export interface IColorStop extends ColorStop {

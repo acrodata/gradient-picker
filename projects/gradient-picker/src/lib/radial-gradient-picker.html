@@ -10,10 +10,9 @@
     } @else {
       <input
         type="text"
-        [(ngModel)]="radialGradient.position.x.value.value"
+        [(ngModel)]="radialGradient.position.x.value"
         (change)="onGradientChange()"
       />
-      {{ radialGradient.position.x.value.unit }}
     }
   </gradient-input-field>
   <gradient-input-field>
@@ -26,10 +25,9 @@
     } @else {
       <input
         type="text"
-        [(ngModel)]="radialGradient.position.y.value.value"
+        [(ngModel)]="radialGradient.position.y.value"
         (change)="onGradientChange()"
       />
-      {{ radialGradient.position.y.value.unit }}
     }
   </gradient-input-field>
 </div>
@@ -66,8 +64,7 @@
           <option value="farthest-corner">farthest-corner</option>
         </select>
       } @else {
-        <input type="text" [(ngModel)]="size.value.value" (change)="onGradientChange()" />
-        {{ size.value.unit }}
+        <input type="text" [(ngModel)]="size.value" (change)="onGradientChange()" />
       }
     </gradient-input-field>
   }
