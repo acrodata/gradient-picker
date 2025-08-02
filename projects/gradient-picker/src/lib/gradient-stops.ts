@@ -95,6 +95,7 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
         },
       };
     });
+
     this.cdr.markForCheck();
   }
 
