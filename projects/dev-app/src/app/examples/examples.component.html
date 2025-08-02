@@ -1,7 +1,6 @@
 <h2>Gradient stops</h2>
 
-<gradient-stops [(colorStops)]="colorStops" />
-{{ colorStops | json }}
+<gradient-stops [(colorStops)]="colorStops" (colorStopsChange)="onColorStopsChange($event)" />
 
 <h2>Color picker</h2>
 

@@ -4,7 +4,6 @@ import {
   GradientStops,
   LinearGradientPicker,
 } from '@acrodata/gradient-picker';
-import { JsonPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
@@ -19,7 +18,6 @@ import { MatMenuModule } from '@angular/material/menu';
     GradientColorpickerToggle,
     LinearGradientPicker,
     MatMenuModule,
-    JsonPipe,
   ],
   templateUrl: './examples.component.html',
   styleUrl: './examples.component.scss',
@@ -42,5 +40,7 @@ export class ExamplesComponent {
     'linear-gradient(to left, #333, #333 50%, #eee 75%, #333 75%)',
     'linear-gradient(217deg, rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0) 70.71%)',
   ];
-  linearGradient = this.linearGradients[0];
+  linearGradient = '';
+
+  onColorStopsChange(e: any) {}
 }

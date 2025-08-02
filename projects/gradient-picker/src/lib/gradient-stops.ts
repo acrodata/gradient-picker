@@ -104,6 +104,22 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
     this.cdr.markForCheck();
   }
 
+  getInsertStopColor(offsetX: number) {
+    const prevStop = this._stops.filter(s => s.position.x < offsetX).pop();
+    const nextStop = this._stops.filter(s => s.position.x > offsetX).shift();
+    if (prevStop && nextStop) {
+      const percentage =
+        (offsetX - prevStop.position.x) / (nextStop.position.x - prevStop.position.x);
+      return interpolateColor(prevStop.color, nextStop.color, percentage);
+    } else if (prevStop) {
+      return prevStop.color;
+    } else if (nextStop) {
+      return nextStop.color;
+    } else {
+      return '#000000';
+    }
+  }
+
   addStop(e: MouseEvent) {
     const xPercentVal = Math.round((e.offsetX / this.trackWidth) * 100);
     const newStop = {
@@ -131,6 +147,7 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
       (a, b) => a.position.x > b.position.x
     );
     this.getGradientColor(stops);
+    this.onStopsChange();
   }
 
   onDragEnd(e: CdkDragEnd, stop: IColorStop) {
@@ -179,26 +196,12 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
     this.onStopsChange();
   }
 
-  getInsertStopColor(offsetX: number) {
-    const prevStop = this._stops.filter(s => s.position.x < offsetX).pop();
-    const nextStop = this._stops.filter(s => s.position.x > offsetX).shift();
-    if (prevStop && nextStop) {
-      const percentage =
-        (offsetX - prevStop.position.x) / (nextStop.position.x - prevStop.position.x);
-      return interpolateColor(prevStop.color, nextStop.color, percentage);
-    } else if (prevStop) {
-      return prevStop.color;
-    } else if (nextStop) {
-      return nextStop.color;
-    } else {
-      return '#000000';
-    }
-  }
-
   onStopsChange() {
-    const stops: ColorStop[] = this._stops.map(stop => {
-      return { color: stop.color, offset: stop.offset };
+    this.colorStops.forEach(() => this.colorStops.pop());
+    this._stops.forEach((stop, i) => {
+      this.colorStops[i] = { color: stop.color, offset: stop.offset };
     });
-    this.colorStopsChange.next(stops);
+    this.colorStops.sort((a, b) => Number(a.offset!.value) - Number(b.offset!.value));
+    this.colorStopsChange.next(this.colorStops);
   }
 }

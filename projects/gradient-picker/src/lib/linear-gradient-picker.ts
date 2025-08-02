@@ -75,6 +75,7 @@ export class LinearGradientPicker implements OnInit, ControlValueAccessor {
   }
 
   onGradientChange() {
+    // TODO: 封装 srting 函数
     const stops = this.linearGradient.stops.map(
       s => `${s.color} ${s.offset?.value}${s.offset?.unit}`
     );
@@ -83,7 +84,7 @@ export class LinearGradientPicker implements OnInit, ControlValueAccessor {
         ? this.linearGradient.orientation.value.value + this.linearGradient.orientation.value.unit
         : 'to ' + this.linearGradient.orientation.value;
     this.value = `linear-gradient(${orientation}, ${stops.join(',')})`;
-    console.log(this.value, this.linearGradient.stops);
+
     this.onChange(this.value);
   }
 }

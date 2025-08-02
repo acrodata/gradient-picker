@@ -94,7 +94,7 @@ export function interpolateColor(fromColor: string, toColor: string, percentage 
 /**
  * Fill undefined offset in stops.
  *
- * @param array
+ * @param array The original array
  * @returns
  */
 export function fillUndefinedOffsets(array: ColorStop[]): ColorStop[] {
