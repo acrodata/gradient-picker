@@ -10,7 +10,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { GradientInputField } from './gradient-input-field';
+import { GradientInputField } from './form-controls/gradient-input-field';
 import { GradientStops } from './gradient-stops';
 import { LinearResult, parseLinearGradient } from './parser';
 
