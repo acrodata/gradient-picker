@@ -1,5 +1,4 @@
-<div>
-  <label for="">position:</label>
+<gradient-form-group label="Position">
   <gradient-input-field>
     @if (radialGradient.position.x.type === 'keyword') {
       <input
@@ -30,30 +29,30 @@
       />
     }
   </gradient-input-field>
-</div>
-<div>
-  <label for="">shape:</label>
-  <label>
-    <input
-      type="radio"
-      [(ngModel)]="radialGradient.shape"
-      value="ellipse"
-      (change)="onGradientChange()"
-    />
-    ellipse
-  </label>
-  <label>
-    <input
-      type="radio"
-      [(ngModel)]="radialGradient.shape"
-      value="circle"
-      (change)="onGradientChange()"
-    />
-    circle
-  </label>
-</div>
-<div>
-  <label for="">size</label>
+</gradient-form-group>
+<gradient-form-group label="Shape">
+  <gradient-input-field>
+    <label class="gradient-radio-item">
+      <input
+        type="radio"
+        value="ellipse"
+        [(ngModel)]="radialGradient.shape"
+        (change)="onGradientChange()"
+      />
+      <span>Ellipse</span>
+    </label>
+    <label class="gradient-radio-item">
+      <input
+        type="radio"
+        value="circle"
+        [(ngModel)]="radialGradient.shape"
+        (change)="onGradientChange()"
+      />
+      <span>Circle</span>
+    </label>
+  </gradient-input-field>
+</gradient-form-group>
+<gradient-form-group label="Size">
   @for (size of radialGradient.size; track $index) {
     <gradient-input-field>
       @if (size.type === 'keyword') {
@@ -68,6 +67,6 @@
       }
     </gradient-input-field>
   }
-</div>
+</gradient-form-group>
 
 <gradient-stops [colorStops]="radialGradient.stops" (colorStopsChange)="onGradientChange()" />

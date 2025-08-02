@@ -1,0 +1,14 @@
+.gradient-form-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+
+  .gradient-input-field {
+    flex: 1;
+  }
+}
+
+.gradient-form-label {
+  width: 48px;
+}

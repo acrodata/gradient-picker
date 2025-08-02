@@ -1,4 +1,4 @@
-<div>
+<gradient-form-group label="Angel">
   <gradient-input-field>
     <select [(ngModel)]="linearGradient.orientation.type" (change)="onGradientChange()">
       <option value="directional">directional</option>
@@ -21,5 +21,6 @@
       />
     }
   </gradient-input-field>
-</div>
+</gradient-form-group>
+
 <gradient-stops [colorStops]="linearGradient.stops" (colorStopsChange)="onGradientChange()" />

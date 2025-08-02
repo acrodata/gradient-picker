@@ -9,6 +9,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { GradientFormGroup } from './form-controls';
 import { GradientInputField } from './form-controls/gradient-input-field';
 import { GradientStops } from './gradient-stops';
 import { ConicGradient, parseConicGradient } from './parser';
@@ -16,7 +17,7 @@ import { ConicGradient, parseConicGradient } from './parser';
 @Component({
   selector: 'conic-gradient-picker',
   standalone: true,
-  imports: [GradientStops, GradientInputField, FormsModule],
+  imports: [FormsModule, GradientStops, GradientInputField, GradientFormGroup],
   templateUrl: './conic-gradient-picker.html',
   styleUrl: './conic-gradient-picker.scss',
   host: {
