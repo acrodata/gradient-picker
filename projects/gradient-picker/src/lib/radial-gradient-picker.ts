@@ -45,18 +45,19 @@ export class RadialGradientPicker implements ControlValueAccessor {
       y: { type: 'keyword', value: '' },
     },
     repeating: false,
-    stops: [{ color: '#000' }],
+    stops: [{ color: '#000000' }],
   };
 
-  value = '';
+  value = 'radial-gradient(transparent, #000000)';
 
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
   writeValue(value: string): void {
     if (value) {
-      this.radialGradient = parseRadialGradient(value);
+      this.value = value;
     }
+    this.radialGradient = parseRadialGradient(this.value);
     this.cdr.markForCheck();
   }
 

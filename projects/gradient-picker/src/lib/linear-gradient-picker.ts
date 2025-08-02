@@ -41,10 +41,10 @@ export class LinearGradientPicker implements OnInit, ControlValueAccessor {
   linearGradient: LinearResult = {
     orientation: { type: 'directional', value: '' },
     repeating: false,
-    stops: [{ color: '#000' }],
+    stops: [{ color: '#000000' }],
   };
 
-  value = '';
+  value = 'linear-gradient(transparent, #000000)';
 
   ngOnInit(): void {}
 
@@ -53,8 +53,9 @@ export class LinearGradientPicker implements OnInit, ControlValueAccessor {
 
   writeValue(value: string): void {
     if (value) {
-      this.linearGradient = parseLinearGradient(value);
+      this.value = value;
     }
+    this.linearGradient = parseLinearGradient(this.value);
     this.cdr.markForCheck();
   }
 

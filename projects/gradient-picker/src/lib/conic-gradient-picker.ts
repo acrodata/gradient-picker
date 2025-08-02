@@ -48,19 +48,19 @@ export class ConicGradientPicker implements ControlValueAccessor {
     angle: '',
     position: '',
     repeating: false,
-    stops: [{ color: '#000' }],
+    stops: [{ color: '#000000' }],
   };
 
-  value = '';
+  value = 'conic-gradient(transparent, #000000)';
 
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
   writeValue(value: string): void {
     if (value) {
-      this.conicGradient = parseConicGradient(value);
-      console.log(this.conicGradient);
+      this.value = value;
     }
+    this.conicGradient = parseConicGradient(this.value);
     this.cdr.markForCheck();
   }
 
