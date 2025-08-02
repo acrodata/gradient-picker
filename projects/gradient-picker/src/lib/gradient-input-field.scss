@@ -29,4 +29,13 @@
       outline: none;
     }
   }
+
+  select {
+    height: 100%;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
 }

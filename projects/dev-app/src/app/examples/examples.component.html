@@ -40,6 +40,7 @@
 
   <div class="gradient-preview" [style.background]="linearGradient"></div>
 </div>
+{{ linearGradient }}
 
 <h2>radial-gradient</h2>
 
@@ -57,6 +58,19 @@
       radial-gradient(ellipse at bottom, #4d9f0c, transparent);
   </pre>
 </details>
+
+<select [(ngModel)]="radialGradient">
+  @for (rg of radialGradients; track $index) {
+    <option [value]="rg">{{ rg || '--' }}</option>
+  }
+</select>
+
+<div class="gradient-wrap">
+  <radial-gradient-picker [(ngModel)]="radialGradient" />
+
+  <div class="gradient-preview" [style.background]="radialGradient"></div>
+</div>
+{{ radialGradient }}
 
 <h2>conic-gradient</h2>
 

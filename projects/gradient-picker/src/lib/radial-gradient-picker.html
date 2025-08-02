@@ -1,0 +1,76 @@
+<div>
+  <label for="">position:</label>
+  <gradient-input-field>
+    @if (radialGradient.position.x.type === 'keyword') {
+      <input
+        type="text"
+        [(ngModel)]="radialGradient.position.x.value"
+        (change)="onGradientChange()"
+      />
+    } @else {
+      <input
+        type="text"
+        [(ngModel)]="radialGradient.position.x.value.value"
+        (change)="onGradientChange()"
+      />
+      {{ radialGradient.position.x.value.unit }}
+    }
+  </gradient-input-field>
+  <gradient-input-field>
+    @if (radialGradient.position.y.type === 'keyword') {
+      <input
+        type="text"
+        [(ngModel)]="radialGradient.position.y.value"
+        (change)="onGradientChange()"
+      />
+    } @else {
+      <input
+        type="text"
+        [(ngModel)]="radialGradient.position.y.value.value"
+        (change)="onGradientChange()"
+      />
+      {{ radialGradient.position.y.value.unit }}
+    }
+  </gradient-input-field>
+</div>
+<div>
+  <label for="">shape:</label>
+  <label>
+    <input
+      type="radio"
+      [(ngModel)]="radialGradient.shape"
+      value="ellipse"
+      (change)="onGradientChange()"
+    />
+    ellipse
+  </label>
+  <label>
+    <input
+      type="radio"
+      [(ngModel)]="radialGradient.shape"
+      value="circle"
+      (change)="onGradientChange()"
+    />
+    circle
+  </label>
+</div>
+<div>
+  <label for="">size</label>
+  @for (size of radialGradient.size; track $index) {
+    <gradient-input-field>
+      @if (size.type === 'keyword') {
+        <select [(ngModel)]="size.value" (change)="onGradientChange()">
+          <option value="closest-side">closest-side</option>
+          <option value="closest-corner">closest-corner</option>
+          <option value="farthest-side">farthest-side</option>
+          <option value="farthest-corner">farthest-corner</option>
+        </select>
+      } @else {
+        <input type="text" [(ngModel)]="size.value.value" (change)="onGradientChange()" />
+        {{ size.value.unit }}
+      }
+    </gradient-input-field>
+  }
+</div>
+
+<gradient-stops [colorStops]="radialGradient.stops" (colorStopsChange)="onGradientChange()" />

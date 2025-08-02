@@ -3,6 +3,7 @@ import {
   GradientColorpickerToggle,
   GradientStops,
   LinearGradientPicker,
+  RadialGradientPicker,
 } from '@acrodata/gradient-picker';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -17,6 +18,7 @@ import { MatMenuModule } from '@angular/material/menu';
     GradientColorpicker,
     GradientColorpickerToggle,
     LinearGradientPicker,
+    RadialGradientPicker,
     MatMenuModule,
   ],
   templateUrl: './examples.component.html',
@@ -41,6 +43,16 @@ export class ExamplesComponent {
     'linear-gradient(217deg, rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0) 70.71%)',
   ];
   linearGradient = '';
+
+  radialGradients = [
+    '',
+    'radial-gradient(#e66465, #9198e5)',
+    'radial-gradient(closest-side, #3f87a6, #ebf8e1, #f69d3c)',
+    'radial-gradient(circle at 100%, #333, #333 50%, #eee 75%, #333 75%)',
+    'radial-gradient(ellipse at top, #e66465, transparent)',
+    'radial-gradient(ellipse 50% 50px, red, yellow 10%, #1e90ff 50%, beige)'
+  ];
+  radialGradient = '';
 
   onColorStopsChange(e: any) {}
 }
