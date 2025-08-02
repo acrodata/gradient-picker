@@ -1,0 +1,15 @@
+<div>
+  <label for="">angle</label>
+  <gradient-input-field>
+    <input type="text" [(ngModel)]="conicGradient.angle" (change)="onGradientChange()" />
+  </gradient-input-field>
+</div>
+
+<div>
+  <label for="">position</label>
+  <gradient-input-field>
+    <input type="text" [(ngModel)]="conicGradient.position" (change)="onGradientChange()" />
+  </gradient-input-field>
+</div>
+
+<gradient-stops [colorStops]="conicGradient.stops" (colorStopsChange)="onGradientChange()" />

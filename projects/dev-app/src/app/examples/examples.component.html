@@ -86,3 +86,16 @@
     background: conic-gradient(red 6deg, orange 6deg 18deg, yellow 18deg 45deg, green 45deg 110deg, blue 110deg 200deg, purple 200deg);
   </pre>
 </details>
+
+<select [(ngModel)]="conicGradient">
+  @for (cg of conicGradients; track $index) {
+    <option [value]="cg">{{ cg || '--' }}</option>
+  }
+</select>
+
+<div class="gradient-wrap">
+  <conic-gradient-picker [(ngModel)]="conicGradient" />
+
+  <div class="gradient-preview" [style.background]="conicGradient"></div>
+</div>
+{{ conicGradient }}

@@ -1,4 +1,5 @@
 import {
+  ConicGradientPicker,
   GradientColorpicker,
   GradientColorpickerToggle,
   GradientStops,
@@ -19,6 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
     GradientColorpickerToggle,
     LinearGradientPicker,
     RadialGradientPicker,
+    ConicGradientPicker,
     MatMenuModule,
   ],
   templateUrl: './examples.component.html',
@@ -50,9 +52,18 @@ export class ExamplesComponent {
     'radial-gradient(closest-side, #3f87a6, #ebf8e1, #f69d3c)',
     'radial-gradient(circle at 100%, #333, #333 50%, #eee 75%, #333 75%)',
     'radial-gradient(ellipse at top, #e66465, transparent)',
-    'radial-gradient(ellipse 50% 50px, red, yellow 10%, #1e90ff 50%, beige)'
+    'radial-gradient(ellipse 50% 50px, red, yellow 10%, #1e90ff 50%, beige)',
   ];
   radialGradient = '';
+
+  conicGradients = [
+    '',
+    'conic-gradient(red, orange, yellow, green, blue)',
+    'conic-gradient(from 0.25turn at 50% 30%, #f69d3c, 10deg, #3f87a6, 350deg, #ebf8e1)',
+    'conic-gradient(from 3.1416rad at 10% 50%, #e66465, #9198e5)',
+    'conic-gradient(red 6deg, orange 6deg 18deg, yellow 18deg 45deg, green 45deg 110deg, blue 110deg 200deg, purple 200deg)',
+  ];
+  conicGradient = '';
 
   onColorStopsChange(e: any) {}
 }
