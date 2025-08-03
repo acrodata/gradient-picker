@@ -2,6 +2,7 @@ import {
   ConicGradientPicker,
   GradientColorpicker,
   GradientColorpickerToggle,
+  GradientPicker,
   GradientStops,
   LinearGradientPicker,
   RadialGradientPicker,
@@ -21,6 +22,7 @@ import { MatMenuModule } from '@angular/material/menu';
     LinearGradientPicker,
     RadialGradientPicker,
     ConicGradientPicker,
+    GradientPicker,
     MatMenuModule,
   ],
   templateUrl: './examples.component.html',
@@ -64,6 +66,10 @@ export class ExamplesComponent {
     'conic-gradient(red 6deg, orange 6deg 18deg, yellow 18deg 45deg, green 45deg 110deg, blue 110deg 200deg, purple 200deg)',
   ];
   conicGradient = '';
+
+  gradients = this.linearGradients.concat(this.radialGradients, this.conicGradients);
+
+  gradient = '';
 
   onColorStopsChange(e: any) {}
 }

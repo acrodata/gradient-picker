@@ -1,0 +1,7 @@
+@if (type === 'linear') {
+  <linear-gradient-picker [(ngModel)]="value" (ngModelChange)="onValueChange()" />
+} @else if (type === 'radial') {
+  <radial-gradient-picker [(ngModel)]="value" (ngModelChange)="onValueChange()" />
+} @else if (type === 'conic') {
+  <conic-gradient-picker [(ngModel)]="value" (ngModelChange)="onValueChange()" />
+}

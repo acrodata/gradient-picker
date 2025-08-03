@@ -11,7 +11,22 @@
 
 <button #btn (click)="gc.toggle()">open</button>
 
-<h2>linear-gradient</h2>
+<h2>Gradient Picker</h2>
+
+<select [(ngModel)]="gradient">
+  @for (g of gradients; track $index) {
+    <option [value]="g">{{ g || '--' }}</option>
+  }
+</select>
+
+<div class="gradient-wrap">
+  <gradient-picker [(ngModel)]="gradient" />
+
+  <div class="gradient-preview" [style.background]="gradient"></div>
+</div>
+{{ gradient }}
+
+<h2>Linear Gradient Picker</h2>
 
 <select [(ngModel)]="linearGradient">
   @for (lg of linearGradients; track $index) {
