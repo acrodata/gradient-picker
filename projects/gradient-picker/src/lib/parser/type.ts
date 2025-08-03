@@ -1,5 +1,5 @@
 export interface ColorStop {
-  color: string
-  offset?: { unit: string; value: string }
-  hint?: { unit: string; value: string }
+  color: string;
+  offset?: { unit: string; value: number };
+  hint?: { unit: string; value: number };
 }

@@ -60,5 +60,5 @@ export function resolveLength(v?: string) {
 
   const [, value, unit] = v.trim().match(REGEX) || [];
 
-  return { value, unit: unit ?? 'px' };
+  return { value: Number(value), unit: unit ?? 'px' };
 }

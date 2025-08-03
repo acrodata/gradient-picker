@@ -1,6 +1,4 @@
 .gradient-stops {
-  display: block;
-  margin-top: 16px;
 }
 
 .gradient-stops-slider {
@@ -13,13 +11,15 @@
 }
 
 .gradient-stops-slider-bar {
-  height: 16px;
+  height: 24px;
   background:
     linear-gradient(45deg, #ccc 25%, transparent 25%) 0 0,
     linear-gradient(-45deg, #ccc 25%, transparent 25%) 0 0.25rem,
     linear-gradient(45deg, transparent 75%, #ccc 75%) 0.25rem -0.25rem,
     linear-gradient(-45deg, transparent 75%, #ccc 75%) -0.25rem 0;
   background-size: 0.5rem 0.5rem;
+  border-radius: 4px;
+  overflow: hidden;
   cursor: copy;
 
   .is-dragging & {
@@ -38,11 +38,11 @@
 .gradient-stops-slider-pointer {
   position: absolute;
   width: 0;
+  z-index: 1;
 }
 
 .gradient-stops-slider-thumb {
   position: absolute;
-  left: 50%;
   display: inline-flex;
   padding: 4px;
   border-radius: 6px;
@@ -64,7 +64,7 @@
 }
 
 .gradient-stop-list-wrapper {
-  margin-top: 8px;
+  margin-top: 24px;
 }
 
 .gradient-stop-list {
@@ -76,7 +76,8 @@
 .gradient-stop-item {
   display: flex;
   align-items: center;
-  padding: 4px 0;
+  padding: 4px 8px;
+  margin: 0 -8px;
   gap: 4px;
 }
 
@@ -84,10 +85,15 @@
   background-color: #e5f4ff;
 }
 
-.gp-stop-color-input {
+.gradient-stop-item-color {
   flex: 2;
 }
 
-.gp-stop-offset-input {
+.gradient-stop-item-offset {
   flex: 1;
+}
+
+.gradient-stop-item-button {
+  width: 24px;
+  text-align: center;
 }

@@ -40,7 +40,7 @@
         [class.gradient-stop-item-active]="stop === selectedStop"
         (pointerdown)="onStopItemClick(stop)"
       >
-        <gradient-input-field class="gp-stop-color-input">
+        <gradient-input-field class="gradient-stop-item-color">
           <gradient-colorpicker-toggle [for]="gc" [color]="stop.color" />
           <gradient-colorpicker
             #gc
@@ -49,11 +49,21 @@
           />
           <input type="text" [(ngModel)]="stop.color" (change)="onStopColorChange(stop)" />
         </gradient-input-field>
-        <gradient-input-field class="gp-stop-offset-input">
-          <input type="text" [(ngModel)]="stop.offset.value" (change)="onStopOffsetChange(stop)" />
+        <gradient-input-field class="gradient-stop-item-offset">
+          <input
+            type="number"
+            min="0"
+            max="100"
+            [(ngModel)]="stop.offset.value"
+            (change)="onStopOffsetChange(stop)"
+          />
           <span>%</span>
         </gradient-input-field>
-        <button type="button" (click)="onStopRemove(stop)">x</button>
+        <div class="gradient-stop-item-button">
+          @if (_stops.length > 1) {
+            <button type="button" (click)="onStopRemove(stop)">x</button>
+          }
+        </div>
       </li>
     }
   </ul>

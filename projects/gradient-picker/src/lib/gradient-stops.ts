@@ -22,7 +22,7 @@ import { ColorStop } from './parser';
 import { fillUndefinedOffsets, interpolateColor, reorderArrayElement } from './utils';
 
 export interface IColorStop extends ColorStop {
-  offset: { value: string; unit: string };
+  offset: { value: number; unit: string };
   position: { x: number; y: number };
 }
 
@@ -85,12 +85,12 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
     this.trackWidth = this.track.nativeElement.offsetWidth;
 
     this._stops = fillUndefinedOffsets(this.colorStops).map(stop => {
-      const offset = stop.offset || { value: '0', unit: '%' };
+      const offset = stop.offset || { value: 0, unit: '%' };
       return {
         ...stop,
         offset,
         position: {
-          x: Math.min((Number(offset.value) / 100) * this.trackWidth, this.trackWidth),
+          x: Math.min((offset.value / 100) * this.trackWidth, this.trackWidth),
           y: 0,
         },
       };
@@ -125,11 +125,11 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
     const xPercentVal = Math.round((e.offsetX / this.trackWidth) * 100);
     const newStop = {
       color: this.getInsertStopColor(e.offsetX),
-      offset: { value: xPercentVal.toString(), unit: '%' },
+      offset: { value: xPercentVal, unit: '%' },
       position: { x: Math.round(e.offsetX), y: 0 },
     };
     this._stops.push(newStop);
-    this._stops.sort((a, b) => Number(a.offset.value) - Number(b.offset.value));
+    this._stops.sort((a, b) => a.offset.value - b.offset.value);
 
     this.getGradientColor();
     this.onStopsChange();
@@ -138,7 +138,7 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
   onDragMove(e: CdkDragMove, stop: IColorStop, index: number) {
     const position = e.source.getFreeDragPosition();
     const xPercent = Math.round((position.x / this.trackWidth) * 100);
-    stop.offset.value = xPercent.toString();
+    stop.offset.value = xPercent;
     stop.position.x = position.x;
 
     const stops = reorderArrayElement<IColorStop>(
@@ -152,7 +152,7 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
   }
 
   onDragEnd(e: CdkDragEnd, stop: IColorStop) {
-    this._stops.sort((a, b) => Number(a.offset.value) - Number(b.offset.value));
+    this._stops.sort((a, b) => a.offset.value - b.offset.value);
     this.isDragging = false;
     this.cdr.markForCheck();
 
@@ -183,10 +183,10 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
 
   onStopOffsetChange(stop: IColorStop) {
     stop.position = {
-      x: (Number(stop.offset.value) / 100) * this.trackWidth,
+      x: (stop.offset.value / 100) * this.trackWidth,
       y: 0,
     };
-    this._stops.sort((a, b) => Number(a.offset.value) - Number(b.offset.value));
+    this._stops.sort((a, b) => a.offset.value - b.offset.value);
     this.getGradientColor();
     this.onStopsChange();
   }
@@ -202,7 +202,7 @@ export class GradientStops implements OnChanges, OnInit, AfterViewInit {
     this._stops.forEach((stop, i) => {
       this.colorStops[i] = { color: stop.color, offset: stop.offset };
     });
-    this.colorStops.sort((a, b) => Number(a.offset!.value) - Number(b.offset!.value));
+    this.colorStops.sort((a, b) => a.offset!.value - b.offset!.value);
     this.colorStopsChange.next(this.colorStops);
   }
 }
