@@ -6,14 +6,13 @@ import {
   forwardRef,
   inject,
   Input,
-  OnInit,
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { GradientFormGroup, GradientUnitInput } from './form-controls';
 import { GradientInputField } from './form-controls/gradient-input-field';
 import { GradientStops } from './gradient-stops';
-import { LinearResult, parseLinearGradient } from './parser';
+import { LinearGradientResult, parseLinearGradient, stringifyLinearGradient } from './parser';
 import { angelUnits } from './utils';
 
 @Component({
@@ -40,7 +39,7 @@ export class LinearGradientPicker implements ControlValueAccessor {
 
   @Input({ transform: booleanAttribute }) disabled = false;
 
-  linearGradient: LinearResult = {
+  linearGradient: LinearGradientResult = {
     orientation: { type: 'directional', value: '' },
     repeating: false,
     stops: [{ color: '#000000' }],
@@ -73,16 +72,7 @@ export class LinearGradientPicker implements ControlValueAccessor {
   }
 
   onGradientChange() {
-    // TODO: 封装 srting 函数
-    const stops = this.linearGradient.stops.map(
-      s => `${s.color} ${s.offset?.value}${s.offset?.unit}`
-    );
-    const orientation =
-      this.linearGradient.orientation.type === 'angular'
-        ? this.linearGradient.orientation.value
-        : 'to ' + this.linearGradient.orientation.value;
-    this.value = `linear-gradient(${orientation}, ${stops.join(',')})`;
-
+    this.value = stringifyLinearGradient(this.linearGradient);
     this.onChange(this.value);
   }
 }

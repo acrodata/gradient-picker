@@ -6,18 +6,18 @@ interface LinearOrientation {
   value: string;
 }
 
-export interface LinearResult {
+export interface LinearGradientResult {
   orientation: LinearOrientation;
   repeating: boolean;
   stops: ColorStop[];
 }
 
-export function parseLinearGradient(input: string): LinearResult {
+export function parseLinearGradient(input: string): LinearGradientResult {
   if (!/^(repeating-)?linear-gradient/.test(input))
     throw new SyntaxError(`could not find syntax for this item: ${input}`);
 
   const [, repeating, props] = input.match(/(repeating-)?linear-gradient\((.+)\)/)!;
-  const result: LinearResult = {
+  const result: LinearGradientResult = {
     orientation: { type: 'directional', value: 'bottom' },
     repeating: Boolean(repeating),
     stops: [],
@@ -49,4 +49,27 @@ function resolveLinearOrientation(angle: string): LinearOrientation | null {
   }
 
   return null;
+}
+
+export function stringifyLinearGradient(input: LinearGradientResult) {
+  const params: string[] = [];
+  const orientation = input.orientation.value.trim()
+    ? input.orientation.type === 'angular'
+      ? input.orientation.value
+      : 'to ' + input.orientation.value
+    : '';
+
+  if (orientation) {
+    params.push(orientation);
+  }
+
+  const stops = input.stops.map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`);
+
+  if (stops.length > 0) {
+    params.push(stops.join(', '));
+  }
+
+  const gradientType = input.repeating ? 'repeating-linear-gradient' : 'linear-gradient';
+
+  return `${gradientType}(${params.join(', ')})`;
 }
