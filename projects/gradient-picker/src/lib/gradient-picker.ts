@@ -45,16 +45,16 @@ export class GradientPicker implements ControlValueAccessor {
   private onTouched: () => void = () => {};
 
   writeValue(value: string): void {
-    if (value) {
-      if (value.includes('linear')) {
-        this.type = 'linear';
-      } else if (value.includes('radial')) {
-        this.type = 'radial';
-      } else if (value.includes('conic')) {
-        this.type = 'conic';
-      }
-      this.value = value;
+    if (!value) {
+      this.type = 'linear';
+    } else if (value.includes('linear')) {
+      this.type = 'linear';
+    } else if (value.includes('radial')) {
+      this.type = 'radial';
+    } else if (value.includes('conic')) {
+      this.type = 'conic';
     }
+    this.value = value;
     this.cdr.markForCheck();
   }
 

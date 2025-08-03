@@ -46,7 +46,7 @@ export class LinearGradientPicker implements ControlValueAccessor {
     stops: [{ color: '#000000' }],
   };
 
-  value = 'linear-gradient(transparent, #000000)';
+  value = '';
 
   angelUnits = angelUnits;
 
@@ -54,9 +54,7 @@ export class LinearGradientPicker implements ControlValueAccessor {
   private onTouched: () => void = () => {};
 
   writeValue(value: string): void {
-    if (value) {
-      this.value = value;
-    }
+    this.value = value || 'linear-gradient(transparent, #000000)';
     this.linearGradient = parseLinearGradient(this.value);
     this.cdr.markForCheck();
   }
