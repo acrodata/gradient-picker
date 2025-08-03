@@ -1,26 +1,19 @@
 <gradient-form-group label="Angel">
-  <gradient-input-field>
-    <select [(ngModel)]="linearGradient.orientation.type" (change)="onGradientChange()">
-      <option value="directional">directional</option>
-      <option value="angular">angular</option>
-    </select>
-  </gradient-input-field>
-
-  <gradient-input-field>
-    @if (linearGradient.orientation.type === 'angular') {
+  @if (linearGradient.orientation.type === 'angular') {
+    <gradient-unit-input
+      [units]="angelUnits"
+      [(ngModel)]="linearGradient.orientation.value"
+      (ngModelChange)="onGradientChange()"
+    />
+  } @else {
+    <gradient-input-field>
       <input
         type="text"
         [(ngModel)]="linearGradient.orientation.value"
         (change)="onGradientChange()"
       />
-    } @else {
-      <input
-        type="text"
-        [(ngModel)]="linearGradient.orientation.value"
-        (change)="onGradientChange()"
-      />
-    }
-  </gradient-input-field>
+    </gradient-input-field>
+  }
 </gradient-form-group>
 
 <gradient-stops [colorStops]="linearGradient.stops" (colorStopsChange)="onGradientChange()" />

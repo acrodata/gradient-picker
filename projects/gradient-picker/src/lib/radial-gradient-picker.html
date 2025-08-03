@@ -1,34 +1,34 @@
 <gradient-form-group label="Position">
-  <gradient-input-field>
-    @if (radialGradient.position.x.type === 'keyword') {
+  @if (radialGradient.position.x.type === 'keyword') {
+    <gradient-input-field>
       <input
         type="text"
         [(ngModel)]="radialGradient.position.x.value"
         (change)="onGradientChange()"
       />
-    } @else {
-      <input
-        type="text"
-        [(ngModel)]="radialGradient.position.x.value"
-        (change)="onGradientChange()"
-      />
-    }
-  </gradient-input-field>
-  <gradient-input-field>
-    @if (radialGradient.position.y.type === 'keyword') {
-      <input
-        type="text"
-        [(ngModel)]="radialGradient.position.y.value"
-        (change)="onGradientChange()"
-      />
-    } @else {
+    </gradient-input-field>
+  } @else {
+    <gradient-unit-input
+      [units]="lengthUnits"
+      [(ngModel)]="radialGradient.position.x.value"
+      (change)="onGradientChange()"
+    />
+  }
+  @if (radialGradient.position.y.type === 'keyword') {
+    <gradient-input-field>
       <input
         type="text"
         [(ngModel)]="radialGradient.position.y.value"
         (change)="onGradientChange()"
       />
-    }
-  </gradient-input-field>
+    </gradient-input-field>
+  } @else {
+    <gradient-unit-input
+      [units]="lengthUnits"
+      [(ngModel)]="radialGradient.position.y.value"
+      (change)="onGradientChange()"
+    />
+  }
 </gradient-form-group>
 <gradient-form-group label="Shape">
   <gradient-input-field>
@@ -54,18 +54,22 @@
 </gradient-form-group>
 <gradient-form-group label="Size">
   @for (size of radialGradient.size; track $index) {
-    <gradient-input-field>
-      @if (size.type === 'keyword') {
+    @if (size.type === 'keyword') {
+      <gradient-input-field>
         <select [(ngModel)]="size.value" (change)="onGradientChange()">
           <option value="closest-side">closest-side</option>
           <option value="closest-corner">closest-corner</option>
           <option value="farthest-side">farthest-side</option>
           <option value="farthest-corner">farthest-corner</option>
         </select>
-      } @else {
-        <input type="text" [(ngModel)]="size.value" (change)="onGradientChange()" />
-      }
-    </gradient-input-field>
+      </gradient-input-field>
+    } @else {
+      <gradient-unit-input
+        [units]="lengthUnits"
+        [(ngModel)]="size.value"
+        (change)="onGradientChange()"
+      />
+    }
   }
 </gradient-form-group>
 

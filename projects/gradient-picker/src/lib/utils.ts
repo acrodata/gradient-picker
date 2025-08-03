@@ -139,3 +139,7 @@ export function fillUndefinedOffsets(array: ColorStop[]): ColorStop[] {
 
   return array;
 }
+
+export const angelUnits = ['deg', 'rad', 'turn', 'grad'];
+
+export const lengthUnits = ['%', 'px', 'em', 'rem', 'vw', 'vh', 'ch'];

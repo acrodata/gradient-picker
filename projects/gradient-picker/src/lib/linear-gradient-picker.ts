@@ -10,15 +10,16 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { GradientFormGroup } from './form-controls';
+import { GradientFormGroup, GradientUnitInput } from './form-controls';
 import { GradientInputField } from './form-controls/gradient-input-field';
 import { GradientStops } from './gradient-stops';
 import { LinearResult, parseLinearGradient } from './parser';
+import { angelUnits } from './utils';
 
 @Component({
   selector: 'linear-gradient-picker',
   standalone: true,
-  imports: [FormsModule, GradientStops, GradientInputField, GradientFormGroup],
+  imports: [FormsModule, GradientStops, GradientInputField, GradientFormGroup, GradientUnitInput],
   templateUrl: './linear-gradient-picker.html',
   styleUrl: './linear-gradient-picker.scss',
   host: {
@@ -34,7 +35,7 @@ import { LinearResult, parseLinearGradient } from './parser';
     },
   ],
 })
-export class LinearGradientPicker implements OnInit, ControlValueAccessor {
+export class LinearGradientPicker implements ControlValueAccessor {
   private cdr = inject(ChangeDetectorRef);
 
   @Input({ transform: booleanAttribute }) disabled = false;
@@ -47,7 +48,7 @@ export class LinearGradientPicker implements OnInit, ControlValueAccessor {
 
   value = 'linear-gradient(transparent, #000000)';
 
-  ngOnInit(): void {}
+  angelUnits = angelUnits;
 
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};

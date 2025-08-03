@@ -1,0 +1,30 @@
+.gradient-unit-input {
+  display: inline-flex;
+  min-height: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 4px;
+  overflow: hidden;
+  font-family: system-ui, sans-serif;
+
+  &:focus-within {
+    border-color: #0d99ff;
+  }
+
+  input,
+  select {
+    appearance: none;
+    padding: 4px;
+    border: none;
+    font-family: inherit;
+    font-size: inherit;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  input {
+    flex: 1;
+    width: 100%;
+  }
+}

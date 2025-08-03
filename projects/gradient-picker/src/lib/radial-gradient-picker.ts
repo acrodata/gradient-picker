@@ -9,15 +9,16 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { GradientFormGroup } from './form-controls';
+import { GradientFormGroup, GradientUnitInput } from './form-controls';
 import { GradientInputField } from './form-controls/gradient-input-field';
 import { GradientStops } from './gradient-stops';
 import { parseRadialGradient, RadialResult } from './parser';
+import { lengthUnits } from './utils';
 
 @Component({
   selector: 'radial-gradient-picker',
   standalone: true,
-  imports: [FormsModule, GradientStops, GradientInputField, GradientFormGroup],
+  imports: [FormsModule, GradientStops, GradientInputField, GradientFormGroup, GradientUnitInput],
   templateUrl: './radial-gradient-picker.html',
   styleUrl: './radial-gradient-picker.scss',
   host: {
@@ -50,6 +51,8 @@ export class RadialGradientPicker implements ControlValueAccessor {
   };
 
   value = 'radial-gradient(transparent, #000000)';
+
+  lengthUnits = lengthUnits;
 
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
