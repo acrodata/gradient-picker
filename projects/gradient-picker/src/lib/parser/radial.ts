@@ -133,6 +133,8 @@ function isColor(v: string) {
 }
 
 export function stringifyRadialGradient(input: RadialGradientResult) {
+  const type = input.repeating ? 'repeating-radial-gradient' : 'radial-gradient';
+
   const shape = input.shape;
   const sizes = input.size.map(s => s.value);
   const posX = input.position.x.value;
@@ -140,8 +142,6 @@ export function stringifyRadialGradient(input: RadialGradientResult) {
   const pos = posX.trim() || posY.trim() ? `at ${posX} ${posY}` : '';
 
   const stops = input.stops.map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`);
-
-  const type = input.repeating ? 'repeating-radial-gradient' : 'radial-gradient';
 
   return `${type}(${shape} ${sizes.join(' ')} ${pos}, ${stops.join(', ')})`;
 }

@@ -52,7 +52,10 @@ function resolveLinearOrientation(angle: string): LinearOrientation | null {
 }
 
 export function stringifyLinearGradient(input: LinearGradientResult) {
+  const type = input.repeating ? 'repeating-linear-gradient' : 'linear-gradient';
+
   const params: string[] = [];
+
   const orientation = input.orientation.value.trim()
     ? input.orientation.type === 'angular'
       ? input.orientation.value
@@ -65,11 +68,7 @@ export function stringifyLinearGradient(input: LinearGradientResult) {
 
   const stops = input.stops.map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`);
 
-  if (stops.length > 0) {
-    params.push(stops.join(', '));
-  }
+  params.push(stops.join(', '));
 
-  const gradientType = input.repeating ? 'repeating-linear-gradient' : 'linear-gradient';
-
-  return `${gradientType}(${params.join(', ')})`;
+  return `${type}(${params.join(', ')})`;
 }

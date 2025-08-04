@@ -4,7 +4,7 @@
   </div>
 
   <div #sliderTrack class="gradient-stops-slider-track">
-    @for (stop of _stops; track $index) {
+    @for (stop of _colorStops; track $index) {
       <div
         class="gradient-stops-slider-pointer"
         cdkDrag
@@ -34,7 +34,7 @@
 
 <div class="gradient-stop-list-wrapper">
   <ul class="gradient-stop-list">
-    @for (stop of _stops; track $index) {
+    @for (stop of _colorStops; track $index) {
       <li
         class="gradient-stop-item"
         [class.gradient-stop-item-active]="stop === selectedStop"
@@ -60,7 +60,7 @@
           <span>%</span>
         </gradient-input-field>
         <div class="gradient-stop-item-button">
-          @if (_stops.length > 1) {
+          @if (_colorStops.length > 1) {
             <button type="button" (click)="onStopRemove(stop)">x</button>
           }
         </div>

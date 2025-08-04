@@ -2,7 +2,7 @@ import { TinyColor } from '@ctrl/tinycolor';
 import { ColorStop } from './parser';
 
 /**
- * Reorders an element at a specified index
+ * Reorder an element at a specified index by condition
  *
  * @param array The original array
  * @param index The element at this index will be checked and moved to its correct sorted location.
@@ -10,7 +10,7 @@ import { ColorStop } from './parser';
  * @param compareWith2 The comparison function used to determine if the element needs to move right.
  * @returns
  */
-export function reorderArrayElement<T = any>(
+export function reorderElementByCondition<T = any>(
   array: T[] = [],
   index = 0,
   compareWith1: (a: T, b: T) => boolean = (a, b) => a < b,
