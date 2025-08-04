@@ -12,7 +12,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { GradientFormGroup, GradientUnitInput } from './form-controls';
 import { GradientInputField } from './form-controls/gradient-input-field';
 import { GradientStops } from './gradient-stops';
-import { ConicGradient, parseConicGradient } from './parser';
+import { ConicGradientResult, parseConicGradient, stringifyConicGradient } from './parser';
 import { angelUnits } from './utils';
 
 @Component({
@@ -39,7 +39,7 @@ export class ConicGradientPicker implements ControlValueAccessor {
 
   @Input({ transform: booleanAttribute }) disabled = false;
 
-  conicGradient: ConicGradient = {
+  conicGradient: ConicGradientResult = {
     angle: '',
     position: '',
     repeating: false,
@@ -73,13 +73,7 @@ export class ConicGradientPicker implements ControlValueAccessor {
   }
 
   onGradientChange() {
-    // TODO: 封装 srting 函数
-    const stops = this.conicGradient.stops.map(
-      s => `${s.color} ${s.offset?.value}${s.offset?.unit}`
-    );
-    const { angle, position } = this.conicGradient;
-    this.value = `conic-gradient(from ${angle} at ${position}, ${stops.join(',')})`;
-
+    this.value = stringifyConicGradient(this.conicGradient);
     this.onChange(this.value);
   }
 }

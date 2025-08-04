@@ -10,7 +10,7 @@ interface Color {
   method?: HueInterpolationMethod;
 }
 
-export interface ConicGradient {
+export interface ConicGradientResult {
   angle: string;
   repeating: boolean;
   position: string;
@@ -20,12 +20,12 @@ export interface ConicGradient {
 
 const set = new Set(['from', 'in', 'at']);
 
-export function parseConicGradient(input: string): ConicGradient {
+export function parseConicGradient(input: string): ConicGradientResult {
   if (!/(repeating-)?conic-gradient/.test(input))
     throw new SyntaxError(`could not find syntax for this item: ${input}`);
 
   const [, repeating, props] = input.match(/(repeating-)?conic-gradient\((.+)\)/)!;
-  const result: ConicGradient = {
+  const result: ConicGradientResult = {
     angle: '0deg',
     repeating: Boolean(repeating),
     position: 'center',
@@ -74,4 +74,30 @@ function resolvePrefix(k: string, props: string[], start: number, end: number) {
     default:
       return null;
   }
+}
+
+export function stringifyConicGradient(input: ConicGradientResult) {
+  const type = input.repeating ? 'repeating-conic-gradient' : 'conic-gradient';
+
+  const { angle, position } = input;
+
+  const fromAt: string[] = [];
+  if (angle.trim()) {
+    fromAt.push(`from ${angle}`);
+  }
+  if (position.trim()) {
+    fromAt.push(`at ${position}`);
+  }
+
+  const params: string[] = [];
+
+  if (fromAt.join(' ').trim()) {
+    params.push(fromAt.join(' '));
+  }
+
+  const stops = input.stops.map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`);
+
+  params.push(stops.join(', '));
+
+  return `${type}(${params.join(', ')})`;
 }
