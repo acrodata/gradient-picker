@@ -12,7 +12,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { GradientFormGroup, GradientUnitInput } from './form-controls';
 import { GradientInputField } from './form-controls/gradient-input-field';
 import { GradientStops } from './gradient-stops';
-import { parseRadialGradient, RadialResult } from './parser';
+import { parseRadialGradient, RadialGradientResult, stringifyRadialGradient } from './parser';
 import { lengthUnits } from './utils';
 
 @Component({
@@ -39,7 +39,7 @@ export class RadialGradientPicker implements ControlValueAccessor {
 
   @Input({ transform: booleanAttribute }) disabled = false;
 
-  radialGradient: RadialResult = {
+  radialGradient: RadialGradientResult = {
     shape: 'ellipse',
     size: [],
     position: {
@@ -77,16 +77,7 @@ export class RadialGradientPicker implements ControlValueAccessor {
   }
 
   onGradientChange() {
-    // TODO: 封装 srting 函数
-    const stops = this.radialGradient.stops.map(
-      s => `${s.color} ${s.offset?.value}${s.offset?.unit}`
-    );
-    const posX = this.radialGradient.position.x.value;
-    const posY = this.radialGradient.position.y.value;
-    const shape = this.radialGradient.shape;
-    const sizes = this.radialGradient.size.map(s => s.value);
-    this.value = `radial-gradient(${shape} ${sizes.join(' ')} at ${posX} ${posY}, ${stops.join(',')})`;
-
+    this.value = stringifyRadialGradient(this.radialGradient);
     this.onChange(this.value);
   }
 }

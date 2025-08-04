@@ -12,7 +12,7 @@ export interface RadialPropertyValue {
   value: string;
 }
 
-export interface RadialResult {
+export interface RadialGradientResult {
   shape: 'circle' | 'ellipse';
   repeating: boolean;
   size: RadialPropertyValue[];
@@ -52,12 +52,12 @@ function extendPosition(v: string[]) {
   return res;
 }
 
-export function parseRadialGradient(input: string): RadialResult {
+export function parseRadialGradient(input: string): RadialGradientResult {
   if (!/(repeating-)?radial-gradient/.test(input))
     throw new SyntaxError(`could not find syntax for this item: ${input}`);
 
   const [, repeating, props] = input.match(/(repeating-)?radial-gradient\((.+)\)/)!;
-  const result: RadialResult = {
+  const result: RadialGradientResult = {
     shape: 'ellipse',
     repeating: Boolean(repeating),
     size: [
@@ -96,7 +96,7 @@ export function parseRadialGradient(input: string): RadialResult {
       result.shape = 'ellipse';
     }
   } else {
-    result.shape = shape as RadialResult['shape'];
+    result.shape = shape as RadialGradientResult['shape'];
   }
 
   if (size.length === 0) {
@@ -130,4 +130,18 @@ export function parseRadialGradient(input: string): RadialResult {
 function isColor(v: string) {
   if (/(circle|ellipse|at)/.test(v) || rgExtentKeyword.has(v as RgExtentKeyword)) return false;
   return /^(rgba?|hwb|hsl|lab|lch|oklab|color|#|[a-zA-Z]+)/.test(v);
+}
+
+export function stringifyRadialGradient(input: RadialGradientResult) {
+  const shape = input.shape;
+  const sizes = input.size.map(s => s.value);
+  const posX = input.position.x.value;
+  const posY = input.position.y.value;
+  const pos = posX.trim() || posY.trim() ? `at ${posX} ${posY}` : '';
+
+  const stops = input.stops.map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`);
+
+  const type = input.repeating ? 'repeating-radial-gradient' : 'radial-gradient';
+
+  return `${type}(${shape} ${sizes.join(' ')} ${pos}, ${stops.join(', ')})`;
 }
