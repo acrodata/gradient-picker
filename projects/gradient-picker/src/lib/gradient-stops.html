@@ -15,12 +15,18 @@
         (cdkDragEnded)="onDragEnd($event, stop)"
       >
         <div
+          #thumb
           class="gradient-stops-slider-thumb"
           [class.gradient-stops-slider-thumb-active]="stop === selectedStop"
           (pointerdown)="onDragHandleDown($event, stop)"
           (pointerup)="onDragHandleUp($event)"
         >
-          <gradient-colorpicker-toggle [for]="gc" [color]="stop.color" triggerEvent="dblclick" />
+          <gradient-colorpicker-toggle
+            [for]="gc"
+            [color]="stop.color"
+            triggerEvent="dblclick"
+            [overlayOrigin]="thumb"
+          />
           <gradient-colorpicker
             #gc
             [(ngModel)]="stop.color"

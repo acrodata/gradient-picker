@@ -2,7 +2,9 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-bottom: 8px;
+  padding: 0 var(--gp-container-horizontal-padding, 12px);
+  margin: 8px 0;
+  font-size: var(--gp-container-text-size, 12px);
 
   .gradient-input-field,
   .gradient-unit-input {

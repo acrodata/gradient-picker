@@ -1,13 +1,16 @@
 .gradient-unit-input {
   display: inline-flex;
   min-height: 24px;
-  border: 1px solid rgba(0, 0, 0, 0.16);
+  background-color: var(--gp-input-background-color, #f5f5f5);
+  border: 1px solid var(--gp-input-outline-color, #e6e6e6);
   border-radius: 4px;
   overflow: hidden;
   font-family: system-ui, sans-serif;
+  font-size: var(--gp-container-text-size, 12px);
+  color: var(--gp-container-text-color, rgba(0, 0, 0, 0.9));
 
   &:focus-within {
-    border-color: #0d99ff;
+    border-color: var(--gp-input-outline-focus-color, #0d99ff);
   }
 
   input,
@@ -15,8 +18,10 @@
     appearance: none;
     padding: 4px;
     border: none;
+    background: none;
     font-family: inherit;
     font-size: inherit;
+    color: inherit;
 
     &:focus {
       outline: none;

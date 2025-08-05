@@ -1,0 +1,14 @@
+.gradient-picker {
+  --gp-container-text-size: 12px;
+  --gp-container-text-color: light-dark(rgba(0, 0, 0, 0.9), #fff);
+  --gp-container-background-color: light-dark(#fff, #2c2c2c);
+  --gp-input-background-color: light-dark(#f5f5f5, #383838);
+  --gp-input-outline-color: light-dark(#e6e6e6, #383838);
+  --gp-input-outline-focus-color: light-dark(#0d99ff, #0c8ce9);
+  --gp-slider-thumb-background-color: light-dark(#fff, #383838);
+  --gp-stop-item-active-color: light-dark(#e5f4ff, #4a5878);
+
+  display: block;
+  border: 1px solid;
+  background-color: var(--gp-container-background-color);
+}

@@ -7,9 +7,9 @@ import {
   LinearGradientPicker,
   RadialGradientPicker,
 } from '@acrodata/gradient-picker';
+import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-examples',
@@ -23,7 +23,8 @@ import { MatMenuModule } from '@angular/material/menu';
     RadialGradientPicker,
     ConicGradientPicker,
     GradientPicker,
-    MatMenuModule,
+    CdkOverlayOrigin,
+    CdkConnectedOverlay,
   ],
   templateUrl: './examples.component.html',
   styleUrl: './examples.component.scss',
@@ -70,6 +71,18 @@ export class ExamplesComponent {
   gradients = this.linearGradients.concat(this.radialGradients, this.conicGradients);
 
   gradient = '';
+
+  isOpen = false;
+
+  theme: 'light' | 'dark' = 'light';
+
+  onThemeChange() {
+    if (this.theme === 'light') {
+      document.querySelector('html')!.classList.remove('theme-dark');
+    } else if (this.theme === 'dark') {
+      document.querySelector('html')!.classList.add('theme-dark');
+    }
+  }
 
   onColorStopsChange(e: any) {}
 }

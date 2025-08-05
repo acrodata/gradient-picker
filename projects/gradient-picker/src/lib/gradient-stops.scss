@@ -1,8 +1,6 @@
-.gradient-stops {
-}
-
 .gradient-stops-slider {
   position: relative;
+  padding: 0 var(--gp-container-horizontal-padding, 12px);
   margin-bottom: 20px;
 
   &.is-dragging {
@@ -11,7 +9,7 @@
 }
 
 .gradient-stops-slider-bar {
-  height: 24px;
+  height: var(--gp-slider-height, 24px);
   background:
     linear-gradient(45deg, #ccc 25%, transparent 25%) 0 0,
     linear-gradient(-45deg, #ccc 25%, transparent 25%) 0 0.25rem,
@@ -19,6 +17,8 @@
     linear-gradient(-45deg, transparent 75%, #ccc 75%) -0.25rem 0;
   background-size: 0.5rem 0.5rem;
   border-radius: 4px;
+  outline: 1px solid var(--gp-slider-bar-outline-color, rgba(0,0,0,0.1));
+  outline-offset: -1px;
   overflow: hidden;
   cursor: copy;
 
@@ -48,19 +48,23 @@
   border-radius: 6px;
   transform: translate(-50%);
   cursor: ew-resize;
-  background-color: #fff;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.32);
+  background-color: var(--gp-slider-thumb-background-color, #fff);
+  filter: var(
+    --gp-slider-thumb-shadow,
+    drop-shadow(0 0 0.5px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 0.5px rgba(0, 0, 0, 0.3))
+      drop-shadow(0 0 3px rgba(0, 0, 0, 0.15))
+  );
 
   .gradient-colorpicker-toggle {
     width: 12px;
     height: 12px;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.16);
+    box-shadow: 0 0 0 1px var(--gp-slider-thumb-toggle-outline-color, rgba(0, 0, 0, 0.12));
     cursor: ew-resize;
   }
 }
 
 .gradient-stops-slider-thumb-active {
-  background-color: #0d99ff;
+  background-color: var(--gp-input-outline-focus-color, #0d99ff);
 }
 
 .gradient-stop-list-wrapper {
@@ -76,13 +80,12 @@
 .gradient-stop-item {
   display: flex;
   align-items: center;
-  padding: 4px 8px;
-  margin: 0 -8px;
+  padding: 4px var(--gp-container-horizontal-padding, 12px);
   gap: 4px;
 }
 
 .gradient-stop-item-active {
-  background-color: #e5f4ff;
+  background-color: var(--gp-stop-item-active-color, rgba(0, 0, 0, 0.08));
 }
 
 .gradient-stop-item-color {

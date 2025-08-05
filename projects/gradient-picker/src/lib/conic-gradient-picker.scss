@@ -1,7 +1,4 @@
 .conic-gradient-picker {
   display: block;
-  width: 240px;
-  padding: 8px;
-  border: 1px solid;
-  font-size: 12px;
+  width: var(--gp-container-width, 240px);
 }
