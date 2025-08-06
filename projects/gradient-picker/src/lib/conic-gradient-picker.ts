@@ -12,6 +12,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import {
   GradientCheckbox,
   GradientFormGroup,
+  GradientIconButton,
   GradientInputField,
   GradientUnitInput,
 } from './form-controls';
@@ -29,6 +30,7 @@ import { angelUnits } from './utils';
     GradientFormGroup,
     GradientUnitInput,
     GradientCheckbox,
+    GradientIconButton,
   ],
   templateUrl: './conic-gradient-picker.html',
   styleUrl: './conic-gradient-picker.scss',

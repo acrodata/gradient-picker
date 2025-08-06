@@ -12,6 +12,7 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import {
   GradientCheckbox,
   GradientFormGroup,
+  GradientIconButton,
   GradientInputField,
   GradientRadioButton,
   GradientUnitInput,
@@ -31,6 +32,7 @@ import { lengthUnits } from './utils';
     GradientUnitInput,
     GradientCheckbox,
     GradientRadioButton,
+    GradientIconButton,
   ],
   templateUrl: './radial-gradient-picker.html',
   styleUrl: './radial-gradient-picker.scss',

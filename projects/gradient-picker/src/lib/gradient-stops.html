@@ -65,11 +65,11 @@
           />
           <span>%</span>
         </gradient-input-field>
-        <div class="gradient-stop-item-button">
+        <gradient-icon-button>
           @if (_colorStops.length > 1) {
-            <button type="button" (click)="onStopRemove(stop)">x</button>
+            <button type="button" (click)="onStopRemove(stop)">－</button>
           }
-        </div>
+        </gradient-icon-button>
       </li>
     }
   </ul>
