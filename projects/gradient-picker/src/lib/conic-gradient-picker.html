@@ -12,4 +12,13 @@
   </gradient-input-field>
 </gradient-form-group>
 
+<gradient-form-group>
+  <label gradientCheckbox>
+    <input type="checkbox" [(ngModel)]="conicGradient.repeating" (change)="onGradientChange()" />
+    <span>Repeat</span>
+  </label>
+
+  <button>⇋</button>
+</gradient-form-group>
+
 <gradient-stops [colorStops]="conicGradient.stops" (colorStopsChange)="onGradientChange()" />

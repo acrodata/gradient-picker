@@ -16,4 +16,13 @@
   }
 </gradient-form-group>
 
+<gradient-form-group>
+  <label gradientCheckbox>
+    <input type="checkbox" [(ngModel)]="linearGradient.repeating" (change)="onGradientChange()" />
+    <span>Repeat</span>
+  </label>
+
+  <button>⇋</button>
+</gradient-form-group>
+
 <gradient-stops [colorStops]="linearGradient.stops" (colorStopsChange)="onGradientChange()" />

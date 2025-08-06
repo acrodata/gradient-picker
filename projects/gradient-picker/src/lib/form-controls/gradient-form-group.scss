@@ -1,6 +1,7 @@
 .gradient-form-group {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 4px;
   padding: 0 var(--gp-container-horizontal-padding, 12px);
   margin: 8px 0;

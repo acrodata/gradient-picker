@@ -1,0 +1,9 @@
+.gradient-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  input[type='checkbox'] {
+    margin: 0;
+  }
+}

@@ -1,3 +1,47 @@
+<gradient-form-group label="Shape">
+  <gradient-input-field>
+    <label class="gradient-radio-item">
+      <input
+        type="radio"
+        value="ellipse"
+        [(ngModel)]="radialGradient.shape"
+        (change)="onGradientChange()"
+      />
+      <span>Ellipse</span>
+    </label>
+    <label class="gradient-radio-item">
+      <input
+        type="radio"
+        value="circle"
+        [(ngModel)]="radialGradient.shape"
+        (change)="onGradientChange()"
+      />
+      <span>Circle</span>
+    </label>
+  </gradient-input-field>
+</gradient-form-group>
+
+<gradient-form-group label="Size">
+  @for (size of radialGradient.size; track $index) {
+    @if (size.type === 'keyword') {
+      <gradient-input-field>
+        <select [(ngModel)]="size.value" (change)="onGradientChange()">
+          <option value="closest-side">closest-side</option>
+          <option value="closest-corner">closest-corner</option>
+          <option value="farthest-side">farthest-side</option>
+          <option value="farthest-corner">farthest-corner</option>
+        </select>
+      </gradient-input-field>
+    } @else {
+      <gradient-unit-input
+        [units]="lengthUnits"
+        [(ngModel)]="size.value"
+        (change)="onGradientChange()"
+      />
+    }
+  }
+</gradient-form-group>
+
 <gradient-form-group label="Position">
   @if (radialGradient.position.x.type === 'keyword') {
     <gradient-input-field>
@@ -30,47 +74,14 @@
     />
   }
 </gradient-form-group>
-<gradient-form-group label="Shape">
-  <gradient-input-field>
-    <label class="gradient-radio-item">
-      <input
-        type="radio"
-        value="ellipse"
-        [(ngModel)]="radialGradient.shape"
-        (change)="onGradientChange()"
-      />
-      <span>Ellipse</span>
-    </label>
-    <label class="gradient-radio-item">
-      <input
-        type="radio"
-        value="circle"
-        [(ngModel)]="radialGradient.shape"
-        (change)="onGradientChange()"
-      />
-      <span>Circle</span>
-    </label>
-  </gradient-input-field>
-</gradient-form-group>
-<gradient-form-group label="Size">
-  @for (size of radialGradient.size; track $index) {
-    @if (size.type === 'keyword') {
-      <gradient-input-field>
-        <select [(ngModel)]="size.value" (change)="onGradientChange()">
-          <option value="closest-side">closest-side</option>
-          <option value="closest-corner">closest-corner</option>
-          <option value="farthest-side">farthest-side</option>
-          <option value="farthest-corner">farthest-corner</option>
-        </select>
-      </gradient-input-field>
-    } @else {
-      <gradient-unit-input
-        [units]="lengthUnits"
-        [(ngModel)]="size.value"
-        (change)="onGradientChange()"
-      />
-    }
-  }
+
+<gradient-form-group>
+  <label gradientCheckbox>
+    <input type="checkbox" [(ngModel)]="radialGradient.repeating" (change)="onGradientChange()" />
+    <span>Repeat</span>
+  </label>
+
+  <button>⇋</button>
 </gradient-form-group>
 
 <gradient-stops [colorStops]="radialGradient.stops" (colorStopsChange)="onGradientChange()" />

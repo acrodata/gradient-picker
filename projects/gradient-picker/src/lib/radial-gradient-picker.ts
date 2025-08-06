@@ -9,8 +9,12 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { GradientFormGroup, GradientUnitInput } from './form-controls';
-import { GradientInputField } from './form-controls/gradient-input-field';
+import {
+  GradientCheckbox,
+  GradientFormGroup,
+  GradientInputField,
+  GradientUnitInput,
+} from './form-controls';
 import { GradientStops } from './gradient-stops';
 import { parseRadialGradient, RadialGradientResult, stringifyRadialGradient } from './parser';
 import { lengthUnits } from './utils';
@@ -18,7 +22,14 @@ import { lengthUnits } from './utils';
 @Component({
   selector: 'radial-gradient-picker',
   standalone: true,
-  imports: [FormsModule, GradientStops, GradientInputField, GradientFormGroup, GradientUnitInput],
+  imports: [
+    FormsModule,
+    GradientStops,
+    GradientInputField,
+    GradientFormGroup,
+    GradientUnitInput,
+    GradientCheckbox,
+  ],
   templateUrl: './radial-gradient-picker.html',
   styleUrl: './radial-gradient-picker.scss',
   host: {
