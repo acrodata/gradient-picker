@@ -15,7 +15,14 @@ import { resolveLength } from '../parser/utils';
   selector: 'gradient-unit-input',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './gradient-unit-input.html',
+  template: `
+    <input type="number" [(ngModel)]="value" (change)="onValueChange()" />
+    <select [(ngModel)]="unit" (change)="onValueChange()">
+      @for (unit of units; track $index) {
+        <option [value]="unit">{{ unit }}</option>
+      }
+    </select>
+  `,
   styleUrl: './gradient-unit-input.scss',
   host: {
     class: 'gradient-unit-input',

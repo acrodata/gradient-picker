@@ -4,7 +4,12 @@ import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@a
   selector: 'gradient-form-group',
   standalone: true,
   imports: [],
-  templateUrl: './gradient-form-group.html',
+  template: `
+    @if (label) {
+      <label class="gradient-form-label" for="" [title]="label">{{ label }}</label>
+    }
+    <ng-content />
+  `,
   styleUrl: './gradient-form-group.scss',
   host: {
     class: 'gradient-form-group',

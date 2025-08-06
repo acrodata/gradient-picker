@@ -13,6 +13,7 @@ import {
   GradientCheckbox,
   GradientFormGroup,
   GradientInputField,
+  GradientRadioButton,
   GradientUnitInput,
 } from './form-controls';
 import { GradientStops } from './gradient-stops';
@@ -29,6 +30,7 @@ import { lengthUnits } from './utils';
     GradientFormGroup,
     GradientUnitInput,
     GradientCheckbox,
+    GradientRadioButton,
   ],
   templateUrl: './radial-gradient-picker.html',
   styleUrl: './radial-gradient-picker.scss',

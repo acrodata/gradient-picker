@@ -4,7 +4,9 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   selector: 'gradient-input-field',
   standalone: true,
   imports: [],
-  templateUrl: './gradient-input-field.html',
+  template: `
+    <ng-content />
+  `,
   styleUrl: './gradient-input-field.scss',
   host: {
     class: 'gradient-input-field',

@@ -35,15 +35,4 @@
       outline: none;
     }
   }
-
-  .gradient-radio-item {
-    display: inline-flex;
-    align-items: center;
-    flex: 1;
-    padding: 4px 0;
-
-    > input[type='radio'] {
-      margin: 0 8px;
-    }
-  }
 }

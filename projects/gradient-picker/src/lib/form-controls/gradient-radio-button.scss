@@ -1,0 +1,11 @@
+  .gradient-radio-button {
+    display: inline-flex;
+    align-items: center;
+    flex: 1;
+    gap: 8px;
+    padding: 4px 8px;
+
+    input[type='radio'] {
+      margin: 0;
+    }
+  }
