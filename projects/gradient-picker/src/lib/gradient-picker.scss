@@ -5,11 +5,20 @@
   --gp-input-background-color: light-dark(#f5f5f5, #383838);
   --gp-input-outline-color: light-dark(#e6e6e6, #383838);
   --gp-input-outline-focus-color: light-dark(#0d99ff, #0c8ce9);
+  --gp-unit-select-hover-background-color: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12));
   --gp-icon-button-hover-background-color: light-dark(rgba(0, 0, 0, 0.06), rgba(255, 255, 255, 0.06));
-  --gp-slider-thumb-background-color: light-dark(#fff, #383838);
+  --gp-stops-slider-bar-outline-color: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12));
+  --gp-stops-slider-thumb-background-color: light-dark(#fff, #383838);
+  --gp-stops-slider-thumb-toggle-outline-color: light-dark(rgba(0, 0, 0, 0.12), rgba(255, 255, 255, 0.12));
   --gp-stop-item-active-color: light-dark(#e5f4ff, #4a5878);
 
   display: block;
-  border: 1px solid;
+  padding: 8px 0;
+  box-shadow: var(--gp-container-elevation-shadow,
+      inset 0 0 1px 0 rgba(255, 255, 255, 0.64),
+      0 2px 5px 0 rgba(0, 0, 0, 0.16),
+      0 10px 16px 0 rgba(0, 0, 0, 0.12),
+      0 0 1px 0 rgba(0, 0, 0, 0.12));
   background-color: var(--gp-container-background-color);
+  border-radius: var(--gp-container-shape, 8px);
 }

@@ -3,8 +3,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 4px;
-  padding: 0 var(--gp-container-horizontal-padding, 12px);
-  margin: 8px 0;
+  padding: 4px var(--gp-container-horizontal-padding, 12px);
   font-size: var(--gp-container-text-size, 12px);
 
   .gradient-input-field,
