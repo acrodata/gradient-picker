@@ -140,6 +140,21 @@ export function fillUndefinedOffsets(array: ColorStop[]): ColorStop[] {
   return array;
 }
 
+/**
+ * Reverse the color stops array.
+ *
+ * @param stops
+ * @returns
+ */
+export function reverseColorStops(stops: ColorStop[]) {
+  return stops.reverse().map(stop => {
+    if (stop.offset?.value != null) {
+      stop.offset.value = 100 - stop.offset.value;
+    }
+    return stop;
+  });
+}
+
 export const angelUnits = ['deg', 'rad', 'turn', 'grad'];
 
 export const lengthUnits = ['%', 'px', 'em', 'rem', 'vw', 'vh', 'ch'];

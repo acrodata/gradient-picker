@@ -18,7 +18,7 @@ import {
 } from './form-controls';
 import { GradientStops } from './gradient-stops';
 import { LinearGradientResult, parseLinearGradient, stringifyLinearGradient } from './parser';
-import { angelUnits } from './utils';
+import { angelUnits, reverseColorStops } from './utils';
 
 @Component({
   selector: 'linear-gradient-picker',
@@ -87,5 +87,10 @@ export class LinearGradientPicker implements ControlValueAccessor {
   onGradientChange() {
     this.value = stringifyLinearGradient(this.linearGradient);
     this.onChange(this.value);
+  }
+
+  reverseStops() {
+    this.linearGradient.stops = reverseColorStops(this.linearGradient.stops);
+    this.onGradientChange();
   }
 }

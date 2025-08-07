@@ -19,7 +19,7 @@ import {
 } from './form-controls';
 import { GradientStops } from './gradient-stops';
 import { parseRadialGradient, RadialGradientResult, stringifyRadialGradient } from './parser';
-import { lengthUnits } from './utils';
+import { lengthUnits, reverseColorStops } from './utils';
 
 @Component({
   selector: 'radial-gradient-picker',
@@ -94,5 +94,10 @@ export class RadialGradientPicker implements ControlValueAccessor {
   onGradientChange() {
     this.value = stringifyRadialGradient(this.radialGradient);
     this.onChange(this.value);
+  }
+
+  reverseStops() {
+    this.radialGradient.stops = reverseColorStops(this.radialGradient.stops);
+    this.onGradientChange();
   }
 }
