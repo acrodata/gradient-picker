@@ -28,7 +28,7 @@ export function resolveStops(v: string[]): ColorStop[] {
   const stops: ColorStop[] = [];
 
   for (let i = 0, n = v.length; i < n; i++) {
-    const [color, offset] = split(v[i], /\s+/);
+    const [color, offset, offset2] = split(v[i], /\s+/);
 
     if (isHint(v[i])) {
       stops.push({
@@ -41,6 +41,13 @@ export function resolveStops(v: string[]): ColorStop[] {
         color,
         offset: resolveLength(offset),
       });
+
+      if (offset2) {
+        stops.push({
+          color,
+          offset: resolveLength(offset2),
+        });
+      }
     }
   }
 
