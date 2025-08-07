@@ -27,22 +27,20 @@ export function split(input: string, separator: string | RegExp = ','): string[]
 export function resolveStops(v: string[]): ColorStop[] {
   const stops: ColorStop[] = [];
 
-  for (let i = 0, n = v.length; i < n; ) {
+  for (let i = 0, n = v.length; i < n; i++) {
     const [color, offset] = split(v[i], /\s+/);
 
-    if (isHint(v[i + 1])) {
+    if (isHint(v[i])) {
       stops.push({
-        color,
-        offset: resolveLength(offset),
-        hint: resolveLength(v[i + 1]),
+        color: '',
+        offset: resolveLength(v[i]),
+        hint: resolveLength(v[i]),
       });
-      i += 2;
     } else {
       stops.push({
         color,
         offset: resolveLength(offset),
       });
-      i++;
     }
   }
 
