@@ -18,7 +18,7 @@ import {
 } from './form-controls';
 import { GradientStops } from './gradient-stops';
 import { ConicGradientResult, parseConicGradient, stringifyConicGradient } from './parser';
-import { angelUnits, reverseColorStops } from './utils';
+import { angleUnits, reverseColorStops } from './utils';
 
 @Component({
   selector: 'conic-gradient-picker',
@@ -61,7 +61,7 @@ export class ConicGradientPicker implements ControlValueAccessor {
 
   value = '';
 
-  angelUnits = angelUnits;
+  angleUnits = angleUnits;
 
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};

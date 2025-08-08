@@ -213,6 +213,6 @@ export function convertAngleToPercentage(stops: ColorStop[]) {
   });
 }
 
-export const angelUnits = ['deg', 'rad', 'turn', 'grad'];
+export const angleUnits = ['deg', 'rad', 'turn', 'grad'];
 
 export const lengthUnits = ['%', 'px', 'em', 'rem', 'vw', 'vh', 'ch'];
