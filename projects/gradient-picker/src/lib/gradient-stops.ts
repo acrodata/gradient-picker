@@ -18,7 +18,12 @@ import { FormsModule } from '@angular/forms';
 import { GradientIconButton, GradientInputField } from './form-controls';
 import { GradientColorpicker, GradientColorpickerToggle } from './gradient-colorpicker';
 import { ColorStop } from './parser';
-import { fillUndefinedOffsets, interpolateColor, reorderElementByCondition } from './utils';
+import {
+  convertAngleToPercentage,
+  fillUndefinedOffsets,
+  interpolateColor,
+  reorderElementByCondition,
+} from './utils';
 
 export interface IColorStop extends ColorStop {
   offset: { value: number; unit: string };
@@ -82,7 +87,7 @@ export class GradientStops implements OnChanges, AfterViewInit {
 
     this.trackWidth = this.track.nativeElement.offsetWidth;
 
-    this._colorStops = fillUndefinedOffsets(this.colorStops).map(stop => {
+    this._colorStops = fillUndefinedOffsets(convertAngleToPercentage(this.colorStops)).map(stop => {
       const offset = stop.offset || { value: 0, unit: '%' };
       return {
         ...stop,

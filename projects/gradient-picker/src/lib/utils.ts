@@ -155,6 +155,64 @@ export function reverseColorStops(stops: ColorStop[]) {
   });
 }
 
+/**
+ * Convert angle to percentage (e.g. `45deg`, `0.25turn`, `3.14rad`, `100grad`).
+ *
+ * @param value
+ * @param unit
+ * @returns
+ */
+export function angleToPercentage(value: number, unit: string) {
+  let degrees;
+  switch (unit) {
+    case 'deg':
+      degrees = value;
+      break;
+    case 'rad':
+      degrees = value * (180 / Math.PI);
+      break;
+    case 'turn':
+      degrees = value * 360;
+      break;
+    case 'grad':
+      degrees = value * 0.9;
+      break;
+    default:
+      return value;
+  }
+
+  // Calculate the percentage within 360 degrees and ensure the
+  // percentage value is between 0 and 100.
+  let percentage = (degrees / 360) * 100;
+
+  // Handle negative values or values exceeding 360 degrees by using
+  // the modulo operator to constrain the angle within [0, 360).
+  if (percentage < 0) {
+    percentage = (percentage % 100) + 100;
+  } else if (percentage >= 100) {
+    percentage = percentage % 100;
+  }
+
+  return percentage;
+}
+
+/**
+ * Convert angle values in the gradient stops array to percentages.
+ *
+ * @param stops
+ * @returns
+ */
+export function convertAngleToPercentage(stops: ColorStop[]) {
+  return stops.map(stop => {
+    if (stop.offset && stop.offset.unit !== '%') {
+      const { value, unit } = stop.offset;
+      stop.offset.value = angleToPercentage(value, unit);
+      stop.offset.unit = '%';
+    }
+    return stop;
+  });
+}
+
 export const angelUnits = ['deg', 'rad', 'turn', 'grad'];
 
 export const lengthUnits = ['%', 'px', 'em', 'rem', 'vw', 'vh', 'ch'];
