@@ -58,7 +58,7 @@ export class GradientStops implements OnChanges, AfterViewInit {
 
   @Output() colorStopsChange = new EventEmitter<ColorStop[]>();
 
-  _colorStops: IColorStop[] = [];
+  sliderColorStops: IColorStop[] = [];
 
   trackWidth = 0;
 
@@ -87,30 +87,32 @@ export class GradientStops implements OnChanges, AfterViewInit {
 
     this.trackWidth = this.track.nativeElement.offsetWidth;
 
-    this._colorStops = fillUndefinedOffsets(convertAngleToPercentage(this.colorStops)).map(stop => {
-      const offset = stop.offset || { value: 0, unit: '%' };
-      return {
-        ...stop,
-        offset,
-        position: {
-          x: Math.min((offset.value / 100) * this.trackWidth, this.trackWidth),
-          y: 0,
-        },
-      };
-    });
+    this.sliderColorStops = fillUndefinedOffsets(convertAngleToPercentage(this.colorStops)).map(
+      stop => {
+        const offset = stop.offset || { value: 0, unit: '%' };
+        return {
+          ...stop,
+          offset,
+          position: {
+            x: Math.min((offset.value / 100) * this.trackWidth, this.trackWidth),
+            y: 0,
+          },
+        };
+      }
+    );
 
     this.cdr.markForCheck();
   }
 
-  getGradientColor(stops = this._colorStops) {
+  getGradientColor(stops = this.sliderColorStops) {
     const colors = stops.map(({ color, offset }) => `${color} ${offset.value}${offset.unit}`);
     this.gradientColor = `linear-gradient(to right, ${colors.join(',')})`;
     this.cdr.markForCheck();
   }
 
   getInsertStopColor(offsetX: number) {
-    const prevStop = this._colorStops.filter(s => s.position.x < offsetX).pop();
-    const nextStop = this._colorStops.filter(s => s.position.x > offsetX).shift();
+    const prevStop = this.sliderColorStops.filter(s => s.position.x < offsetX).pop();
+    const nextStop = this.sliderColorStops.filter(s => s.position.x > offsetX).shift();
     if (prevStop && nextStop) {
       const percentage =
         (offsetX - prevStop.position.x) / (nextStop.position.x - prevStop.position.x);
@@ -131,8 +133,8 @@ export class GradientStops implements OnChanges, AfterViewInit {
       offset: { value: xPercentVal, unit: '%' },
       position: { x: Math.round(e.offsetX), y: 0 },
     };
-    this._colorStops.push(newStop);
-    this._colorStops.sort((a, b) => a.offset.value - b.offset.value);
+    this.sliderColorStops.push(newStop);
+    this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
 
     this.getGradientColor();
     this.onStopsChange();
@@ -145,7 +147,7 @@ export class GradientStops implements OnChanges, AfterViewInit {
     stop.position.x = position.x;
 
     const stops = reorderElementByCondition<IColorStop>(
-      this._colorStops,
+      this.sliderColorStops,
       index,
       (a, b) => a.position.x < b.position.x,
       (a, b) => a.position.x > b.position.x
@@ -155,7 +157,7 @@ export class GradientStops implements OnChanges, AfterViewInit {
   }
 
   onDragEnd(e: CdkDragEnd, stop: IColorStop) {
-    this._colorStops.sort((a, b) => a.offset.value - b.offset.value);
+    this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
     this.isDragging = false;
     this.cdr.markForCheck();
 
@@ -189,20 +191,20 @@ export class GradientStops implements OnChanges, AfterViewInit {
       x: (stop.offset.value / 100) * this.trackWidth,
       y: 0,
     };
-    this._colorStops.sort((a, b) => a.offset.value - b.offset.value);
+    this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
     this.getGradientColor();
     this.onStopsChange();
   }
 
   onStopRemove(stop: IColorStop) {
-    this._colorStops = this._colorStops.filter(s => s !== stop);
+    this.sliderColorStops = this.sliderColorStops.filter(s => s !== stop);
     this.getGradientColor();
     this.onStopsChange();
   }
 
   onStopsChange() {
     this.colorStops.forEach(() => this.colorStops.pop());
-    this._colorStops.forEach((stop, i) => {
+    this.sliderColorStops.forEach((stop, i) => {
       this.colorStops[i] = { color: stop.color, offset: stop.offset };
     });
     this.colorStops.sort((a, b) => a.offset!.value - b.offset!.value);

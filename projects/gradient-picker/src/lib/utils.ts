@@ -94,37 +94,38 @@ export function interpolateColor(fromColor: string, toColor: string, percentage 
 /**
  * Fill undefined offset in stops.
  *
- * @param array The stops array
+ * @param stops
  * @returns
  */
-export function fillUndefinedOffsets(array: ColorStop[]): ColorStop[] {
+export function fillUndefinedOffsets(stops: ColorStop[]): ColorStop[] {
   // Ensure the start and end positions are defined.
-  if (!array[0] || array[0].offset == null) {
-    array[0].offset = { value: 0, unit: '%' };
+  if (!stops[0] || stops[0].offset == null) {
+    stops[0].offset = { value: 0, unit: '%' };
   }
-  if (!array[array.length - 1] || array[array.length - 1].offset == null) {
-    array[array.length - 1].offset = { value: 100, unit: '%' };
+  const lastIndex = stops.length - 1;
+  if (!stops[lastIndex] || stops[lastIndex].offset == null) {
+    stops[lastIndex].offset = { value: 100, unit: '%' };
   }
 
-  array.forEach((item, index) => {
+  stops.forEach((item, index) => {
     if (item.offset != null) {
       return;
     }
 
     // Find the nearest defined offset to the left of the current item by using
     // findIndex to search backward from the current index.
-    const startIndex = array
+    const startIndex = stops
       .slice(0, index)
       .reverse()
       .findIndex(x => x.offset != null);
     const prevDefinedIndex = index - 1 - startIndex;
-    const startOffsetValue = array[prevDefinedIndex].offset!.value;
+    const startOffsetValue = stops[prevDefinedIndex].offset!.value;
 
     // Find the nearest defined offset to the right of the current item by using
     // findIndex to search forward from the current index.
-    const endIndex = array.slice(index + 1).findIndex(x => x.offset != null);
+    const endIndex = stops.slice(index + 1).findIndex(x => x.offset != null);
     const nextDefinedIndex = index + 1 + endIndex;
-    const endOffsetValue = array[nextDefinedIndex].offset!.value;
+    const endOffsetValue = stops[nextDefinedIndex].offset!.value;
 
     // Calculate the number of gaps between two defined values.
     const totalGaps = nextDefinedIndex - prevDefinedIndex;
@@ -137,7 +138,7 @@ export function fillUndefinedOffsets(array: ColorStop[]): ColorStop[] {
     item.offset = { value: newOffsetValue, unit: '%' };
   });
 
-  return array;
+  return stops;
 }
 
 /**
