@@ -11,6 +11,7 @@ details {
   display: flex;
   gap: 16px;
   align-items: flex-start;
+  flex-wrap: wrap;
   margin: 16px 0;
 }
 
@@ -18,4 +19,8 @@ details {
   width: 400px;
   height: 200px;
   border: 1px solid;
+}
+
+textarea {
+  width: 100%;
 }

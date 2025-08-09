@@ -7,8 +7,8 @@ interface LinearOrientation {
 }
 
 export interface LinearGradientResult {
-  orientation: LinearOrientation;
   repeating: boolean;
+  orientation: LinearOrientation;
   stops: ColorStop[];
 }
 
@@ -18,8 +18,8 @@ export function parseLinearGradient(input: string): LinearGradientResult {
 
   const [, repeating, props] = input.match(/(repeating-)?linear-gradient\((.+)\)/)!;
   const result: LinearGradientResult = {
-    orientation: { type: 'directional', value: 'bottom' },
     repeating: Boolean(repeating),
+    orientation: { type: 'directional', value: 'bottom' },
     stops: [],
   };
 

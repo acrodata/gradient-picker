@@ -13,8 +13,8 @@ export interface RadialPropertyValue {
 }
 
 export interface RadialGradientResult {
-  shape: 'circle' | 'ellipse';
   repeating: boolean;
+  shape: 'circle' | 'ellipse';
   size: RadialPropertyValue[];
   position: {
     x: RadialPropertyValue;
@@ -58,8 +58,8 @@ export function parseRadialGradient(input: string): RadialGradientResult {
 
   const [, repeating, props] = input.match(/(repeating-)?radial-gradient\((.+)\)/)!;
   const result: RadialGradientResult = {
-    shape: 'ellipse',
     repeating: Boolean(repeating),
+    shape: 'ellipse',
     size: [
       {
         type: 'keyword',

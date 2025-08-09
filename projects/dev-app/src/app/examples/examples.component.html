@@ -29,6 +29,8 @@
 </select>
 
 <div class="gradient-wrap">
+  <textarea [(ngModel)]="gradient" [ngModelOptions]="{ updateOn: 'blur' }"></textarea>
+
   <gradient-picker [(ngModel)]="gradient" />
 
   <div class="gradient-preview" [style.background]="gradient"></div>
@@ -50,8 +52,6 @@
   </ng-template>
 </div>
 
-{{ gradient }}
-
 <h2>Linear Gradient Picker</h2>
 
 <select [(ngModel)]="linearGradient">
@@ -61,11 +61,12 @@
 </select>
 
 <div class="gradient-wrap">
+  <textarea [(ngModel)]="linearGradient" [ngModelOptions]="{ updateOn: 'blur' }"></textarea>
+
   <linear-gradient-picker [(ngModel)]="linearGradient" />
 
   <div class="gradient-preview" [style.background]="linearGradient"></div>
 </div>
-{{ linearGradient }}
 
 <h2>radial-gradient</h2>
 
@@ -76,11 +77,12 @@
 </select>
 
 <div class="gradient-wrap">
+  <textarea [(ngModel)]="radialGradient" [ngModelOptions]="{ updateOn: 'blur' }"></textarea>
+
   <radial-gradient-picker [(ngModel)]="radialGradient" />
 
   <div class="gradient-preview" [style.background]="radialGradient"></div>
 </div>
-{{ radialGradient }}
 
 <h2>conic-gradient</h2>
 
@@ -91,8 +93,9 @@
 </select>
 
 <div class="gradient-wrap">
+  <textarea [(ngModel)]="conicGradient" [ngModelOptions]="{ updateOn: 'blur' }"></textarea>
+
   <conic-gradient-picker [(ngModel)]="conicGradient" />
 
   <div class="gradient-preview" [style.background]="conicGradient"></div>
 </div>
-{{ conicGradient }}

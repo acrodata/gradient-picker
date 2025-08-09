@@ -11,8 +11,8 @@ interface Color {
 }
 
 export interface ConicGradientResult {
-  angle: string;
   repeating: boolean;
+  angle: string;
   position: string;
   color?: Color;
   stops: ColorStop[];
@@ -26,8 +26,8 @@ export function parseConicGradient(input: string): ConicGradientResult {
 
   const [, repeating, props] = input.match(/(repeating-)?conic-gradient\((.+)\)/)!;
   const result: ConicGradientResult = {
-    angle: '0deg',
     repeating: Boolean(repeating),
+    angle: '0deg',
     position: 'center',
     stops: [],
   };
