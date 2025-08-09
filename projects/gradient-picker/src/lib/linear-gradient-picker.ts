@@ -62,6 +62,17 @@ export class LinearGradientPicker implements ControlValueAccessor {
 
   angleUnits = angleUnits;
 
+  directionOptions = [
+    { label: '↑ top', value: 'top' },
+    { label: '↗ right top', value: 'right top' },
+    { label: '→ right', value: 'right' },
+    { label: '↘ right bottom', value: 'right bottom' },
+    { label: '↓ bottom', value: 'bottom' },
+    { label: '↙ left bottom', value: 'left bottom' },
+    { label: '← left', value: 'left' },
+    { label: '↖ left top', value: 'left top' },
+  ];
+
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 

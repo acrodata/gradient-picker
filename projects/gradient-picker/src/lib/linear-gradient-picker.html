@@ -7,11 +7,11 @@
     />
   } @else {
     <gradient-input-field>
-      <input
-        type="text"
-        [(ngModel)]="linearGradient.orientation.value"
-        (change)="onGradientChange()"
-      />
+      <select [(ngModel)]="linearGradient.orientation.value" (change)="onGradientChange()">
+        @for (direction of directionOptions; track $index) {
+          <option [value]="direction.value">{{ direction.label }}</option>
+        }
+      </select>
     </gradient-input-field>
   }
 </gradient-form-group>
