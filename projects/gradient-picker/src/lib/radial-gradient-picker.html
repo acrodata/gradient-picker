@@ -45,11 +45,11 @@
 <gradient-form-group label="Position">
   @if (radialGradient.position.x.type === 'keyword') {
     <gradient-input-field>
-      <input
-        type="text"
-        [(ngModel)]="radialGradient.position.x.value"
-        (change)="onGradientChange()"
-      />
+      <select [(ngModel)]="radialGradient.position.x.value" (change)="onGradientChange()">
+        @for (posX of posXOptions; track $index) {
+          <option [value]="posX.value">{{ posX.label }}</option>
+        }
+      </select>
     </gradient-input-field>
   } @else {
     <gradient-unit-input
@@ -60,11 +60,11 @@
   }
   @if (radialGradient.position.y.type === 'keyword') {
     <gradient-input-field>
-      <input
-        type="text"
-        [(ngModel)]="radialGradient.position.y.value"
-        (change)="onGradientChange()"
-      />
+      <select [(ngModel)]="radialGradient.position.y.value" (change)="onGradientChange()">
+        @for (posY of posYOptions; track $index) {
+          <option [value]="posY.value">{{ posY.label }}</option>
+        }
+      </select>
     </gradient-input-field>
   } @else {
     <gradient-unit-input

@@ -69,6 +69,18 @@ export class RadialGradientPicker implements ControlValueAccessor {
 
   lengthUnits = lengthUnits;
 
+  posXOptions = [
+    { label: 'left', value: 'left' },
+    { label: 'center', value: 'center' },
+    { label: 'right', value: 'right' },
+  ];
+
+  posYOptions = [
+    { label: 'top', value: 'top' },
+    { label: 'center', value: 'center' },
+    { label: 'bottom', value: 'bottom' },
+  ];
+
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
