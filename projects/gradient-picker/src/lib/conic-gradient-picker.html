@@ -7,9 +7,36 @@
 </gradient-form-group>
 
 <gradient-form-group label="Position">
-  <gradient-input-field>
-    <input type="text" [(ngModel)]="conicGradient.position" (change)="onGradientChange()" />
-  </gradient-input-field>
+  @if (conicGradient.position.x.type === 'keyword') {
+    <gradient-input-field>
+      <select [(ngModel)]="conicGradient.position.x.value" (change)="onGradientChange()">
+        @for (posX of posXOptions; track $index) {
+          <option [value]="posX">{{ posX }}</option>
+        }
+      </select>
+    </gradient-input-field>
+  } @else {
+    <gradient-unit-input
+      [units]="lengthUnits"
+      [(ngModel)]="conicGradient.position.x.value"
+      (change)="onGradientChange()"
+    />
+  }
+  @if (conicGradient.position.y.type === 'keyword') {
+    <gradient-input-field>
+      <select [(ngModel)]="conicGradient.position.y.value" (change)="onGradientChange()">
+        @for (posY of posYOptions; track $index) {
+          <option [value]="posY">{{ posY }}</option>
+        }
+      </select>
+    </gradient-input-field>
+  } @else {
+    <gradient-unit-input
+      [units]="lengthUnits"
+      [(ngModel)]="conicGradient.position.y.value"
+      (change)="onGradientChange()"
+    />
+  }
 </gradient-form-group>
 
 <gradient-form-group>

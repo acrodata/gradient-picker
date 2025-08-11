@@ -1,4 +1,4 @@
-import { ColorStop } from './type';
+import { ColorStop, PositionKeyword, PositionPropertyValue } from './type';
 
 export function split(input: string, separator: string | RegExp = ','): string[] {
   const result = [];
@@ -66,4 +66,42 @@ export function resolveLength(v?: string) {
   const [, value, unit] = v.trim().match(REGEX) || [];
 
   return { value: Number(value), unit: unit ?? 'px' };
+}
+
+const positionKeyword = new Set<PositionKeyword>(['center', 'left', 'top', 'right', 'bottom']);
+
+function isPositionKeyword(v: any): v is PositionKeyword {
+  return positionKeyword.has(v);
+}
+
+function extendPosition(v: string[]) {
+  const res: string[] = Array(2).fill('');
+  for (let i = 0; i < 2; i++) {
+    if (!v[i]) res[i] = 'center';
+    else res[i] = v[i];
+  }
+
+  return res;
+}
+
+export function resolvePosition(v?: string) {
+  const posArr = extendPosition((v || '').split(' '));
+
+  const position: {
+    x: PositionPropertyValue;
+    y: PositionPropertyValue;
+  } = {
+    x: { type: 'keyword', value: 'center' },
+    y: { type: 'keyword', value: 'center' },
+  };
+
+  position.x = isPositionKeyword(posArr[0])
+    ? { type: 'keyword', value: posArr[0] }
+    : { type: 'length', value: posArr[0] };
+
+  position.y = isPositionKeyword(posArr[1])
+    ? { type: 'keyword', value: posArr[1] }
+    : { type: 'length', value: posArr[1] };
+
+  return position;
 }

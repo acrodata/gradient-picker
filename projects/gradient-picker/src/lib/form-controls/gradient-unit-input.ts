@@ -74,7 +74,7 @@ export class GradientUnitInput implements ControlValueAccessor {
   }
 
   onValueChange() {
-    const value = this.value ? this.value + this.unit : '';
+    const value = this.value != null ? this.value + this.unit : '';
     this.onChange(value);
   }
 }

@@ -1,5 +1,5 @@
-import { ColorStop } from './type';
-import { resolveStops, split } from './utils';
+import { ColorStop, PositionPropertyValue } from './type';
+import { resolvePosition, resolveStops, split } from './utils';
 
 export type RgExtentKeyword =
   | 'closest-corner'
@@ -7,18 +7,13 @@ export type RgExtentKeyword =
   | 'farthest-corner'
   | 'farthest-side';
 
-export interface RadialPropertyValue {
-  type: 'keyword' | 'length';
-  value: string;
-}
-
 export interface RadialGradientResult {
   repeating: boolean;
   shape: 'circle' | 'ellipse';
-  size: RadialPropertyValue[];
+  size: PositionPropertyValue[];
   position: {
-    x: RadialPropertyValue;
-    y: RadialPropertyValue;
+    x: PositionPropertyValue;
+    y: PositionPropertyValue;
   };
   stops: ColorStop[];
 }
@@ -30,26 +25,8 @@ const rgExtentKeyword = new Set<RgExtentKeyword>([
   'farthest-side',
 ]);
 
-type PositionKeyWord = 'center' | 'left' | 'right' | 'top' | 'bottom';
-
-const positionKeyword = new Set<PositionKeyWord>(['center', 'left', 'top', 'right', 'bottom']);
-
 function isRgExtentKeyword(v: any): v is RgExtentKeyword {
   return rgExtentKeyword.has(v);
-}
-
-function isPositionKeyWord(v: any): v is PositionKeyWord {
-  return positionKeyword.has(v);
-}
-
-function extendPosition(v: string[]) {
-  const res = Array(2).fill('');
-  for (let i = 0; i < 2; i++) {
-    if (!v[i]) res[i] = 'center';
-    else res[i] = v[i];
-  }
-
-  return res;
 }
 
 export function parseRadialGradient(input: string): RadialGradientResult {
@@ -87,7 +64,6 @@ export function parseRadialGradient(input: string): RadialGradientResult {
       // eslint-disable-next-line max-len
       /(-?\d+\.?\d*(vw|vh|px|em|rem|%|rad|grad|turn|deg)?|closest-corner|closest-side|farthest-corner|farthest-side)/g
     ) || [];
-  const position = extendPosition((prefix[1] || '').split(' '));
 
   if (!shape) {
     if (size.length === 1 && !isRgExtentKeyword(size[0])) {
@@ -111,13 +87,7 @@ export function parseRadialGradient(input: string): RadialGradientResult {
     }
   });
 
-  result.position.x = isPositionKeyWord(position[0])
-    ? { type: 'keyword', value: position[0] }
-    : { type: 'length', value: position[0] };
-
-  result.position.y = isPositionKeyWord(position[1])
-    ? { type: 'keyword', value: position[1] }
-    : { type: 'length', value: position[1] };
+  result.position = resolvePosition(prefix[1]);
 
   if (shape || size.length > 0 || prefix[1]) properties.shift();
 

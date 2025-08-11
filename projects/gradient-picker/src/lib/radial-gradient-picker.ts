@@ -19,7 +19,7 @@ import {
 } from './form-controls';
 import { GradientStops } from './gradient-stops';
 import { parseRadialGradient, RadialGradientResult, stringifyRadialGradient } from './parser';
-import { lengthUnits, reverseColorStops } from './utils';
+import { lengthUnits, positionXKeywords, positionYKeywords, reverseColorStops } from './utils';
 
 @Component({
   selector: 'radial-gradient-picker',
@@ -55,13 +55,13 @@ export class RadialGradientPicker implements ControlValueAccessor {
   @Input({ transform: booleanAttribute }) disabled = false;
 
   radialGradient: RadialGradientResult = {
+    repeating: false,
     shape: 'ellipse',
     size: [],
     position: {
-      x: { type: 'keyword', value: '' },
-      y: { type: 'keyword', value: '' },
+      x: { type: 'keyword', value: 'center' },
+      y: { type: 'keyword', value: 'center' },
     },
-    repeating: false,
     stops: [{ color: '#000000' }],
   };
 
@@ -69,17 +69,9 @@ export class RadialGradientPicker implements ControlValueAccessor {
 
   lengthUnits = lengthUnits;
 
-  posXOptions = [
-    { label: 'left', value: 'left' },
-    { label: 'center', value: 'center' },
-    { label: 'right', value: 'right' },
-  ];
+  posXOptions = positionXKeywords;
 
-  posYOptions = [
-    { label: 'top', value: 'top' },
-    { label: 'center', value: 'center' },
-    { label: 'bottom', value: 'bottom' },
-  ];
+  posYOptions = positionYKeywords;
 
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};

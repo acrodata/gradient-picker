@@ -53,8 +53,8 @@ export class LinearGradientPicker implements ControlValueAccessor {
   @Input({ transform: booleanAttribute }) disabled = false;
 
   linearGradient: LinearGradientResult = {
-    orientation: { type: 'directional', value: '' },
     repeating: false,
+    orientation: { type: 'directional', value: '' },
     stops: [{ color: '#000000' }],
   };
 

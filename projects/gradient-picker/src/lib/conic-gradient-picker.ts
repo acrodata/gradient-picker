@@ -18,7 +18,13 @@ import {
 } from './form-controls';
 import { GradientStops } from './gradient-stops';
 import { ConicGradientResult, parseConicGradient, stringifyConicGradient } from './parser';
-import { angleUnits, reverseColorStops } from './utils';
+import {
+  angleUnits,
+  lengthUnits,
+  positionXKeywords,
+  positionYKeywords,
+  reverseColorStops,
+} from './utils';
 
 @Component({
   selector: 'conic-gradient-picker',
@@ -53,15 +59,24 @@ export class ConicGradientPicker implements ControlValueAccessor {
   @Input({ transform: booleanAttribute }) disabled = false;
 
   conicGradient: ConicGradientResult = {
-    angle: '',
-    position: '',
     repeating: false,
+    angle: '',
+    position: {
+      x: { type: 'keyword', value: 'center' },
+      y: { type: 'keyword', value: 'center' },
+    },
     stops: [{ color: '#000000' }],
   };
 
   value = '';
 
   angleUnits = angleUnits;
+
+  lengthUnits = lengthUnits;
+
+  posXOptions = positionXKeywords;
+
+  posYOptions = positionYKeywords;
 
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};

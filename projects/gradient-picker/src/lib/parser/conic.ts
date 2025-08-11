@@ -1,5 +1,5 @@
-import { resolveStops, split } from './utils';
-import { ColorStop } from './type';
+import { resolvePosition, resolveStops, split } from './utils';
+import { ColorStop, PositionPropertyValue } from './type';
 
 type RectColorSpace = 'srgb' | 'srgb-linear' | 'lab' | 'oklab' | 'xyz' | 'xyz-d50' | 'xyz-d65';
 type PolarColorSpace = 'hsl' | 'hwb' | 'lch' | 'oklch';
@@ -13,7 +13,10 @@ interface Color {
 export interface ConicGradientResult {
   repeating: boolean;
   angle: string;
-  position: string;
+  position: {
+    x: PositionPropertyValue;
+    y: PositionPropertyValue;
+  };
   color?: Color;
   stops: ColorStop[];
 }
@@ -28,7 +31,10 @@ export function parseConicGradient(input: string): ConicGradientResult {
   const result: ConicGradientResult = {
     repeating: Boolean(repeating),
     angle: '0deg',
-    position: 'center',
+    position: {
+      x: { type: 'keyword', value: 'center' },
+      y: { type: 'keyword', value: 'center' },
+    },
     stops: [],
   };
 
@@ -61,7 +67,7 @@ function resolvePrefix(k: string, props: string[], start: number, end: number) {
     case 'from':
       return { angle: props.slice(start, end).join(' ') };
     case 'at':
-      return { position: props.slice(start, end).join(' ') };
+      return { position: resolvePosition(props.slice(start, end).join(' ')) };
     case 'in': {
       const [space, ...method] = props.slice(start, end);
       return {
@@ -85,8 +91,11 @@ export function stringifyConicGradient(input: ConicGradientResult) {
   if (angle.trim()) {
     fromAt.push(`from ${angle}`);
   }
-  if (position.trim()) {
-    fromAt.push(`at ${position}`);
+  const posX = position.x.value;
+  const posY = position.y.value;
+  const pos = posX.trim() || posY.trim() ? `at ${posX} ${posY}` : '';
+  if (pos) {
+    fromAt.push(pos);
   }
 
   const params: string[] = [];

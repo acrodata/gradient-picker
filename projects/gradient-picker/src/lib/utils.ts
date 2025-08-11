@@ -217,3 +217,7 @@ export function convertAngleToPercentage(stops: ColorStop[]) {
 export const angleUnits = ['deg', 'rad', 'turn', 'grad'];
 
 export const lengthUnits = ['%', 'px', 'em', 'rem', 'vw', 'vh', 'ch'];
+
+export const positionXKeywords = ['left', 'center', 'right'];
+
+export const positionYKeywords = ['top', 'center', 'bottom'];

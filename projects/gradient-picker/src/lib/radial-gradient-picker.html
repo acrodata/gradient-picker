@@ -47,7 +47,7 @@
     <gradient-input-field>
       <select [(ngModel)]="radialGradient.position.x.value" (change)="onGradientChange()">
         @for (posX of posXOptions; track $index) {
-          <option [value]="posX.value">{{ posX.label }}</option>
+          <option [value]="posX">{{ posX }}</option>
         }
       </select>
     </gradient-input-field>
@@ -62,7 +62,7 @@
     <gradient-input-field>
       <select [(ngModel)]="radialGradient.position.y.value" (change)="onGradientChange()">
         @for (posY of posYOptions; track $index) {
-          <option [value]="posY.value">{{ posY.label }}</option>
+          <option [value]="posY">{{ posY }}</option>
         }
       </select>
     </gradient-input-field>
