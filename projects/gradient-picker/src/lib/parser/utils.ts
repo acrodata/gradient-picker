@@ -71,7 +71,7 @@ export function resolveLength(v?: string) {
 const positionKeyword = new Set<PositionKeyword>(['center', 'left', 'top', 'right', 'bottom']);
 
 function isPositionKeyword(v: any): v is PositionKeyword {
-  return positionKeyword.has(v);
+  return positionKeyword.has(v) || isNaN(parseFloat(v));
 }
 
 function extendPosition(v: string[]) {
@@ -84,8 +84,13 @@ function extendPosition(v: string[]) {
   return res;
 }
 
-export function resolvePosition(v?: string) {
-  const posArr = extendPosition((v || '').split(' '));
+export function resolvePosition(v = '') {
+  let posArr = extendPosition(v.split(' ').filter(v => v));
+  // top center => center top
+  // center left => left center
+  if (['top', 'bottom'].includes(posArr[0]) || ['left', 'right'].includes(posArr[1])) {
+    posArr = posArr.reverse();
+  }
 
   const position: {
     x: PositionPropertyValue;
