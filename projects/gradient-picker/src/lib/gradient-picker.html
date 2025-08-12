@@ -1,3 +1,13 @@
+<gradient-form-group label="Type">
+  <gradient-input-field>
+    <select [(ngModel)]="type" (ngModelChange)="onTypeChange()">
+      @for (t of types; track $index) {
+        <option [value]="t.value">{{ t.label }}</option>
+      }
+    </select>
+  </gradient-input-field>
+</gradient-form-group>
+
 @if (type === 'linear') {
   <linear-gradient-picker [(ngModel)]="value" (ngModelChange)="onValueChange()" />
 } @else if (type === 'radial') {

@@ -12,11 +12,19 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { ConicGradientPicker } from './conic-gradient-picker';
 import { LinearGradientPicker } from './linear-gradient-picker';
 import { RadialGradientPicker } from './radial-gradient-picker';
+import { GradientFormGroup, GradientInputField } from './form-controls';
 
 @Component({
   selector: 'gradient-picker',
   standalone: true,
-  imports: [FormsModule, LinearGradientPicker, RadialGradientPicker, ConicGradientPicker],
+  imports: [
+    FormsModule,
+    LinearGradientPicker,
+    RadialGradientPicker,
+    ConicGradientPicker,
+    GradientFormGroup,
+    GradientInputField,
+  ],
   templateUrl: './gradient-picker.html',
   styleUrl: './gradient-picker.scss',
   host: {
@@ -38,6 +46,12 @@ export class GradientPicker implements ControlValueAccessor {
   @Input({ transform: booleanAttribute }) disabled = false;
 
   value = '';
+
+  types = [
+    { label: 'Linear', value: 'linear' },
+    { label: 'Radial', value: 'radial' },
+    { label: 'Conic', value: 'conic' },
+  ];
 
   type: 'linear' | 'radial' | 'conic' = 'linear';
 
@@ -73,5 +87,16 @@ export class GradientPicker implements ControlValueAccessor {
 
   onValueChange() {
     this.onChange(this.value);
+  }
+
+  onTypeChange() {
+    if (this.type === 'linear') {
+      this.value = 'linear-gradient(transparent, #000000)';
+    } else if (this.type === 'radial') {
+      this.value = 'radial-gradient(transparent, #000000)';
+    } else if (this.type === 'conic') {
+      this.value = 'conic-gradient(transparent, #000000)';
+    }
+    this.onValueChange();
   }
 }
