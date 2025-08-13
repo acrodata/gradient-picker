@@ -1,5 +1,5 @@
 import { TinyColor } from '@ctrl/tinycolor';
-import { ColorStop } from './parser';
+import { ColorStop, parseConicGradient, parseLinearGradient, parseRadialGradient } from './parser';
 
 /**
  * Reorder an element at a specified index by condition
@@ -212,6 +212,23 @@ export function convertAngleToPercentage(stops: ColorStop[]) {
     }
     return stop;
   });
+}
+
+/**
+ * Parse gradient
+ *
+ * @param input
+ */
+export function parseGradient(input: string) {
+  if (input.includes('linear')) {
+    return parseLinearGradient(input);
+  } else if (input.includes('radial')) {
+    return parseRadialGradient(input);
+  } else if (input.includes('conic')) {
+    return parseConicGradient(input);
+  } else {
+    return null;
+  }
 }
 
 export const angleUnits = ['deg', 'rad', 'turn', 'grad'];
