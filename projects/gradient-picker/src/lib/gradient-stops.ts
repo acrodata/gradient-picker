@@ -1,21 +1,18 @@
 import { CdkDrag, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import {
-  AfterViewInit,
+  booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
-  EventEmitter,
+  forwardRef,
   inject,
   Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { GradientIconButton, GradientInputField } from './form-controls';
 import { GradientColorpicker, GradientColorpickerToggle } from './gradient-colorpicker';
 import { ColorStop } from './parser';
@@ -50,15 +47,22 @@ export interface SliderColorStop extends ColorStop {
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => GradientStops),
+      multi: true,
+    },
+  ],
 })
-export class GradientStops implements OnChanges, AfterViewInit {
+export class GradientStops implements ControlValueAccessor {
   private cdr = inject(ChangeDetectorRef);
 
   @ViewChild('sliderTrack') track?: ElementRef<HTMLElement>;
 
-  @Input() colorStops: ColorStop[] = [];
+  @Input({ transform: booleanAttribute }) disabled = false;
 
-  @Output() colorStopsChange = new EventEmitter<ColorStop[]>();
+  colorStops: ColorStop[] = [];
 
   sliderColorStops: SliderColorStop[] = [];
 
@@ -70,35 +74,43 @@ export class GradientStops implements OnChanges, AfterViewInit {
 
   selectedStop?: SliderColorStop;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['colorStops']) {
+  private onChange: (value: ColorStop[]) => void = () => {};
+  private onTouched: () => void = () => {};
+
+  writeValue(value: ColorStop[]): void {
+    if (value && value.length > 0) {
+      this.colorStops = value;
       this.getStops();
       this.getGradientColor();
     }
   }
 
-  ngAfterViewInit(): void {
-    this.getStops();
-    this.getGradientColor();
+  registerOnChange(fn: (value: ColorStop[]) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+    this.cdr.markForCheck();
   }
 
   getStops() {
-    if (!this.track) {
-      return;
-    }
+    if (!this.track) return;
 
     this.trackWidth = this.track.nativeElement.offsetWidth;
 
     this.sliderColorStops = fillUndefinedOffsets(convertAngleToPercentage(this.colorStops)).map(
       stop => {
         const offset = stop.offset || { value: 0, unit: '%' };
+        const posX = Math.min((offset.value / 100) * this.trackWidth, this.trackWidth);
         return {
           ...stop,
           offset,
-          position: {
-            x: Math.min((offset.value / 100) * this.trackWidth, this.trackWidth),
-            y: 0,
-          },
+          position: { x: posX, y: 0 },
         };
       }
     );
@@ -158,7 +170,7 @@ export class GradientStops implements OnChanges, AfterViewInit {
     this.onStopsChange();
   }
 
-  onDragEnd(e: CdkDragEnd, stop: SliderColorStop) {
+  onDragEnd(e: CdkDragEnd) {
     this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
     this.isDragging = false;
     this.cdr.markForCheck();
@@ -210,6 +222,6 @@ export class GradientStops implements OnChanges, AfterViewInit {
       this.colorStops[i] = { color: stop.color, offset: stop.offset };
     });
     this.colorStops.sort((a, b) => a.offset!.value - b.offset!.value);
-    this.colorStopsChange.next(this.colorStops);
+    this.onChange(this.colorStops);
   }
 }

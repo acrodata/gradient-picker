@@ -98,6 +98,8 @@ export function interpolateColor(fromColor: string, toColor: string, percentage 
  * @returns
  */
 export function fillUndefinedOffsets(stops: ColorStop[]): ColorStop[] {
+  if (stops.length === 0) return stops;
+
   // Ensure the start and end positions are defined.
   if (!stops[0] || stops[0].offset == null) {
     stops[0].offset = { value: 0, unit: '%' };
@@ -108,9 +110,7 @@ export function fillUndefinedOffsets(stops: ColorStop[]): ColorStop[] {
   }
 
   stops.forEach((item, index) => {
-    if (item.offset != null) {
-      return;
-    }
+    if (item.offset != null) return;
 
     // Find the nearest defined offset to the left of the current item by using
     // findIndex to search backward from the current index.

@@ -1,4 +1,5 @@
 import {
+  ColorStop,
   ConicGradientPicker,
   GradientColorpicker,
   GradientColorpickerToggle,
@@ -84,5 +85,7 @@ export class ExamplesComponent {
     }
   }
 
-  onColorStopsChange(e: any) {}
+  onColorStopsChange(e: ColorStop[]) {
+    // console.log(e);
+  }
 }

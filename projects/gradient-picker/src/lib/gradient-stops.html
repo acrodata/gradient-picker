@@ -12,7 +12,7 @@
         [cdkDragBoundary]="sliderTrack"
         [cdkDragFreeDragPosition]="stop.position"
         (cdkDragMoved)="onDragMove($event, stop, $index)"
-        (cdkDragEnded)="onDragEnd($event, stop)"
+        (cdkDragEnded)="onDragEnd($event)"
       >
         <div
           #sliderThumb

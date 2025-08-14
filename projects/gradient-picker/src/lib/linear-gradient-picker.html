@@ -27,4 +27,4 @@
   </gradient-icon-button>
 </gradient-form-group>
 
-<gradient-stops [colorStops]="linearGradient.stops" (colorStopsChange)="onGradientChange()" />
+<gradient-stops [ngModel]="linearGradient.stops" (ngModelChange)="onGradientChange()" />
