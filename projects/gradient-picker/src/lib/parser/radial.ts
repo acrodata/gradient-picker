@@ -29,6 +29,11 @@ function isRgExtentKeyword(v: any): v is RgExtentKeyword {
   return rgExtentKeyword.has(v);
 }
 
+function isColor(v: string) {
+  if (/(circle|ellipse|at)/.test(v) || rgExtentKeyword.has(v as RgExtentKeyword)) return false;
+  return /^(rgba?|hwb|hsl|lab|lch|oklab|color|#|[a-zA-Z]+)/.test(v);
+}
+
 export function parseRadialGradient(input: string): RadialGradientResult {
   if (!/(repeating-)?radial-gradient/.test(input))
     throw new SyntaxError(`could not find syntax for this item: ${input}`);
@@ -97,21 +102,20 @@ export function parseRadialGradient(input: string): RadialGradientResult {
   };
 }
 
-function isColor(v: string) {
-  if (/(circle|ellipse|at)/.test(v) || rgExtentKeyword.has(v as RgExtentKeyword)) return false;
-  return /^(rgba?|hwb|hsl|lab|lch|oklab|color|#|[a-zA-Z]+)/.test(v);
-}
-
 export function stringifyRadialGradient(input: RadialGradientResult) {
-  const type = input.repeating ? 'repeating-radial-gradient' : 'radial-gradient';
+  const { repeating, shape, size, position, stops } = input;
 
-  const shape = input.shape;
-  const sizes = input.size.map(s => s.value);
-  const posX = input.position.x.value;
-  const posY = input.position.y.value;
+  const type = repeating ? 'repeating-radial-gradient' : 'radial-gradient';
+
+  const sizes = size.map(s => s.value);
+
+  const posX = position.x.value;
+  const posY = position.y.value;
   const pos = posX.trim() || posY.trim() ? `at ${posX} ${posY}` : '';
 
-  const stops = input.stops.map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`);
+  const colorStr = stops
+    .map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`.trim())
+    .join(', ');
 
-  return `${type}(${shape} ${sizes.join(' ')} ${pos}, ${stops.join(', ')})`;
+  return `${type}(${shape} ${sizes.join(' ')} ${pos}, ${colorStr})`;
 }

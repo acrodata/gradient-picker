@@ -12,6 +12,24 @@ export interface LinearGradientResult {
   stops: ColorStop[];
 }
 
+function resolveLinearOrientation(angle: string): LinearOrientation | null {
+  if (angle.startsWith('to ')) {
+    return {
+      type: 'directional',
+      value: angle.replace('to ', ''),
+    };
+  }
+
+  if (['turn', 'deg', 'grad', 'rad'].some(unit => angle.endsWith(unit))) {
+    return {
+      type: 'angular',
+      value: angle,
+    };
+  }
+
+  return null;
+}
+
 export function parseLinearGradient(input: string): LinearGradientResult {
   if (!/^(repeating-)?linear-gradient/.test(input))
     throw new SyntaxError(`could not find syntax for this item: ${input}`);
@@ -33,42 +51,28 @@ export function parseLinearGradient(input: string): LinearGradientResult {
   return { ...result, stops: resolveStops(properties) };
 }
 
-function resolveLinearOrientation(angle: string): LinearOrientation | null {
-  if (angle.startsWith('to ')) {
-    return {
-      type: 'directional',
-      value: angle.replace('to ', ''),
-    };
-  }
-
-  if (['turn', 'deg', 'grad', 'rad'].some(unit => angle.endsWith(unit))) {
-    return {
-      type: 'angular',
-      value: angle,
-    };
-  }
-
-  return null;
-}
-
 export function stringifyLinearGradient(input: LinearGradientResult) {
-  const type = input.repeating ? 'repeating-linear-gradient' : 'linear-gradient';
+  const { repeating, orientation, stops } = input;
+
+  const type = repeating ? 'repeating-linear-gradient' : 'linear-gradient';
 
   const params: string[] = [];
 
-  const orientation = input.orientation.value.trim()
-    ? input.orientation.type === 'angular'
-      ? input.orientation.value
-      : 'to ' + input.orientation.value
+  const orientationVal = orientation.value.trim()
+    ? orientation.type === 'angular'
+      ? orientation.value
+      : 'to ' + orientation.value
     : '';
 
-  if (orientation) {
-    params.push(orientation);
+  if (orientationVal) {
+    params.push(orientationVal);
   }
 
-  const stops = input.stops.map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`);
+  const colorStr = stops
+    .map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`.trim())
+    .join(', ');
 
-  params.push(stops.join(', '));
+  params.push(colorStr);
 
   return `${type}(${params.join(', ')})`;
 }
