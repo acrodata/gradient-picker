@@ -91,9 +91,10 @@ export class GradientPicker implements ControlValueAccessor {
   }
 
   onTypeChange() {
-    const colorStr = convertAngleToPercentage(parseGradient(this.value)?.stops || [])
-      .map(s => s.color + (s.offset ? ` ${s.offset.value}${s.offset.unit}` : ''))
-      .join(', ');
+    const colorStr =
+      convertAngleToPercentage(parseGradient(this.value)?.stops || [])
+        .map(s => s.color + (s.offset ? ` ${s.offset.value}${s.offset.unit}` : ''))
+        .join(', ') || 'transparent, #000000';
 
     if (this.type === 'linear') {
       this.value = `linear-gradient(${colorStr})`;

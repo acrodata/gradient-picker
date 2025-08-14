@@ -1,6 +1,7 @@
 import { CdkDrag, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import {
+  AfterViewInit,
   booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -55,7 +56,7 @@ export interface SliderColorStop extends ColorStop {
     },
   ],
 })
-export class GradientStops implements ControlValueAccessor {
+export class GradientStops implements ControlValueAccessor, AfterViewInit {
   private cdr = inject(ChangeDetectorRef);
 
   @ViewChild('sliderTrack') track?: ElementRef<HTMLElement>;
@@ -83,6 +84,11 @@ export class GradientStops implements ControlValueAccessor {
       this.getStops();
       this.getGradientColor();
     }
+  }
+
+  ngAfterViewInit(): void {
+    this.getStops();
+    this.getGradientColor();
   }
 
   registerOnChange(fn: (value: ColorStop[]) => void): void {
