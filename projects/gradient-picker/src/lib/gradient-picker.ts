@@ -12,7 +12,6 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { ConicGradientPicker } from './conic-gradient-picker';
 import { GradientFormGroup, GradientInputField } from './form-controls';
 import { LinearGradientPicker } from './linear-gradient-picker';
-import { parseConicGradient, parseLinearGradient, parseRadialGradient } from './parser';
 import { RadialGradientPicker } from './radial-gradient-picker';
 import { convertAngleToPercentage, parseGradient } from './utils';
 

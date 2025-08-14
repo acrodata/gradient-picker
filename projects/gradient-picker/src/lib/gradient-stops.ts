@@ -1,4 +1,5 @@
 import { CdkDrag, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
+import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -25,7 +26,7 @@ import {
   reorderElementByCondition,
 } from './utils';
 
-export interface IColorStop extends ColorStop {
+export interface SliderColorStop extends ColorStop {
   offset: { value: number; unit: string };
   position: { x: number; y: number };
 }
@@ -36,6 +37,7 @@ export interface IColorStop extends ColorStop {
   imports: [
     FormsModule,
     CdkDrag,
+    CdkOverlayOrigin,
     GradientColorpicker,
     GradientColorpickerToggle,
     GradientInputField,
@@ -58,7 +60,7 @@ export class GradientStops implements OnChanges, AfterViewInit {
 
   @Output() colorStopsChange = new EventEmitter<ColorStop[]>();
 
-  sliderColorStops: IColorStop[] = [];
+  sliderColorStops: SliderColorStop[] = [];
 
   trackWidth = 0;
 
@@ -66,7 +68,7 @@ export class GradientStops implements OnChanges, AfterViewInit {
 
   isDragging = false;
 
-  selectedStop?: IColorStop;
+  selectedStop?: SliderColorStop;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['colorStops']) {
@@ -140,13 +142,13 @@ export class GradientStops implements OnChanges, AfterViewInit {
     this.onStopsChange();
   }
 
-  onDragMove(e: CdkDragMove, stop: IColorStop, index: number) {
+  onDragMove(e: CdkDragMove, stop: SliderColorStop, index: number) {
     const position = e.source.getFreeDragPosition();
     const xPercent = Math.round((position.x / this.trackWidth) * 100);
     stop.offset.value = xPercent;
     stop.position.x = position.x;
 
-    const stops = reorderElementByCondition<IColorStop>(
+    const stops = reorderElementByCondition<SliderColorStop>(
       this.sliderColorStops,
       index,
       (a, b) => a.position.x < b.position.x,
@@ -156,7 +158,7 @@ export class GradientStops implements OnChanges, AfterViewInit {
     this.onStopsChange();
   }
 
-  onDragEnd(e: CdkDragEnd, stop: IColorStop) {
+  onDragEnd(e: CdkDragEnd, stop: SliderColorStop) {
     this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
     this.isDragging = false;
     this.cdr.markForCheck();
@@ -164,7 +166,7 @@ export class GradientStops implements OnChanges, AfterViewInit {
     this.onStopsChange();
   }
 
-  onDragHandleDown(e: MouseEvent, stop: IColorStop) {
+  onDragHandleDown(e: MouseEvent, stop: SliderColorStop) {
     e.stopPropagation();
     this.selectedStop = stop;
     this.isDragging = true;
@@ -177,16 +179,16 @@ export class GradientStops implements OnChanges, AfterViewInit {
     this.cdr.markForCheck();
   }
 
-  onStopItemClick(stop: IColorStop) {
+  onStopItemClick(stop: SliderColorStop) {
     this.selectedStop = stop;
   }
 
-  onStopColorChange(stop: IColorStop) {
+  onStopColorChange(stop: SliderColorStop) {
     this.getGradientColor();
     this.onStopsChange();
   }
 
-  onStopOffsetChange(stop: IColorStop) {
+  onStopOffsetChange(stop: SliderColorStop) {
     stop.position = {
       x: (stop.offset.value / 100) * this.trackWidth,
       y: 0,
@@ -196,7 +198,7 @@ export class GradientStops implements OnChanges, AfterViewInit {
     this.onStopsChange();
   }
 
-  onStopRemove(stop: IColorStop) {
+  onStopRemove(stop: SliderColorStop) {
     this.sliderColorStops = this.sliderColorStops.filter(s => s !== stop);
     this.getGradientColor();
     this.onStopsChange();

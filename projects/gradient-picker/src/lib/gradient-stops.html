@@ -1,5 +1,5 @@
-<div class="gradient-stops-slider" [class.is-dragging]="isDragging" (pointerdown)="addStop($event)">
-  <div class="gradient-stops-slider-bar">
+<div class="gradient-stops-slider" [class.is-dragging]="isDragging">
+  <div class="gradient-stops-slider-bar" (pointerdown)="addStop($event)">
     <div class="gradient-stops-slider-bar-bg" [style.background-image]="gradientColor"></div>
   </div>
 
@@ -15,7 +15,7 @@
         (cdkDragEnded)="onDragEnd($event, stop)"
       >
         <div
-          #thumb
+          #sliderThumb
           class="gradient-stops-slider-thumb"
           [class.gradient-stops-slider-thumb-active]="stop === selectedStop"
           (pointerdown)="onDragHandleDown($event, stop)"
@@ -24,8 +24,8 @@
           <gradient-colorpicker-toggle
             [for]="gc"
             [color]="stop.color"
+            [overlayOrigin]="sliderThumb"
             triggerEvent="dblclick"
-            [overlayOrigin]="thumb"
           />
           <gradient-colorpicker
             #gc
@@ -46,8 +46,16 @@
         [class.gradient-stop-item-active]="stop === selectedStop"
         (pointerdown)="onStopItemClick(stop)"
       >
-        <gradient-input-field class="gradient-stop-item-color">
-          <gradient-colorpicker-toggle [for]="gc" [color]="stop.color" />
+        <gradient-input-field
+          class="gradient-stop-item-color"
+          cdkOverlayOrigin
+          #colorField="cdkOverlayOrigin"
+        >
+          <gradient-colorpicker-toggle
+            [for]="gc"
+            [color]="stop.color"
+            [overlayOrigin]="colorField"
+          />
           <gradient-colorpicker
             #gc
             [(ngModel)]="stop.color"
