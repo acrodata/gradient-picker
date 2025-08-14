@@ -77,7 +77,9 @@ function isPositionKeyword(v: any): v is PositionKeyword {
 function extendPosition(v: string[]) {
   const res: string[] = Array(2).fill('');
   for (let i = 0; i < 2; i++) {
-    if (!v[i]) res[i] = 'center';
+    // If the x position is the length, the y position should also be the length
+    // at 100% => at 100% 50%
+    if (!v[i]) res[i] = i == 0 || isPositionKeyword(v[i - 1]) ? 'center' : '50%';
     else res[i] = v[i];
   }
 
@@ -86,6 +88,7 @@ function extendPosition(v: string[]) {
 
 export function resolvePosition(v = '') {
   let posArr = extendPosition(v.split(' ').filter(v => v));
+  // Correct the positions of x and y
   // top center => center top
   // center left => left center
   if (['top', 'bottom'].includes(posArr[0]) || ['left', 'right'].includes(posArr[1])) {
