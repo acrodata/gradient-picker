@@ -7,9 +7,13 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
   forwardRef,
   inject,
   Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -56,14 +60,16 @@ export interface SliderColorStop extends ColorStop {
     },
   ],
 })
-export class GradientStops implements ControlValueAccessor, AfterViewInit {
+export class GradientStops implements ControlValueAccessor, AfterViewInit, OnChanges {
   private cdr = inject(ChangeDetectorRef);
 
   @ViewChild('sliderTrack') track?: ElementRef<HTMLElement>;
 
   @Input({ transform: booleanAttribute }) disabled = false;
 
-  colorStops: ColorStop[] = [];
+  @Input() colorStops: ColorStop[] = [];
+
+  @Output() colorStopsChange = new EventEmitter<ColorStop[]>();
 
   sliderColorStops: SliderColorStop[] = [];
 
@@ -78,9 +84,8 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit {
   private onChange: (value: ColorStop[]) => void = () => {};
   private onTouched: () => void = () => {};
 
-  writeValue(value: ColorStop[]): void {
-    if (value && value.length > 0) {
-      this.colorStops = value;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['colorStops']) {
       this.getStops();
       this.getGradientColor();
     }
@@ -89,6 +94,14 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit {
   ngAfterViewInit(): void {
     this.getStops();
     this.getGradientColor();
+  }
+
+  writeValue(value: ColorStop[]): void {
+    if (Array.isArray(value)) {
+      this.colorStops = value;
+      this.getStops();
+      this.getGradientColor();
+    }
   }
 
   registerOnChange(fn: (value: ColorStop[]) => void): void {
@@ -229,5 +242,6 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit {
     });
     this.colorStops.sort((a, b) => a.offset!.value - b.offset!.value);
     this.onChange(this.colorStops);
+    this.colorStopsChange.next(this.colorStops);
   }
 }
