@@ -71,33 +71,38 @@ export function parseConicGradient(input: string): ConicGradientResult {
 }
 
 export function stringifyConicGradient(input: ConicGradientResult) {
-  const { repeating, angle, position, stops } = input;
+  const { repeating, angle, position, color, stops } = input;
 
   const type = repeating ? 'repeating-conic-gradient' : 'conic-gradient';
 
-  const fromAt: string[] = [];
+  const prefixArr: string[] = [];
+
   if (angle.trim()) {
-    fromAt.push(`from ${angle}`);
+    prefixArr.push(`from ${angle}`);
   }
 
   const posX = position.x.value;
   const posY = position.y.value;
-  const pos = posX.trim() || posY.trim() ? `at ${posX} ${posY}` : '';
+  const pos = posX.trim() || posY.trim() ? 'at ' + `${posX} ${posY}`.trim() : '';
   if (pos) {
-    fromAt.push(pos);
+    prefixArr.push(pos);
   }
 
-  const params: string[] = [];
+  if (color && color.space) {
+    prefixArr.push(`in ${color.space} ${color.method || ''}`.trim());
+  }
 
-  if (fromAt.join(' ').trim()) {
-    params.push(fromAt.join(' '));
+  const props: string[] = [];
+
+  if (prefixArr.length > 0) {
+    props.push(prefixArr.join(' '));
   }
 
   const colorStr = stops
     .map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`.trim())
     .join(', ');
 
-  params.push(colorStr);
+  props.push(colorStr);
 
-  return `${type}(${params.join(', ')})`;
+  return `${type}(${props.join(', ')})`;
 }

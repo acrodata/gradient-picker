@@ -63,11 +63,11 @@ export function parseLinearGradient(input: string): LinearGradientResult {
 }
 
 export function stringifyLinearGradient(input: LinearGradientResult) {
-  const { repeating, orientation, stops } = input;
+  const { repeating, orientation, color, stops } = input;
 
   const type = repeating ? 'repeating-linear-gradient' : 'linear-gradient';
 
-  const params: string[] = [];
+  const prefixArr: string[] = [];
 
   const orientationVal = orientation.value.trim()
     ? orientation.type === 'angular'
@@ -76,14 +76,24 @@ export function stringifyLinearGradient(input: LinearGradientResult) {
     : '';
 
   if (orientationVal) {
-    params.push(orientationVal);
+    prefixArr.push(orientationVal);
+  }
+
+  if (color && color.space) {
+    prefixArr.push(`in ${color.space} ${color.method || ''}`.trim());
+  }
+
+  const props: string[] = [];
+
+  if (prefixArr.length > 0) {
+    props.push(prefixArr.join(' '));
   }
 
   const colorStr = stops
     .map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`.trim())
     .join(', ');
 
-  params.push(colorStr);
+  props.push(colorStr);
 
-  return `${type}(${params.join(', ')})`;
+  return `${type}(${props.join(', ')})`;
 }

@@ -115,7 +115,7 @@ export function parseRadialGradient(input: string): RadialGradientResult {
 }
 
 export function stringifyRadialGradient(input: RadialGradientResult) {
-  const { repeating, shape, size, position, stops } = input;
+  const { repeating, shape, size, position, color, stops } = input;
 
   const type = repeating ? 'repeating-radial-gradient' : 'radial-gradient';
 
@@ -123,11 +123,17 @@ export function stringifyRadialGradient(input: RadialGradientResult) {
 
   const posX = position.x.value;
   const posY = position.y.value;
-  const pos = posX.trim() || posY.trim() ? `at ${posX} ${posY}` : '';
+  const pos = posX.trim() || posY.trim() ? 'at ' + `${posX} ${posY}`.trim() : '';
+
+  const prefixArr = [`${shape} ${sizes.join(' ')} ${pos}`];
+
+  if (color && color.space) {
+    prefixArr.push(`in ${color.space} ${color.method || ''}`.trim());
+  }
 
   const colorStr = stops
     .map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`.trim())
     .join(', ');
 
-  return `${type}(${shape} ${sizes.join(' ')} ${pos}, ${colorStr})`;
+  return `${type}(${prefixArr.join(' ')}, ${colorStr})`;
 }

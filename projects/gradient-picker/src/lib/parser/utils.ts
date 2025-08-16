@@ -121,16 +121,32 @@ export function resolvePosition(v = '') {
 }
 
 export function splitByColorInterp(input: string) {
-  const regex = /^(.*)\b(in\s+((?:[a-z0-9-]+(?:\s+[a-z0-9-]+)?(?:\s+hue)?)))\b(.*)$/i;
-  const match = input.match(regex);
+  // 'in' appears at the beginning
+  const regex1 = /^\b(in\s+((?:[a-z0-9-]+(?:\s+[a-z0-9-]+)?(?:\s+hue)?)))\b(.*)$/i;
+  // 'in' appears in the middle
+  const regex2 = /^(.*)\b(in\s+((?:[a-z0-9-]+(?:\s+[a-z0-9-]+)?(?:\s+hue)?)))\b(.*)$/i;
+
+  let match = input.match(regex1);
+  if (match) {
+    // match[1]: in color interpolation method
+    // match[2]: color interpolation method
+    // match[3]: all strings after 'in'
+    const str = match[3].trim();
+    const cim = match[2];
+    return [str, cim];
+  }
+
+  match = input.match(regex2);
   if (match) {
     // match[1]: all strings before 'in'
+    // match[2]: in color interpolation method
     // match[3]: color interpolation method
     // match[4]: all strings after 'in'
     const str = (match[1] + match[4]).trim();
     const cim = match[3];
     return [str, cim];
   }
+
   return [input];
 }
 
