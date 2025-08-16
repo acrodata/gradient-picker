@@ -20,9 +20,12 @@ import { GradientStops } from './gradient-stops';
 import { ConicGradientResult, parseConicGradient, stringifyConicGradient } from './parser';
 import {
   angleUnits,
+  hueInterpolationMethods,
   lengthUnits,
+  polarColorSpaces,
   positionXKeywords,
   positionYKeywords,
+  rectangularColorSpaces,
   reverseColorStops,
 } from './utils';
 
@@ -78,6 +81,14 @@ export class ConicGradientPicker implements ControlValueAccessor {
 
   posYOptions = positionYKeywords;
 
+  colorSpaceOptions = ['', ...polarColorSpaces, ...rectangularColorSpaces];
+
+  hueInterpolationMethodOptions = ['', ...hueInterpolationMethods];
+
+  get isPolarColorSpace() {
+    return polarColorSpaces.includes(this.conicGradient.color?.space || '');
+  }
+
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
@@ -107,6 +118,13 @@ export class ConicGradientPicker implements ControlValueAccessor {
 
   reverseStops() {
     this.conicGradient.stops = reverseColorStops(this.conicGradient.stops);
+    this.onGradientChange();
+  }
+
+  onColorSpaceChange() {
+    if (!this.isPolarColorSpace && this.conicGradient.color) {
+      this.conicGradient.color.method = undefined;
+    }
     this.onGradientChange();
   }
 }

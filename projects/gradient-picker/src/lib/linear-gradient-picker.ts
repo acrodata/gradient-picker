@@ -18,7 +18,13 @@ import {
 } from './form-controls';
 import { GradientStops } from './gradient-stops';
 import { LinearGradientResult, parseLinearGradient, stringifyLinearGradient } from './parser';
-import { angleUnits, reverseColorStops } from './utils';
+import {
+  angleUnits,
+  hueInterpolationMethods,
+  polarColorSpaces,
+  rectangularColorSpaces,
+  reverseColorStops,
+} from './utils';
 
 @Component({
   selector: 'linear-gradient-picker',
@@ -73,6 +79,14 @@ export class LinearGradientPicker implements ControlValueAccessor {
     { label: '↖ left top', value: 'left top' },
   ];
 
+  colorSpaceOptions = ['', ...polarColorSpaces, ...rectangularColorSpaces];
+
+  hueInterpolationMethodOptions = ['', ...hueInterpolationMethods];
+
+  get isPolarColorSpace() {
+    return polarColorSpaces.includes(this.linearGradient.color?.space || '');
+  }
+
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
@@ -102,6 +116,13 @@ export class LinearGradientPicker implements ControlValueAccessor {
 
   reverseStops() {
     this.linearGradient.stops = reverseColorStops(this.linearGradient.stops);
+    this.onGradientChange();
+  }
+
+  onColorSpaceChange() {
+    if (!this.isPolarColorSpace && this.linearGradient.color) {
+      this.linearGradient.color.method = undefined;
+    }
     this.onGradientChange();
   }
 }

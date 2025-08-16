@@ -16,6 +16,27 @@
   }
 </gradient-form-group>
 
+@if (linearGradient.color) {
+  <gradient-form-group label="Color interpolation">
+    <gradient-input-field>
+      <select [(ngModel)]="linearGradient.color.space" (change)="onColorSpaceChange()">
+        @for (colorSpace of colorSpaceOptions; track $index) {
+          <option [value]="colorSpace">{{ colorSpace }}</option>
+        }
+      </select>
+    </gradient-input-field>
+    @if (isPolarColorSpace) {
+      <gradient-input-field>
+        <select [(ngModel)]="linearGradient.color.method" (change)="onGradientChange()">
+          @for (hueInterp of hueInterpolationMethodOptions; track $index) {
+            <option [value]="hueInterp">{{ hueInterp }}</option>
+          }
+        </select>
+      </gradient-input-field>
+    }
+  </gradient-form-group>
+}
+
 <gradient-form-group>
   <label gradientCheckbox>
     <input type="checkbox" [(ngModel)]="linearGradient.repeating" (change)="onGradientChange()" />

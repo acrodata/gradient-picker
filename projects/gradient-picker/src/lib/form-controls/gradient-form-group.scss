@@ -14,4 +14,7 @@
 
 .gradient-form-label {
   width: 48px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

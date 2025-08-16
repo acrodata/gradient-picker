@@ -19,7 +19,15 @@ import {
 } from './form-controls';
 import { GradientStops } from './gradient-stops';
 import { parseRadialGradient, RadialGradientResult, stringifyRadialGradient } from './parser';
-import { lengthUnits, positionXKeywords, positionYKeywords, reverseColorStops } from './utils';
+import {
+  hueInterpolationMethods,
+  lengthUnits,
+  polarColorSpaces,
+  positionXKeywords,
+  positionYKeywords,
+  rectangularColorSpaces,
+  reverseColorStops,
+} from './utils';
 
 @Component({
   selector: 'radial-gradient-picker',
@@ -73,6 +81,14 @@ export class RadialGradientPicker implements ControlValueAccessor {
 
   posYOptions = positionYKeywords;
 
+  colorSpaceOptions = ['', ...polarColorSpaces, ...rectangularColorSpaces];
+
+  hueInterpolationMethodOptions = ['', ...hueInterpolationMethods];
+
+  get isPolarColorSpace() {
+    return polarColorSpaces.includes(this.radialGradient.color?.space || '');
+  }
+
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
@@ -102,6 +118,13 @@ export class RadialGradientPicker implements ControlValueAccessor {
 
   reverseStops() {
     this.radialGradient.stops = reverseColorStops(this.radialGradient.stops);
+    this.onGradientChange();
+  }
+
+  onColorSpaceChange() {
+    if (!this.isPolarColorSpace && this.radialGradient.color) {
+      this.radialGradient.color.method = undefined;
+    }
     this.onGradientChange();
   }
 }

@@ -232,9 +232,28 @@ export function parseGradient(input: string) {
 }
 
 export const angleUnits = ['deg', 'rad', 'turn', 'grad'];
-
 export const lengthUnits = ['%', 'px', 'em', 'rem', 'vw', 'vh', 'ch'];
 
 export const positionXKeywords = ['left', 'center', 'right'];
-
 export const positionYKeywords = ['top', 'center', 'bottom'];
+
+export const rectangularColorSpaces = [
+  'srgb',
+  'srgb-linear',
+  'display-p3',
+  'a98-rgb',
+  'prophoto-rgb',
+  'rec2020',
+  'lab',
+  'oklab',
+  'xyz',
+  'xyz-d50',
+  'xyz-d65',
+];
+export const polarColorSpaces = ['hsl', 'hwb', 'lch', 'oklch'];
+export const hueInterpolationMethods = [
+  'shorter hue',
+  'longer hue',
+  'increasing hue',
+  'decreasing hue',
+];
