@@ -81,9 +81,12 @@ export class ConicGradientPicker implements ControlValueAccessor {
 
   posYOptions = positionYKeywords;
 
-  colorSpaceOptions = ['', ...polarColorSpaces, ...rectangularColorSpaces];
+  colorSpaceOptgroups = [
+    { label: 'Rectangular', options: rectangularColorSpaces },
+    { label: 'Polar', options: polarColorSpaces },
+  ];
 
-  hueInterpolationMethodOptions = ['', ...hueInterpolationMethods];
+  hueInterpolationMethodOptions = hueInterpolationMethods;
 
   get isPolarColorSpace() {
     return polarColorSpaces.includes(this.conicGradient.color?.space || '');

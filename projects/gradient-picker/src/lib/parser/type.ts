@@ -11,7 +11,7 @@ export interface PositionPropertyValue {
   value: string;
 }
 
-export type XyzSpace = 'xyz' | 'xyz-d50' | 'xyz-d65';
+export type XYZSpace = 'xyz' | 'xyz-d50' | 'xyz-d65';
 export type RectangularColorSpace =
   | 'srgb'
   | 'srgb-linear'
@@ -21,7 +21,7 @@ export type RectangularColorSpace =
   | 'rec2020'
   | 'lab'
   | 'oklab'
-  | XyzSpace;
+  | XYZSpace;
 export type PolarColorSpace = 'hsl' | 'hwb' | 'lch' | 'oklch';
 export type HueInterpolationMethod = `${'shorter' | 'longer' | 'increasing' | 'decreasing'} hue`;
 

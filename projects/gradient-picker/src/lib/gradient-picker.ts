@@ -91,17 +91,27 @@ export class GradientPicker implements ControlValueAccessor {
   }
 
   onTypeChange() {
-    const colorStr =
-      convertAngleToPercentage(parseGradient(this.value)?.stops || [])
+    const { color, stops } = parseGradient(this.value) || {};
+
+    const props: string[] = [];
+
+    const stopsStr =
+      convertAngleToPercentage(stops || [])
         .map(s => s.color + (s.offset ? ` ${s.offset.value}${s.offset.unit}` : ''))
         .join(', ') || 'transparent, #000000';
 
+    if (color && color.space) {
+      props.push(`in ${color.space} ${color.method || ''}`.trim());
+    }
+
+    props.push(stopsStr);
+
     if (this.type === 'linear') {
-      this.value = `linear-gradient(${colorStr})`;
+      this.value = `linear-gradient(${props.join(', ')})`;
     } else if (this.type === 'radial') {
-      this.value = `radial-gradient(${colorStr})`;
+      this.value = `radial-gradient(${props.join(', ')})`;
     } else if (this.type === 'conic') {
-      this.value = `conic-gradient(${colorStr})`;
+      this.value = `conic-gradient(${props.join(', ')})`;
     }
 
     this.onValueChange();

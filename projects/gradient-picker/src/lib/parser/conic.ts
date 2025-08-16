@@ -98,11 +98,11 @@ export function stringifyConicGradient(input: ConicGradientResult) {
     props.push(prefixArr.join(' '));
   }
 
-  const colorStr = stops
+  const stopsStr = stops
     .map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`.trim())
     .join(', ');
 
-  props.push(colorStr);
+  props.push(stopsStr);
 
   return `${type}(${props.join(', ')})`;
 }

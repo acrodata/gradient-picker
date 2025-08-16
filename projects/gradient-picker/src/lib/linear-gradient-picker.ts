@@ -79,9 +79,12 @@ export class LinearGradientPicker implements ControlValueAccessor {
     { label: '↖ left top', value: 'left top' },
   ];
 
-  colorSpaceOptions = ['', ...polarColorSpaces, ...rectangularColorSpaces];
+  colorSpaceOptgroups = [
+    { label: 'Rectangular', options: rectangularColorSpaces },
+    { label: 'Polar', options: polarColorSpaces },
+  ];
 
-  hueInterpolationMethodOptions = ['', ...hueInterpolationMethods];
+  hueInterpolationMethodOptions = hueInterpolationMethods;
 
   get isPolarColorSpace() {
     return polarColorSpaces.includes(this.linearGradient.color?.space || '');

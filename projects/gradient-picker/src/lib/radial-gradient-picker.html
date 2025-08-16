@@ -79,8 +79,12 @@
   <gradient-form-group label="Color interpolation">
     <gradient-input-field>
       <select [(ngModel)]="radialGradient.color.space" (change)="onColorSpaceChange()">
-        @for (colorSpace of colorSpaceOptions; track $index) {
-          <option [value]="colorSpace">{{ colorSpace }}</option>
+        @for (colorSpaceGroup of colorSpaceOptgroups; track $index) {
+          <optgroup [label]="colorSpaceGroup.label">
+            @for (colorSpace of colorSpaceGroup.options; track $index) {
+              <option [value]="colorSpace">{{ colorSpace }}</option>
+            }
+          </optgroup>
         }
       </select>
     </gradient-input-field>

@@ -25,7 +25,7 @@ export interface RadialGradientResult {
   stops: ColorStop[];
 }
 
-const rgExtentKeyword = new Set<RgExtentKeyword>([
+const rgExtentKeywords = new Set<RgExtentKeyword>([
   'closest-corner',
   'closest-side',
   'farthest-corner',
@@ -33,11 +33,11 @@ const rgExtentKeyword = new Set<RgExtentKeyword>([
 ]);
 
 function isRgExtentKeyword(v: any): v is RgExtentKeyword {
-  return rgExtentKeyword.has(v);
+  return rgExtentKeywords.has(v);
 }
 
 function isColor(v: string) {
-  if (/(circle|ellipse|at|in)/.test(v) || rgExtentKeyword.has(v as RgExtentKeyword)) return false;
+  if (/(circle|ellipse|at|in)/.test(v) || rgExtentKeywords.has(v as RgExtentKeyword)) return false;
   return /^(rgba?|hwb|hsl|lab|lch|oklab|color|#|[a-zA-Z]+)/.test(v);
 }
 
@@ -131,9 +131,9 @@ export function stringifyRadialGradient(input: RadialGradientResult) {
     prefixArr.push(`in ${color.space} ${color.method || ''}`.trim());
   }
 
-  const colorStr = stops
+  const stopsStr = stops
     .map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`.trim())
     .join(', ');
 
-  return `${type}(${prefixArr.join(' ')}, ${colorStr})`;
+  return `${type}(${prefixArr.join(' ')}, ${stopsStr})`;
 }
