@@ -1,5 +1,11 @@
-import { ColorStop, PositionPropertyValue } from './type';
-import { resolvePosition, resolveStops, split } from './utils';
+import { Color, ColorStop, PositionPropertyValue } from './type';
+import {
+  resolveColorInterp,
+  resolvePosition,
+  resolveStops,
+  split,
+  splitByColorInterp,
+} from './utils';
 
 export type RgExtentKeyword =
   | 'closest-corner'
@@ -15,6 +21,7 @@ export interface RadialGradientResult {
     x: PositionPropertyValue;
     y: PositionPropertyValue;
   };
+  color?: Color;
   stops: ColorStop[];
 }
 
@@ -30,7 +37,7 @@ function isRgExtentKeyword(v: any): v is RgExtentKeyword {
 }
 
 function isColor(v: string) {
-  if (/(circle|ellipse|at)/.test(v) || rgExtentKeyword.has(v as RgExtentKeyword)) return false;
+  if (/(circle|ellipse|at|in)/.test(v) || rgExtentKeyword.has(v as RgExtentKeyword)) return false;
   return /^(rgba?|hwb|hsl|lab|lch|oklab|color|#|[a-zA-Z]+)/.test(v);
 }
 
@@ -61,14 +68,15 @@ export function parseRadialGradient(input: string): RadialGradientResult {
     return { ...result, stops: resolveStops(properties) };
   }
 
-  const prefix = properties[0].split('at').map(v => v.trim());
+  const [prefixStr, colorInterpStr] = splitByColorInterp(properties[0]);
+
+  const prefix = prefixStr.split('at').map(v => v.trim());
 
   const shape = ((prefix[0] || '').match(/(circle|ellipse)/) || [])[1];
-  const size: string[] =
-    (prefix[0] || '').match(
-      // eslint-disable-next-line max-len
-      /(-?\d+\.?\d*(vw|vh|px|em|rem|%|rad|grad|turn|deg)?|closest-corner|closest-side|farthest-corner|farthest-side)/g
-    ) || [];
+  const unitKeywordReg =
+    // eslint-disable-next-line max-len
+    /(-?\d+\.?\d*(vw|vh|px|em|rem|%|rad|grad|turn|deg)?|closest-corner|closest-side|farthest-corner|farthest-side)/g;
+  const size: string[] = (prefix[0] || '').match(unitKeywordReg) || [];
 
   if (!shape) {
     if (size.length === 1 && !isRgExtentKeyword(size[0])) {
@@ -93,6 +101,10 @@ export function parseRadialGradient(input: string): RadialGradientResult {
   });
 
   result.position = resolvePosition(prefix[1]);
+
+  if (colorInterpStr) {
+    result.color = resolveColorInterp(colorInterpStr);
+  }
 
   if (shape || size.length > 0 || prefix[1]) properties.shift();
 

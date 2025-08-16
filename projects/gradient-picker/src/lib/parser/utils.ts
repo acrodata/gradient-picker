@@ -1,4 +1,10 @@
-import { ColorStop, PositionKeyword, PositionPropertyValue } from './type';
+import {
+  Color,
+  ColorStop,
+  HueInterpolationMethod,
+  PositionKeyword,
+  PositionPropertyValue,
+} from './type';
 
 export function split(input: string, separator: string | RegExp = ','): string[] {
   const result = [];
@@ -112,4 +118,27 @@ export function resolvePosition(v = '') {
     : { type: 'length', value: posArr[1] };
 
   return position;
+}
+
+export function splitByColorInterp(input: string) {
+  const regex = /^(.*)\b(in\s+((?:[a-z0-9-]+(?:\s+[a-z0-9-]+)?(?:\s+hue)?)))\b(.*)$/i;
+  const match = input.match(regex);
+  if (match) {
+    // match[1]: all strings before 'in'
+    // match[3]: color interpolation method
+    // match[4]: all strings after 'in'
+    const str = (match[1] + match[4]).trim();
+    const cim = match[3];
+    return [str, cim];
+  }
+  return [input];
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/CSS/color-interpolation-method
+export function resolveColorInterp(input: string): Color {
+  const [space, ...method] = input.split(' ');
+  return {
+    space: space as Color['space'],
+    method: method.length > 0 ? (method.join(' ') as HueInterpolationMethod) : undefined,
+  };
 }

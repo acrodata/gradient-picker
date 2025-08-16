@@ -10,3 +10,22 @@ export interface PositionPropertyValue {
   type: 'keyword' | 'length';
   value: string;
 }
+
+export type XyzSpace = 'xyz' | 'xyz-d50' | 'xyz-d65';
+export type RectangularColorSpace =
+  | 'srgb'
+  | 'srgb-linear'
+  | 'display-p3'
+  | 'a98-rgb'
+  | 'prophoto-rgb'
+  | 'rec2020'
+  | 'lab'
+  | 'oklab'
+  | XyzSpace;
+export type PolarColorSpace = 'hsl' | 'hwb' | 'lch' | 'oklch';
+export type HueInterpolationMethod = `${'shorter' | 'longer' | 'increasing' | 'decreasing'} hue`;
+
+export interface Color {
+  space: RectangularColorSpace | PolarColorSpace;
+  method?: HueInterpolationMethod;
+}

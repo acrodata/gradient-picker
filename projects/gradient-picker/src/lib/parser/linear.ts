@@ -1,5 +1,5 @@
-import { ColorStop } from './type';
-import { resolveStops, split } from './utils';
+import { Color, ColorStop } from './type';
+import { resolveColorInterp, resolveStops, split, splitByColorInterp } from './utils';
 
 interface LinearOrientation {
   type: 'directional' | 'angular';
@@ -9,6 +9,7 @@ interface LinearOrientation {
 export interface LinearGradientResult {
   repeating: boolean;
   orientation: LinearOrientation;
+  color?: Color;
   stops: ColorStop[];
 }
 
@@ -41,10 +42,20 @@ export function parseLinearGradient(input: string): LinearGradientResult {
     stops: [],
   };
 
-  const properties: string[] = split(props);
-  const orientation = resolveLinearOrientation(properties[0]);
+  const properties = split(props);
+
+  const [prefixStr, colorInterpStr] = splitByColorInterp(properties[0]);
+
+  const orientation = resolveLinearOrientation(prefixStr);
   if (orientation) {
     result.orientation = orientation;
+  }
+
+  if (colorInterpStr) {
+    result.color = resolveColorInterp(colorInterpStr);
+  }
+
+  if (orientation || colorInterpStr) {
     properties.shift();
   }
 

@@ -1,14 +1,5 @@
-import { resolvePosition, resolveStops, split } from './utils';
-import { ColorStop, PositionPropertyValue } from './type';
-
-type RectColorSpace = 'srgb' | 'srgb-linear' | 'lab' | 'oklab' | 'xyz' | 'xyz-d50' | 'xyz-d65';
-type PolarColorSpace = 'hsl' | 'hwb' | 'lch' | 'oklch';
-type HueInterpolationMethod = `${'shorter' | 'longer' | 'increasing' | 'decreasing'} hue`;
-
-interface Color {
-  space: RectColorSpace | PolarColorSpace;
-  method?: HueInterpolationMethod;
-}
+import { Color, ColorStop, PositionPropertyValue } from './type';
+import { resolveColorInterp, resolvePosition, resolveStops, split } from './utils';
 
 export interface ConicGradientResult {
   repeating: boolean;
@@ -30,12 +21,9 @@ function resolvePrefix(k: string, props: string[], start: number, end: number) {
     case 'at':
       return { position: resolvePosition(props.slice(start, end).join(' ')) };
     case 'in': {
-      const [space, ...method] = props.slice(start, end);
+      const arr = props.slice(start, end);
       return {
-        color: {
-          space: space as Color['space'],
-          method: method.length > 0 ? (method.join(' ') as HueInterpolationMethod) : undefined,
-        },
+        color: resolveColorInterp(arr.join(' ')),
       };
     }
     default:
