@@ -70,13 +70,13 @@ export class LinearGradientPicker implements ControlValueAccessor {
 
   directionOptions = [
     { label: '↑ top', value: 'top' },
-    { label: '↗ right top', value: 'right top' },
+    { label: '↗ top right', value: 'top right' },
     { label: '→ right', value: 'right' },
-    { label: '↘ right bottom', value: 'right bottom' },
+    { label: '↘ bottom right', value: 'bottom right' },
     { label: '↓ bottom', value: 'bottom' },
-    { label: '↙ left bottom', value: 'left bottom' },
+    { label: '↙ bottom left', value: 'bottom left' },
     { label: '← left', value: 'left' },
-    { label: '↖ left top', value: 'left top' },
+    { label: '↖ top left', value: 'top left' },
   ];
 
   colorSpaceOptgroups = [

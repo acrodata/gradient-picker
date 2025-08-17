@@ -75,6 +75,8 @@ export class RadialGradientPicker implements ControlValueAccessor {
 
   value = '';
 
+  sizeKeywords = ['farthest-corner', 'farthest-side', 'closest-corner', 'closest-side'];
+
   lengthUnits = lengthUnits;
 
   posXOptions = positionXKeywords;

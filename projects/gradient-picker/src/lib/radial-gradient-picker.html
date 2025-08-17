@@ -26,10 +26,9 @@
     @if (size.type === 'keyword') {
       <gradient-input-field>
         <select [(ngModel)]="size.value" (change)="onGradientChange()">
-          <option value="closest-side">closest-side</option>
-          <option value="closest-corner">closest-corner</option>
-          <option value="farthest-side">farthest-side</option>
-          <option value="farthest-corner">farthest-corner</option>
+          @for (sk of sizeKeywords; track $index) {
+            <option [value]="sk">{{ sk }}</option>
+          }
         </select>
       </gradient-input-field>
     } @else {
