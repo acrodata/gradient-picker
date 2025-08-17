@@ -1,1 +1,20 @@
-<p>home works!</p>
+<div class="container">
+  <div class="jumbotron">
+    <gradient-picker [(ngModel)]="gradient" />
+
+    <div class="preview" [style.background]="gradient"></div>
+
+    <textarea
+      class="preview-edit"
+      [(ngModel)]="gradient"
+      [ngModelOptions]="{ updateOn: 'blur' }"
+    ></textarea>
+  </div>
+
+  <h2>Gradient picker in dropdown</h2>
+  <div>
+    @for (g of gradients; track $index) {
+      <app-gradient-dropdown [value]="g" />
+    }
+  </div>
+</div>
