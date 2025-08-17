@@ -12,6 +12,7 @@
   --gp-stop-item-active-color: light-dark(#e5f4ff, #4a5878);
 
   display: block;
+  width: var(--gp-container-width, 240px);
   padding: 8px 0;
   box-shadow: var(--gp-container-elevation-shadow,
       inset 0 0 1px 0 rgba(255, 255, 255, 0.64),
