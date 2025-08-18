@@ -45,7 +45,9 @@ export function parseRadialGradient(input: string): RadialGradientResult {
   if (!/(repeating-)?radial-gradient/.test(input))
     throw new SyntaxError(`could not find syntax for this item: ${input}`);
 
-  const [, repeating, props] = input.match(/(repeating-)?radial-gradient\((.+)\)/)!;
+  const [, repeating, props] = input
+    .replace(/[\n\t]/g, '')
+    .match(/(repeating-)?radial-gradient\((.+)\)/)!;
   const result: RadialGradientResult = {
     repeating: Boolean(repeating),
     shape: 'ellipse',

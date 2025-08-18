@@ -35,7 +35,9 @@ export function parseConicGradient(input: string): ConicGradientResult {
   if (!/(repeating-)?conic-gradient/.test(input))
     throw new SyntaxError(`could not find syntax for this item: ${input}`);
 
-  const [, repeating, props] = input.match(/(repeating-)?conic-gradient\((.+)\)/)!;
+  const [, repeating, props] = input
+    .replace(/[\n\t]/g, '')
+    .match(/(repeating-)?conic-gradient\((.+)\)/)!;
   const result: ConicGradientResult = {
     repeating: Boolean(repeating),
     angle: '0deg',

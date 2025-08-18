@@ -35,7 +35,9 @@ export function parseLinearGradient(input: string): LinearGradientResult {
   if (!/^(repeating-)?linear-gradient/.test(input))
     throw new SyntaxError(`could not find syntax for this item: ${input}`);
 
-  const [, repeating, props] = input.match(/(repeating-)?linear-gradient\((.+)\)/)!;
+  const [, repeating, props] = input
+    .replace(/[\n\t]/g, '')
+    .match(/(repeating-)?linear-gradient\((.+)\)/)!;
   const result: LinearGradientResult = {
     repeating: Boolean(repeating),
     orientation: { type: 'directional', value: 'bottom' },
