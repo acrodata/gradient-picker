@@ -23,4 +23,46 @@
       <app-gradient-dropdown [value]="g" />
     }
   </div>
+
+  <h2>Support all CSS gradient syntax</h2>
+
+  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient#syntax">MDN linear-gradient syntax</a>
+
+  <pre><code>/* A gradient with a single color of red */
+<app-gradient-input value="linear-gradient(red)" />
+
+/* A gradient tilted 45 degrees,
+   starting blue and finishing red */
+<app-gradient-input value="linear-gradient(45deg, blue, red)" />
+
+/* A gradient going from the bottom right to the top left corner,
+   starting blue and finishing red */
+<app-gradient-input value="linear-gradient(to left top, blue, red)" />
+
+/* Interpolation in rectangular color space */
+<app-gradient-input value="linear-gradient(in oklab, blue, red)" />
+
+/* Interpolation in polar color space */
+<app-gradient-input value="linear-gradient(in hsl, blue, red)" />
+
+/* Interpolation in polar color space
+  with longer hue interpolation method */
+<app-gradient-input value="linear-gradient(in hsl longer hue, blue, red)" />
+
+/* Color stop: A gradient going from the bottom to top,
+   starting blue, turning green at 40% of its length,
+   and finishing red */
+<app-gradient-input value="linear-gradient(0deg, blue, green 40%, red)" />
+
+/* Color hint: A gradient going from the left to right,
+   starting red, getting to the midpoint color
+   10% of the way across the length of the gradient,
+   taking the rest of the 90% of the length to change to blue */
+<app-gradient-input value="linear-gradient(0.25turn, red, 10%, blue)" />
+
+/* Multi-position color stop: A gradient tilted 45 degrees,
+   with a red bottom-left half and a blue top-right half,
+   with a hard line where the gradient changes from red to blue */
+<app-gradient-input value="linear-gradient(45deg, red 0 50%, blue 50% 100%)" />
+</code></pre>
 </div>

@@ -14,5 +14,5 @@
   (overlayOutsideClick)="isOpen = false"
   (detach)="isOpen = false"
 >
-  <gradient-picker [(ngModel)]="value" />
+  <gradient-picker [(ngModel)]="value" (ngModelChange)="onValueChange()" />
 </ng-template>

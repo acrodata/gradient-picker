@@ -2,11 +2,12 @@ import { GradientPicker } from '@acrodata/gradient-picker';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GradientDropdownComponent } from '../gradient-dropdown/gradient-dropdown.component';
+import { GradientInputComponent } from '../gradient-input/gradient-input.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, GradientPicker, GradientDropdownComponent],
+  imports: [FormsModule, GradientPicker, GradientDropdownComponent, GradientInputComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

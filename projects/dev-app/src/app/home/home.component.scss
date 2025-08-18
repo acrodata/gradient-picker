@@ -1,6 +1,8 @@
 .container {
   width: 800px;
+  padding: 0 16px;
   margin: 0 auto;
+  overflow: auto;
 }
 
 .jumbotron {
@@ -31,4 +33,12 @@
     border-color: #0085f2;
     box-shadow: 0 0 0 3px rgba(0, 144, 237, 0.4);
   }
+}
+
+pre {
+  padding: 16px 40px 16px 16px;
+  margin: 16px 0 32px;
+  background-color: #f2f1f1;
+  border-radius: 8px;
+  color: #858585;
 }

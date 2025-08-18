@@ -1,0 +1,22 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+:host ::ng-deep {
+  app-gradient-dropdown {
+    button {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+    }
+  }
+}
+
+input {
+  width: 100%;
+  border: none;
+  background: none;
+  font-family: monospace;
+}
