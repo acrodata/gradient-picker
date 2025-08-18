@@ -1,24 +1,34 @@
 .container {
   width: 800px;
-  padding: 16px 0;
   margin: 0 auto;
 }
 
 .jumbotron {
   display: grid;
-  grid-template: 'left right-top' auto 'left right-bottom' 50px / 240px auto;
-  gap: 16px;
+  grid-template: 'left right-top' 240px 'left right-bottom' auto / 240px auto;
+  gap: 0 16px;
+}
 
-  gradient-picker {
-    grid-area: left;
-  }
+.picker-area {
+  grid-area: left;
+}
 
-  .preview {
-    grid-area: right-top;
-    border: 1px solid;
-  }
+.preview-bg {
+  grid-area: right-top;
+  border: 1px solid;
+  border-radius: 8px 8px 0 0;
+}
 
-  .preview-edit {
-    grid-area: right-bottom;
+.preview-edit {
+  grid-area: right-bottom;
+  padding: 4px;
+  border: 1px solid rgba(0, 0, 0, .32);
+  border-radius: 0 0 8px 8px;
+  resize: vertical;
+
+  &:focus {
+    outline: none;
+    border-color: #0085f2;
+    box-shadow: 0 0 0 3px rgba(0, 144, 237, 0.4);
   }
 }
