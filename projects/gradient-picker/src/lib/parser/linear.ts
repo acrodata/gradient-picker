@@ -13,11 +13,22 @@ export interface LinearGradientResult {
   stops: ColorStop[];
 }
 
+function normalizeDirectionalValue(v: string) {
+  v = v.trim().replace(/\s+/g, ' ');
+  const map: Record<string, string> = {
+    'left top': 'top left',
+    'right top': 'top right',
+    'left bottom': 'bottom left',
+    'right bottom': 'bottom right',
+  };
+  return map[v] || v;
+}
+
 function resolveLinearOrientation(angle: string): LinearOrientation | null {
   if (angle.startsWith('to ')) {
     return {
       type: 'directional',
-      value: angle.replace('to ', ''),
+      value: normalizeDirectionalValue(angle.replace('to ', '')),
     };
   }
 

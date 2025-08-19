@@ -60,7 +60,7 @@ export function resolveStops(v: string[]): ColorStop[] {
   return stops;
 }
 
-const REGEX = /^(-?\d+\.?\d*)(%|vw|vh|px|em|rem|deg|rad|grad|turn|ch|vmin|vmax)?$/;
+const REGEX = /^(-?\d*\.?\d*)(%|vw|vh|px|em|rem|deg|rad|grad|turn|ch|vmin|vmax)?$/;
 
 function isHint(v: string) {
   return REGEX.test(v);
