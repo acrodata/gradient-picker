@@ -1,5 +1,5 @@
 .container {
-  width: 800px;
+  max-width: 800px;
   padding: 0 16px;
   margin: 0 auto;
   overflow: auto;
@@ -7,24 +7,31 @@
 
 .jumbotron {
   display: grid;
-  grid-template: 'left right-top' 240px 'left right-bottom' auto / 240px auto;
+  grid-template: 'picker preview' 240px 'picker textarea' auto / 240px auto;
   gap: 0 16px;
 }
 
-.picker-area {
-  grid-area: left;
+@media (width < 600px) {
+  .jumbotron {
+    grid-template: 'preview' 240px 'textarea' auto 'picker' auto;
+  }
 }
 
-.preview-bg {
-  grid-area: right-top;
+.gradient-picker-wrapper {
+  grid-area: picker;
+}
+
+.gradient-preview {
+  grid-area: preview;
   border: 1px solid;
   border-radius: 8px 8px 0 0;
 }
 
-.preview-edit {
-  grid-area: right-bottom;
+.gradient-text {
+  grid-area: textarea;
   padding: 4px;
-  border: 1px solid rgba(0, 0, 0, .32);
+  margin: 0;
+  border: 1px solid rgba(0, 0, 0, 0.32);
   border-radius: 0 0 8px 8px;
   resize: vertical;
 
@@ -36,9 +43,10 @@
 }
 
 pre {
-  padding: 16px 40px 16px 16px;
+  padding: 16px;
   margin: 16px 0 32px;
   background-color: #f2f1f1;
   border-radius: 8px;
   color: #858585;
+  white-space: pre-wrap;
 }

@@ -1,17 +1,14 @@
 <div class="container">
-  <header>
-    <h2>Gradient picker</h2>
-  </header>
-
+  <h2>Gradient picker</h2>
   <div class="jumbotron">
-    <div class="picker-area">
+    <div class="gradient-picker-wrapper">
       <gradient-picker [(ngModel)]="gradient" />
     </div>
 
-    <div class="preview-bg" [style.background]="gradient"></div>
+    <div class="gradient-preview" [style.background]="gradient"></div>
 
     <textarea
-      class="preview-edit"
+      class="gradient-text"
       [(ngModel)]="gradient"
       [ngModelOptions]="{ updateOn: 'blur' }"
     ></textarea>
@@ -24,9 +21,8 @@
     }
   </div>
 
-  <h2>Support all CSS gradient syntax</h2>
-
-  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient#syntax">MDN linear-gradient syntax</a>
+  <h2>CSS gradient syntax</h2>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient#syntax">MDN</a>
 
   <pre><code>/* A gradient with a single color of red */
 <app-gradient-input value="linear-gradient(red)" />
@@ -58,7 +54,7 @@
    starting red, getting to the midpoint color
    10% of the way across the length of the gradient,
    taking the rest of the 90% of the length to change to blue */
-<app-gradient-input value="linear-gradient(0.25turn, red, 10%, blue)" />
+<app-gradient-input value="linear-gradient(.25turn, red, 10%, blue)" />
 
 /* Multi-position color stop: A gradient tilted 45 degrees,
    with a red bottom-left half and a blue top-right half,
