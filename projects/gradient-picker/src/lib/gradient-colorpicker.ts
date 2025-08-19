@@ -23,6 +23,7 @@ import { ColorChromeModule } from 'ngx-color/chrome';
   template: `
     <button
       type="button"
+      [class.gradient-colorpicker-empty-color]="!color"
       [style.background-color]="color"
       (click)="onClick($event)"
       (dblclick)="onDblClick($event)"

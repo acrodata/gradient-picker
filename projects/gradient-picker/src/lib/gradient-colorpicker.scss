@@ -21,7 +21,20 @@
     height: 100%;
     padding: 0;
     border: none;
+    background-color: #fff;
     text-indent: -9999px;
     cursor: inherit;
+  }
+}
+
+.gradient-colorpicker-empty-color {
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom right, transparent 47%, red 47% 53%, transparent 53%);
   }
 }
