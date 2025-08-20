@@ -12,7 +12,6 @@
   background-size: 8px 8px;
   background-color: #fff;
   border-radius: 2px;
-  overflow: hidden;
 
   > button {
     position: relative;
@@ -21,9 +20,15 @@
     height: 100%;
     padding: 0;
     border: none;
+    border-radius: inherit;
     background-color: #fff;
     text-indent: -9999px;
     cursor: inherit;
+    outline: none;
+
+    &:focus {
+      outline: 2px solid var(--gp-input-outline-focus-color, #0d99ff);
+    }
   }
 }
 

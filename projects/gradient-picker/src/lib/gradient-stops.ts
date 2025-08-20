@@ -230,6 +230,8 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
   }
 
   onStopRemove(stop: SliderColorStop) {
+    if (this.sliderColorStops.length === 1) return;
+
     this.sliderColorStops = this.sliderColorStops.filter(s => s !== stop);
     this.getGradientColor();
     this.onStopsChange();

@@ -26,6 +26,8 @@
             [color]="stop.color"
             [overlayOrigin]="sliderThumb"
             triggerEvent="dblclick"
+            (keydown.backspace)="onStopRemove(stop)"
+            (keydown.delete)="onStopRemove(stop)"
           />
           <gradient-colorpicker
             #gc

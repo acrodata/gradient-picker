@@ -57,10 +57,15 @@
     box-shadow: 0 0 0 1px var(--gp-stops-slider-thumb-toggle-outline-color, rgba(0, 0, 0, 0.12));
     cursor: ew-resize;
   }
+
+  &:focus-within {
+    background-color: var(--gp-input-outline-focus-color, #0d99ff);
+  }
 }
 
 .gradient-stops-slider-thumb-active {
-  background-color: var(--gp-input-outline-focus-color, #0d99ff);
+  outline: 1px solid var(--gp-input-outline-focus-color, #0d99ff);
+  outline-offset: -1px;
 }
 
 .gradient-stop-list-wrapper {
