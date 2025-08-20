@@ -6,6 +6,7 @@ import {
   GradientPicker,
   GradientStops,
   LinearGradientPicker,
+  parseGradient,
   RadialGradientPicker,
 } from '@acrodata/gradient-picker';
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
@@ -87,5 +88,9 @@ export class ExamplesComponent {
 
   onColorStopsChange(e: ColorStop[]) {
     // console.log(e);
+  }
+
+  parseGradient(value: string) {
+    console.log(parseGradient(value));
   }
 }

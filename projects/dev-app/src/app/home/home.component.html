@@ -1,5 +1,8 @@
 <div class="container">
-  <h2>Gradient picker</h2>
+  <h2>
+    Gradient picker
+    <button class="theme-btn" (click)="toggleTheme()">{{ lightTheme ? '☀️' : '🌙' }}</button>
+  </h2>
   <div class="jumbotron">
     <div class="gradient-picker-wrapper">
       <gradient-picker [(ngModel)]="gradient" />

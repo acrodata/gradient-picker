@@ -29,7 +29,11 @@
 </select>
 
 <div class="gradient-wrap">
-  <textarea [(ngModel)]="gradient" [ngModelOptions]="{ updateOn: 'blur' }"></textarea>
+  <textarea
+    [(ngModel)]="gradient"
+    [ngModelOptions]="{ updateOn: 'blur' }"
+    (ngModelChange)="parseGradient($event)"
+  ></textarea>
 
   <gradient-picker [(ngModel)]="gradient" />
 

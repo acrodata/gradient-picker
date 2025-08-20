@@ -31,7 +31,7 @@
   grid-area: textarea;
   padding: 4px;
   margin: 0;
-  border: 1px solid rgba(0, 0, 0, 0.32);
+  border: 1px solid light-dark(rgba(0, 0, 0, 0.32), rgba(255, 255, 255, 0.32));
   border-radius: 0 0 8px 8px;
   resize: vertical;
 
@@ -45,8 +45,15 @@
 pre {
   padding: 16px;
   margin: 16px 0 32px;
-  background-color: #f2f1f1;
+  background-color: light-dark(#f1f1f1, #2d2d2d);
   border-radius: 8px;
   color: #858585;
   white-space: pre-wrap;
+}
+
+.theme-btn {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  vertical-align: middle;
 }
