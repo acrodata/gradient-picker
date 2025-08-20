@@ -3,6 +3,8 @@
 [![npm](https://img.shields.io/npm/v/@acrodata/gradient-picker.svg)](https://www.npmjs.com/package/@acrodata/gradient-picker)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/acrodata/gradient-picker/blob/main/LICENSE)
 
+Gradient picker for CSS gradient.
+
 ## Installation
 
 ```bash
@@ -16,18 +18,41 @@ npm install @acrodata/gradient-picker --save
 ```ts
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { GradientPicker } from '@acrodata/gradient-picker';
+import {
+  ColorStop,
+  GradientPicker,
+  LinearGradientPicker,
+  RadialGradientPicker,
+  ConicGradientPicker,
+} from '@acrodata/gradient-picker';
 
 @Component({
   selector: 'your-app',
   template: `
     <gradient-picker [(ngModel)]="value" />
+
+    <linear-gradient-picker [(ngModel)]="linearValue" />
+    <radial-gradient-picker [(ngModel)]="radialValue" />
+    <conic-gradient-picker [(ngModel)]="conicValue" />
+
+    <gradient-stops [(ngModel)]="colorStops" />
   `,
-  standalone: true,
-  imports: [FormsModule, GradientPicker],
+  imports: [
+    FormsModule,
+    GradientPicker,
+    LinearGradientPicker,
+    RadialGradientPicker,
+    ConicGradientPicker,
+  ],
 })
 export class YourAppComponent {
   value = 'linear-gradient(45deg, blue, red)';
+
+  linearValue = 'linear-gradient(45deg, blue, red)';
+  radialValue = 'radial-gradient(45deg, blue, red)';
+  conicValue = 'conic-gradient(45deg, blue, red)';
+
+  colorStops: ColorStop[] = [{ color: 'red' }, { color: 'lime' }, { color: 'blue' }];
 }
 ```
 
