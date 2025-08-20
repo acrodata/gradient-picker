@@ -10,3 +10,4 @@ export * from './lib/radial-gradient-picker';
 export * from './lib/conic-gradient-picker';
 export * from './lib/form-controls';
 export * from './lib/parser';
+export * from './lib/utils';

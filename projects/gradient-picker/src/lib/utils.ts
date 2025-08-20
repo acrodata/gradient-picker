@@ -215,7 +215,7 @@ export function convertAngleToPercentage(stops: ColorStop[]) {
 }
 
 /**
- * Parse gradient
+ * A unified function for parsing all gradient types.
  *
  * @param input
  */
