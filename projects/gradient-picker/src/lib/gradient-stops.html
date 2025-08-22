@@ -28,6 +28,10 @@
             triggerEvent="dblclick"
             (keydown.backspace)="onStopRemove(stop)"
             (keydown.delete)="onStopRemove(stop)"
+            (keydown.arrowup)="moveStop($event, stop, $index, 1)"
+            (keydown.arrowright)="moveStop($event, stop, $index, 1)"
+            (keydown.arrowdown)="moveStop($event, stop, $index, -1)"
+            (keydown.arrowleft)="moveStop($event, stop, $index, -1)"
           />
           <gradient-colorpicker
             #gc

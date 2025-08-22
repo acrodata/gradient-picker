@@ -8,13 +8,15 @@ import { ColorStop, parseConicGradient, parseLinearGradient, parseRadialGradient
  * @param index The element at this index will be checked and moved to its correct sorted location.
  * @param compareWith1 The comparison function used to determine if the element needs to move left.
  * @param compareWith2 The comparison function used to determine if the element needs to move right.
+ * @param callback The callback function after the elements have been swapped.
  * @returns
  */
 export function reorderElementByCondition<T = any>(
   array: T[] = [],
   index = 0,
   compareWith1: (a: T, b: T) => boolean = (a, b) => a < b,
-  compareWith2: (a: T, b: T) => boolean = (a, b) => a > b
+  compareWith2: (a: T, b: T) => boolean = (a, b) => a > b,
+  callback?: (newIndex: number) => void
 ): T[] {
   // Make a copy to avoid modifying the original array reference
   const newArr = [...array];
@@ -33,12 +35,14 @@ export function reorderElementByCondition<T = any>(
     // Swap elements
     [newArr[i], newArr[i - 1]] = [newArr[i - 1], newArr[i]];
     i--;
+    callback?.(i);
   }
 
   while (i < newArr.length - 1 && compareWith2(newArr[i], newArr[i + 1])) {
     // Swap elements
     [newArr[i], newArr[i + 1]] = [newArr[i + 1], newArr[i]];
     i++;
+    callback?.(i);
   }
 
   return newArr;

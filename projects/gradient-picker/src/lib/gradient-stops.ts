@@ -246,4 +246,30 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
     this.onChange(this.colorStops);
     this.colorStopsChange.next(this.colorStops);
   }
+
+  moveStop(e: Event, stop: SliderColorStop, index: number, step: number) {
+    e.preventDefault();
+
+    stop.offset.value = Math.min(100, Math.max(0, stop.offset.value + step));
+    stop.position = {
+      x: (stop.offset.value / 100) * this.trackWidth,
+      y: 0,
+    };
+
+    const stops = reorderElementByCondition<SliderColorStop>(
+      this.sliderColorStops,
+      index,
+      (a, b) => a.position.x < b.position.x,
+      (a, b) => a.position.x > b.position.x,
+      i => {
+        this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
+        const btns = Array.from(
+          this.track!.nativeElement.querySelectorAll<HTMLButtonElement>('button')
+        );
+        btns[i].focus();
+      }
+    );
+    this.getGradientColor(stops);
+    this.onStopsChange();
+  }
 }
