@@ -62,6 +62,7 @@ export interface SliderColorStop extends ColorStop {
 })
 export class GradientStops implements ControlValueAccessor, AfterViewInit, OnChanges {
   private cdr = inject(ChangeDetectorRef);
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
   @ViewChild('sliderTrack') track?: ElementRef<HTMLElement>;
 
@@ -189,12 +190,13 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
     this.onStopsChange();
   }
 
-  onDragEnd(e: CdkDragEnd) {
+  onDragEnd(e: CdkDragEnd, stop: SliderColorStop) {
     this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
+    this.restoreFocus(this.track!.nativeElement.querySelectorAll('button'), stop);
+    this.onStopsChange();
+
     this.isDragging = false;
     this.cdr.markForCheck();
-
-    this.onStopsChange();
   }
 
   onDragHandleDown(e: MouseEvent, stop: SliderColorStop) {
@@ -225,6 +227,10 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
       y: 0,
     };
     this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
+    this.restoreFocus(
+      this.elementRef.nativeElement.querySelectorAll('.gradient-stop-item-offset input'),
+      stop
+    );
     this.getGradientColor();
     this.onStopsChange();
   }
@@ -247,6 +253,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
     this.colorStopsChange.next(this.colorStops);
   }
 
+  /** Move selected stop by arrow keys. */
   moveStop(e: Event, stop: SliderColorStop, index: number, step: number) {
     e.preventDefault();
 
@@ -261,15 +268,19 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
       index,
       (a, b) => a.position.x < b.position.x,
       (a, b) => a.position.x > b.position.x,
-      i => {
+      () => {
         this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
-        const btns = Array.from(
-          this.track!.nativeElement.querySelectorAll<HTMLButtonElement>('button')
-        );
-        btns[i].focus();
+        this.restoreFocus(this.track!.nativeElement.querySelectorAll('button'), stop);
       }
     );
     this.getGradientColor(stops);
     this.onStopsChange();
+  }
+
+  /** Restoring focus to the selected stop after sorting. */
+  restoreFocus(nodeList: NodeListOf<HTMLElement>, stop: SliderColorStop) {
+    const newIndex = this.sliderColorStops.findIndex(s => s === stop);
+    const elements = Array.from(nodeList);
+    elements[newIndex].focus();
   }
 }
