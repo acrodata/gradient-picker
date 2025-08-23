@@ -93,6 +93,7 @@ export class YourAppComponent {
 
 ```css
 --gp-container-width
+--gp-container-max-height
 --gp-container-shape
 --gp-container-horizontal-padding
 --gp-container-elevation-shadow
