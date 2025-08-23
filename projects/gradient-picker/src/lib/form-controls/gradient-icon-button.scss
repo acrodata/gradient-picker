@@ -9,19 +9,18 @@
     color: var(--gp-icon-button-text-color, inherit);
     background-color: var(--gp-icon-button-background-color, transparent);
     border: none;
-    border-radius: 4px;
-    outline: none;
+    border-radius: var(--gp-icon-button-shape, 4px);
 
     &:hover {
       background-color: var(--gp-icon-button-hover-background-color, rgba(0, 0, 0, 0.06));
     }
 
-    &:focus,
     &:active {
-      background-color: var(--gp-icon-button-focus-background-color, rgba(0, 0, 0, 0.12));
+      background-color: var(--gp-icon-button-active-background-color, rgba(0, 0, 0, 0.12));
     }
 
     &:focus-visible {
+      background-color: var(--gp-icon-button-focus-background-color, transparent);
       outline: 1px solid var(--gp-icon-button-focus-outline-color, #0d99ff);
       outline-offset: -1px;
     }

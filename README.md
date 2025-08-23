@@ -109,9 +109,11 @@ export class YourAppComponent {
 --gp-input-outline-focus-color
 --gp-unit-select-hover-background-color
 
+--gp-icon-button-shape
 --gp-icon-button-text-color
 --gp-icon-button-background-color
 --gp-icon-button-hover-background-color
+--gp-icon-button-active-background-color
 --gp-icon-button-focus-background-color
 --gp-icon-button-focus-outline-color
 
