@@ -1,7 +1,7 @@
 .gradient-stops-slider {
   position: relative;
   padding: 0 var(--gp-container-horizontal-padding, 12px);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 
   &.is-dragging {
     cursor: ew-resize;
@@ -69,7 +69,17 @@
 }
 
 .gradient-stop-list-wrapper {
+  position: relative;
   margin-top: 24px;
+  font-size: var(--gp-container-text-size, 12px);
+}
+
+.gradient-stop-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--gp-container-horizontal-padding, 12px);
+  margin-bottom: 4px;
 }
 
 .gradient-stop-list {

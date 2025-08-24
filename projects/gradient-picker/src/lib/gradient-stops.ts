@@ -160,13 +160,31 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
     }
   }
 
-  addStop(e: MouseEvent) {
-    const xPercentVal = Math.round((e.offsetX / this.trackWidth) * 100);
+  getNewStopOffsetX(stops = this.sliderColorStops) {
+    if (stops.length === 0) return 0;
+
+    if (stops.length === 1) {
+      const newOffset = stops[0].offset.value < 50 ? 100 : 0;
+      return (newOffset / 100) * this.trackWidth;
+    }
+
+    const currentIndex = this.selectedStop
+      ? stops.findIndex(stop => stop === this.selectedStop)
+      : 0;
+    const neighborIndex = currentIndex === stops.length - 1 ? currentIndex - 1 : currentIndex + 1;
+    const newOffset = (stops[currentIndex].offset.value + stops[neighborIndex].offset.value) / 2;
+    return (newOffset / 100) * this.trackWidth;
+  }
+
+  addStop(e?: MouseEvent) {
+    const offsetX = e ? e.offsetX : this.getNewStopOffsetX();
     const newStop = {
-      color: this.getInsertStopColor(e.offsetX),
-      offset: { value: xPercentVal, unit: '%' },
-      position: { x: Math.round(e.offsetX), y: 0 },
+      color: this.getInsertStopColor(offsetX),
+      offset: { value: Math.round((offsetX / this.trackWidth) * 100), unit: '%' },
+      position: { x: Math.round(offsetX), y: 0 },
     };
+
+    this.selectedStop = newStop;
     this.sliderColorStops.push(newStop);
     this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
 
