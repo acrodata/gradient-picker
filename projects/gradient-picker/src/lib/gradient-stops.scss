@@ -72,6 +72,7 @@
   position: relative;
   margin-top: 24px;
   font-size: var(--gp-container-text-size, 12px);
+  font-family: var(--gp-container-text-font, inherit);;
 }
 
 .gradient-stop-list-header {

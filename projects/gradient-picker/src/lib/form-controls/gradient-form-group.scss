@@ -5,6 +5,7 @@
   gap: 4px;
   padding: 4px var(--gp-container-horizontal-padding, 12px);
   font-size: var(--gp-container-text-size, 12px);
+  font-family: var(--gp-container-text-font, inherit);
 
   .gradient-input-field,
   .gradient-unit-input {

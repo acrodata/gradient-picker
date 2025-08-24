@@ -10,7 +10,7 @@
   border-radius: var(--gp-input-shape, 4px);
   color: var(--gp-container-text-color, rgba(0, 0, 0, 0.9));
   font-size: var(--gp-container-text-size, 12px);
-  font-family: var(--gp-container-text-font, Roboto);
+  font-family: var(--gp-container-text-font, inherit);
   overflow: hidden;
 
   &:focus-within {
