@@ -135,6 +135,8 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
       }
     );
 
+    this.selectedStop = undefined;
+
     this.cdr.markForCheck();
   }
 
@@ -257,6 +259,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
     if (this.sliderColorStops.length === 1) return;
 
     this.sliderColorStops = this.sliderColorStops.filter(s => s !== stop);
+    this.selectedStop = undefined;
     this.getGradientColor();
     this.onStopsChange();
   }
