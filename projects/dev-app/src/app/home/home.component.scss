@@ -5,10 +5,29 @@
   overflow: auto;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  span {
+    flex: 1;
+  }
+
+  a {
+    display: inline-flex;
+    color: inherit;
+  }
+}
+
 .jumbotron {
   display: grid;
   grid-template: 'picker preview' 240px 'picker textarea' auto / 240px auto;
   gap: 0 16px;
+
+  gradient-picker {
+    display: block;
+  }
 }
 
 @media (width < 600px) {
