@@ -48,7 +48,7 @@
   <div class="gradient-stop-list-header">
     <span>Stops</span>
     <gradient-icon-button>
-      <button type="button" (click)="addStop()">
+      <button type="button" (click)="addStop()" title="Add stop" aria-label="Add stop">
         <svg viewBox="0 0 24 24">
           <path
             fill="currentColor"
@@ -95,7 +95,12 @@
         </gradient-input-field>
         <gradient-icon-button>
           @if (sliderColorStops.length > 1) {
-            <button type="button" (click)="onStopRemove(stop)">
+            <button
+              type="button"
+              (click)="onStopRemove(stop)"
+              title="Remove stop"
+              aria-label="Remove stop"
+            >
               <svg viewBox="0 0 24 24">
                 <path
                   fill="currentColor"
