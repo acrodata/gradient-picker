@@ -14,7 +14,7 @@
   overflow: hidden;
 
   &:focus-within {
-    outline-color: var(--gp-input-outline-focus-color, #0d99ff);
+    outline-color: var(--gp-input-focus-outline-color, #0d99ff);
   }
 
   .gradient-colorpicker-toggle {

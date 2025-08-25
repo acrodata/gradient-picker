@@ -59,12 +59,12 @@
   }
 
   &:focus-within {
-    background-color: var(--gp-input-outline-focus-color, #0d99ff);
+    background-color: var(--gp-input-focus-outline-color, #0d99ff);
   }
 }
 
 .gradient-stops-slider-thumb-active {
-  outline: 1px solid var(--gp-input-outline-focus-color, #0d99ff);
+  outline: 1px solid var(--gp-input-focus-outline-color, #0d99ff);
   outline-offset: -1px;
 }
 

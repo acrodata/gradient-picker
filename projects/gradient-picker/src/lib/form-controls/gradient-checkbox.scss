@@ -9,7 +9,7 @@
     margin: 0;
 
     &:focus-visible {
-      outline: 1px solid var(--gp-input-outline-focus-color, #0d99ff);
+      outline: 1px solid var(--gp-input-focus-outline-color, #0d99ff);
     }
   }
 }
