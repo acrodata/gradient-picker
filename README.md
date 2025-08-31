@@ -93,9 +93,10 @@ export class YourAppComponent {
 
 ```css
 --gp-container-width
---gp-container-max-height
 --gp-container-shape
+--gp-container-vertical-padding
 --gp-container-horizontal-padding
+--gp-container-margin
 --gp-container-elevation-shadow
 --gp-container-background-color
 --gp-container-text-color
@@ -124,6 +125,7 @@ export class YourAppComponent {
 --gp-stops-slider-thumb-shadow
 --gp-stops-slider-thumb-background-color
 --gp-stops-slider-thumb-toggle-outline-color
+--gp-stop-list-max-height
 --gp-stop-item-active-color
 ```
 

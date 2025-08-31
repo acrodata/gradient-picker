@@ -59,58 +59,60 @@
       </button>
     </gradient-icon-button>
   </div>
-  <ul class="gradient-stop-list">
-    @for (stop of sliderColorStops; track $index) {
-      <li
-        class="gradient-stop-item"
-        [class.gradient-stop-item-active]="stop === selectedStop"
-        (pointerdown)="onStopItemClick(stop)"
-      >
-        <gradient-input-field
-          class="gradient-stop-item-color"
-          cdkOverlayOrigin
-          #colorField="cdkOverlayOrigin"
+  <div class="gradient-stop-list-body">
+    <ul class="gradient-stop-list">
+      @for (stop of sliderColorStops; track $index) {
+        <li
+          class="gradient-stop-item"
+          [class.gradient-stop-item-active]="stop === selectedStop"
+          (pointerdown)="onStopItemClick(stop)"
         >
-          <gradient-colorpicker-toggle
-            [for]="gc"
-            [color]="stop.color"
-            [overlayOrigin]="colorField"
-          />
-          <gradient-colorpicker
-            #gc
-            [(ngModel)]="stop.color"
-            (ngModelChange)="onStopColorChange(stop)"
-          />
-          <input type="text" [(ngModel)]="stop.color" (change)="onStopColorChange(stop)" />
-        </gradient-input-field>
-        <gradient-input-field class="gradient-stop-item-offset">
-          <input
-            type="number"
-            min="0"
-            max="100"
-            [(ngModel)]="stop.offset.value"
-            (change)="onStopOffsetChange(stop)"
-          />
-          <span>%</span>
-        </gradient-input-field>
-        <gradient-icon-button>
-          @if (sliderColorStops.length > 1) {
-            <button
-              type="button"
-              (click)="onStopRemove(stop)"
-              title="Remove stop"
-              aria-label="Remove stop"
-            >
-              <svg viewBox="0 0 24 24">
-                <path
-                  fill="currentColor"
-                  d="M6 12a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 6 12"
-                />
-              </svg>
-            </button>
-          }
-        </gradient-icon-button>
-      </li>
-    }
-  </ul>
+          <gradient-input-field
+            class="gradient-stop-item-color"
+            cdkOverlayOrigin
+            #colorField="cdkOverlayOrigin"
+          >
+            <gradient-colorpicker-toggle
+              [for]="gc"
+              [color]="stop.color"
+              [overlayOrigin]="colorField"
+            />
+            <gradient-colorpicker
+              #gc
+              [(ngModel)]="stop.color"
+              (ngModelChange)="onStopColorChange(stop)"
+            />
+            <input type="text" [(ngModel)]="stop.color" (change)="onStopColorChange(stop)" />
+          </gradient-input-field>
+          <gradient-input-field class="gradient-stop-item-offset">
+            <input
+              type="number"
+              min="0"
+              max="100"
+              [(ngModel)]="stop.offset.value"
+              (change)="onStopOffsetChange(stop)"
+            />
+            <span>%</span>
+          </gradient-input-field>
+          <gradient-icon-button>
+            @if (sliderColorStops.length > 1) {
+              <button
+                type="button"
+                (click)="onStopRemove(stop)"
+                title="Remove stop"
+                aria-label="Remove stop"
+              >
+                <svg viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M6 12a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 6 12"
+                  />
+                </svg>
+              </button>
+            }
+          </gradient-icon-button>
+        </li>
+      }
+    </ul>
+  </div>
 </div>

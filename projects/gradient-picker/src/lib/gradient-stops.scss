@@ -83,6 +83,11 @@
   margin-bottom: 4px;
 }
 
+.gradient-stop-list-body {
+  max-height: var(--gp-stop-list-max-height, 22vh);
+  overflow: auto;
+}
+
 .gradient-stop-list {
   padding: 0;
   margin: 0;
