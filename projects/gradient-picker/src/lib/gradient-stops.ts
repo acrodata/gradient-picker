@@ -191,7 +191,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
 
     this.selectedStop = newStop;
     this.sliderColorStops.push(newStop);
-    this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
+    this.sliderColorStops.sort(this.sortFn);
 
     this.getGradientColor();
     this.onStopsChange();
@@ -214,7 +214,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
   }
 
   onDragEnd(e: CdkDragEnd, stop: SliderColorStop) {
-    this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
+    this.sliderColorStops.sort(this.sortFn);
     this.restoreFocus(this.track!.nativeElement.querySelectorAll('button'), stop);
     this.onStopsChange();
 
@@ -252,7 +252,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
       ),
       y: 0,
     };
-    this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
+    this.sliderColorStops.sort(this.sortFn);
     this.restoreFocus(
       this.elementRef.nativeElement.querySelectorAll('.gradient-stop-item-offset input'),
       stop
@@ -275,7 +275,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
     this.sliderColorStops.forEach((stop, i) => {
       this.colorStops[i] = { color: stop.color, offset: stop.offset };
     });
-    this.colorStops.sort((a, b) => a.offset!.value - b.offset!.value);
+    this.colorStops.sort(this.sortFn);
     this.onChange(this.colorStops);
     this.colorStopsChange.next(this.colorStops);
   }
@@ -284,7 +284,10 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
   moveStop(e: Event, stop: SliderColorStop, index: number, step: number) {
     e.preventDefault();
 
-    stop.offset.value = Math.min(100, Math.max(0, stop.offset.value + step));
+    stop.offset.value = Math.min(
+      stop.offset.unit === '%' ? 100 : this.trackWidth,
+      Math.max(0, stop.offset.value + step)
+    );
     stop.position = {
       x: stop.offset.unit === '%' ? (stop.offset.value / 100) * this.trackWidth : stop.offset.value,
       y: 0,
@@ -296,7 +299,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
       (a, b) => a.position.x < b.position.x,
       (a, b) => a.position.x > b.position.x,
       () => {
-        this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
+        this.sliderColorStops.sort(this.sortFn);
         this.restoreFocus(this.track!.nativeElement.querySelectorAll('button'), stop);
       }
     );
@@ -310,4 +313,17 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
     const elements = Array.from(nodeList);
     elements[newIndex].focus();
   }
+
+  /** Comparison function to sort color stops by their offset values. */
+  sortFn = (a: ColorStop, b: ColorStop) => {
+    const aOffset = a.offset!;
+    const bOffset = b.offset!;
+    if (aOffset.unit === bOffset.unit) {
+      return aOffset.value - bOffset.value;
+    } else {
+      const aVal = aOffset.unit === '%' ? (aOffset.value / 100) * this.trackWidth : aOffset.value;
+      const bVal = bOffset.unit === '%' ? (bOffset.value / 100) * this.trackWidth : bOffset.value;
+      return aVal - bVal;
+    }
+  };
 }
