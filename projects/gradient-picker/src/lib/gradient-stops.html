@@ -87,12 +87,12 @@
           <gradient-input-field class="gradient-stop-item-offset">
             <input
               type="number"
-              min="0"
-              max="100"
+              [min]="0"
+              [max]="stop.offset.unit === '%' ? 100 : null"
               [(ngModel)]="stop.offset.value"
               (change)="onStopOffsetChange(stop)"
             />
-            <span>%</span>
+            <span>{{ stop.offset.unit }}</span>
           </gradient-input-field>
           <gradient-icon-button>
             @if (sliderColorStops.length > 1) {

@@ -209,7 +209,7 @@ export function angleToPercentage(value: number, unit: string) {
  */
 export function convertAngleToPercentage(stops: ColorStop[]) {
   return stops.map(stop => {
-    if (stop.offset && stop.offset.unit !== '%') {
+    if (stop.offset && angleUnits.includes(stop.offset.unit)) {
       const { value, unit } = stop.offset;
       stop.offset.value = angleToPercentage(value, unit);
       stop.offset.unit = '%';

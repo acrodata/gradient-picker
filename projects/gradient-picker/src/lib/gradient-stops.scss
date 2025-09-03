@@ -55,7 +55,7 @@
     width: 12px;
     height: 12px;
     box-shadow: 0 0 0 1px var(--gp-stops-slider-thumb-toggle-outline-color, rgba(0, 0, 0, 0.12));
-    cursor: ew-resize;
+    cursor: inherit;
   }
 
   &:focus-within {
@@ -72,7 +72,7 @@
   position: relative;
   margin-top: 24px;
   font-size: var(--gp-container-text-size, 12px);
-  font-family: var(--gp-container-text-font, inherit);;
+  font-family: var(--gp-container-text-font, inherit);
 }
 
 .gradient-stop-list-header {

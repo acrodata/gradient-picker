@@ -126,7 +126,10 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
     this.sliderColorStops = fillUndefinedOffsets(convertAngleToPercentage(this.colorStops)).map(
       stop => {
         const offset = stop.offset || { value: 0, unit: '%' };
-        const posX = Math.min((offset.value / 100) * this.trackWidth, this.trackWidth);
+        const posX = Math.min(
+          offset.unit === '%' ? (offset.value / 100) * this.trackWidth : offset.value,
+          this.trackWidth
+        );
         return {
           ...stop,
           offset,
@@ -197,7 +200,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
   onDragMove(e: CdkDragMove, stop: SliderColorStop, index: number) {
     const position = e.source.getFreeDragPosition();
     const xPercent = Math.round((position.x / this.trackWidth) * 100);
-    stop.offset.value = xPercent;
+    stop.offset.value = stop.offset.unit === '%' ? xPercent : position.x;
     stop.position.x = position.x;
 
     const stops = reorderElementByCondition<SliderColorStop>(
@@ -243,7 +246,10 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
 
   onStopOffsetChange(stop: SliderColorStop) {
     stop.position = {
-      x: (stop.offset.value / 100) * this.trackWidth,
+      x: Math.min(
+        stop.offset.unit === '%' ? (stop.offset.value / 100) * this.trackWidth : stop.offset.value,
+        this.trackWidth
+      ),
       y: 0,
     };
     this.sliderColorStops.sort((a, b) => a.offset.value - b.offset.value);
@@ -280,7 +286,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
 
     stop.offset.value = Math.min(100, Math.max(0, stop.offset.value + step));
     stop.position = {
-      x: (stop.offset.value / 100) * this.trackWidth,
+      x: stop.offset.unit === '%' ? (stop.offset.value / 100) * this.trackWidth : stop.offset.value,
       y: 0,
     };
 
