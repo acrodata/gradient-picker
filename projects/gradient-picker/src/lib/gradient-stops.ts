@@ -245,13 +245,15 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
   }
 
   onStopOffsetChange(stop: SliderColorStop) {
+    stop.offset.value = Math.min(
+      stop.offset.unit === '%' ? 100 : this.trackWidth,
+      Math.max(0, stop.offset.value)
+    );
     stop.position = {
-      x: Math.min(
-        stop.offset.unit === '%' ? (stop.offset.value / 100) * this.trackWidth : stop.offset.value,
-        this.trackWidth
-      ),
+      x: stop.offset.unit === '%' ? (stop.offset.value / 100) * this.trackWidth : stop.offset.value,
       y: 0,
     };
+
     this.sliderColorStops.sort(this.sortFn);
     this.restoreFocus(
       this.elementRef.nativeElement.querySelectorAll('.gradient-stop-item-offset input'),
