@@ -54,8 +54,12 @@
   .gradient-colorpicker-toggle {
     width: 12px;
     height: 12px;
-    box-shadow: 0 0 0 1px var(--gp-stops-slider-thumb-toggle-outline-color, rgba(0, 0, 0, 0.12));
+    outline: 1px solid var(--gp-stops-slider-thumb-toggle-outline-color, rgba(0, 0, 0, 0.12));
     cursor: inherit;
+
+    > button:focus {
+      outline: none;
+    }
   }
 
   &:focus-within {
