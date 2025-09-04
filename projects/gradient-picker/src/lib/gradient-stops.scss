@@ -111,4 +111,15 @@
 
 .gradient-stop-item-offset {
   flex: 1;
+
+  select {
+    appearance: none;
+    max-width: 24px;
+    text-align: center;
+
+    &:hover,
+    &:focus {
+      background-color: var(--gp-unit-select-hover-background-color, rgba(0, 0, 0, 0.12));
+    }
+  }
 }

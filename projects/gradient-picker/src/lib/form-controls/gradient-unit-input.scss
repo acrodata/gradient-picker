@@ -40,7 +40,19 @@
     width: 100%;
   }
 
+  input[type='number'] {
+    // Hide arrow buttons from number input in Firefox
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      appearance: none;
+    }
+  }
+
   select {
+    text-align: center;
+
     &:hover,
     &:focus {
       background-color: var(--gp-unit-select-hover-background-color, rgba(0, 0, 0, 0.12));

@@ -42,4 +42,14 @@
       outline: none;
     }
   }
+
+  input[type='number'] {
+    // Hide arrow buttons from number input in Firefox
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      appearance: none;
+    }
+  }
 }

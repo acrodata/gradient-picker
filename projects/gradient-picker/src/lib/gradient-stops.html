@@ -92,7 +92,10 @@
               [(ngModel)]="stop.offset.value"
               (change)="onStopOffsetChange(stop)"
             />
-            <span>{{ stop.offset.unit }}</span>
+            <select [(ngModel)]="stop.offset.unit" (change)="onStopOffsetChange(stop)">
+              <option value="%">%</option>
+              <option value="px">px</option>
+            </select>
           </gradient-input-field>
           <gradient-icon-button>
             @if (sliderColorStops.length > 1) {
