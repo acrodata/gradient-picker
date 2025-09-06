@@ -29,9 +29,12 @@ import {
 } from './utils';
 
 export interface SliderColorStop extends ColorStop {
+  id: number;
   offset: { value: number; unit: string };
   position: { x: number; y: number };
 }
+
+let uniqueIdCounter = 0;
 
 @Component({
   selector: 'gradient-stops',
@@ -132,6 +135,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
         );
         return {
           ...stop,
+          id: uniqueIdCounter++,
           offset,
           position: { x: posX, y: 0 },
         };
@@ -184,6 +188,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
   addStop(e?: MouseEvent) {
     const offsetX = e ? e.offsetX : this.getNewStopOffsetX();
     const newStop = {
+      id: uniqueIdCounter++,
       color: this.getInsertStopColor(offsetX),
       offset: { value: Math.round((offsetX / this.trackWidth) * 100), unit: '%' },
       position: { x: Math.round(offsetX), y: 0 },
@@ -215,7 +220,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
 
   onDragEnd(e: CdkDragEnd, stop: SliderColorStop) {
     this.sliderColorStops.sort(this.sortFn);
-    this.restoreFocus(this.track!.nativeElement.querySelectorAll('button'), stop);
+    this.restoreFocus(`#gradient-colorpicker-toggle-${stop.id} button`);
     this.onStopsChange();
 
     this.isDragging = false;
@@ -255,10 +260,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
     };
 
     this.sliderColorStops.sort(this.sortFn);
-    this.restoreFocus(
-      this.elementRef.nativeElement.querySelectorAll('.gradient-stop-item-offset input'),
-      stop
-    );
+    this.restoreFocus(`#gradient-stop-item-offset-${stop.id}`);
     this.getGradientColor();
     this.onStopsChange();
   }
@@ -302,7 +304,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
       (a, b) => a.position.x > b.position.x,
       () => {
         this.sliderColorStops.sort(this.sortFn);
-        this.restoreFocus(this.track!.nativeElement.querySelectorAll('button'), stop);
+        this.restoreFocus(`#gradient-colorpicker-toggle-${stop.id} button`);
       }
     );
     this.getGradientColor(stops);
@@ -310,10 +312,11 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
   }
 
   /** Restoring focus to the selected stop after sorting. */
-  restoreFocus(nodeList: NodeListOf<HTMLElement>, stop: SliderColorStop) {
-    const newIndex = this.sliderColorStops.findIndex(s => s === stop);
-    const elements = Array.from(nodeList);
-    elements[newIndex].focus();
+  restoreFocus(selector: string) {
+    setTimeout(() => {
+      const el = this.elementRef.nativeElement.querySelector(selector) as HTMLElement;
+      el.focus();
+    });
   }
 
   /** Comparison function to sort color stops by their offset values. */

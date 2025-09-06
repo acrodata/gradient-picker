@@ -4,7 +4,7 @@
   </div>
 
   <div #sliderTrack class="gradient-stops-slider-track">
-    @for (stop of sliderColorStops; track $index) {
+    @for (stop of sliderColorStops; track stop.id) {
       <div
         class="gradient-stops-slider-pointer"
         cdkDrag
@@ -22,6 +22,7 @@
           (pointerup)="onDragHandleUp($event)"
         >
           <gradient-colorpicker-toggle
+            [id]="'gradient-colorpicker-toggle-' + stop.id"
             [for]="gc"
             [color]="stop.color"
             [overlayOrigin]="sliderThumb"
@@ -61,7 +62,7 @@
   </div>
   <div class="gradient-stop-list-body">
     <ul class="gradient-stop-list">
-      @for (stop of sliderColorStops; track $index) {
+      @for (stop of sliderColorStops; track stop.id) {
         <li
           class="gradient-stop-item"
           [class.gradient-stop-item-active]="stop === selectedStop"
@@ -86,6 +87,7 @@
           </gradient-input-field>
           <gradient-input-field class="gradient-stop-item-offset">
             <input
+              [id]="'gradient-stop-item-offset-' + stop.id"
               type="number"
               [min]="0"
               [max]="stop.offset.unit === '%' ? 100 : null"
