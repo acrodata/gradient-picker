@@ -23,7 +23,7 @@ A powerful and beautiful gradient picker.
 ## Installation
 
 ```bash
-npm install @acrodata/gradient-picker --save
+npm install @acrodata/gradient-picker ngx-color --save
 ```
 
 ## Usage
