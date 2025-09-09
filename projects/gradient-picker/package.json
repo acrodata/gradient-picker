@@ -1,6 +1,6 @@
 {
   "name": "@acrodata/gradient-picker",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "A powerful and beautiful gradient picker.",
   "publishConfig": {
     "access": "public"
