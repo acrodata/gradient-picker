@@ -121,33 +121,23 @@ export function resolvePosition(v = '') {
 }
 
 export function splitByColorInterp(input: string) {
-  // 'in' appears at the beginning
-  const regex1 = /^\b(in\s+((?:[a-z0-9-]+(?:\s+[a-z0-9-]+)?(?:\s+hue)?)))\b(.*)$/i;
-  // 'in' appears in the middle
-  const regex2 = /^(.*)\b(in\s+((?:[a-z0-9-]+(?:\s+[a-z0-9-]+)?(?:\s+hue)?)))\b(.*)$/i;
+  const regex = /\bin\s+([a-z0-9-]+(?:\s+(?:shorter|longer|increasing|decreasing)\s+hue)?)\b/i;
 
-  let match = input.match(regex1);
-  if (match) {
-    // match[1]: in color interpolation method
-    // match[2]: color interpolation method
-    // match[3]: all strings after 'in'
-    const str = match[3].trim();
-    const cim = match[2];
-    return [str, cim];
+  const match = input.match(regex);
+
+  if (!match) {
+    return [input];
   }
 
-  match = input.match(regex2);
-  if (match) {
-    // match[1]: all strings before 'in'
-    // match[2]: in color interpolation method
-    // match[3]: color interpolation method
-    // match[4]: all strings after 'in'
-    const str = (match[1] + match[4]).trim();
-    const cim = match[3];
-    return [str, cim];
-  }
+  // match[0]: in color interpolation method
+  const matchedStr = match[0];
+  // match[1]: color interpolation method
+  const colorInterpMethod = match[1];
 
-  return [input];
+  const parts = input.split(matchedStr);
+  const remainingStr = (parts[0] + parts[1]).trim();
+
+  return [remainingStr, colorInterpMethod];
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/CSS/color-interpolation-method
