@@ -1,16 +1,5 @@
-import { Color, ColorStop, PositionPropertyValue } from './type';
+import { ConicGradientResult } from './type';
 import { resolveColorInterp, resolvePosition, resolveStops, split } from './utils';
-
-export interface ConicGradientResult {
-  repeating: boolean;
-  angle: string;
-  position: {
-    x: PositionPropertyValue;
-    y: PositionPropertyValue;
-  };
-  color?: Color;
-  stops: ColorStop[];
-}
 
 const set = new Set(['from', 'in', 'at']);
 

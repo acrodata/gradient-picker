@@ -1,4 +1,4 @@
-import { Color, ColorStop, PositionPropertyValue } from './type';
+import { RadialGradientResult, RgExtentKeyword } from './type';
 import {
   resolveColorInterp,
   resolvePosition,
@@ -6,24 +6,6 @@ import {
   split,
   splitByColorInterp,
 } from './utils';
-
-export type RgExtentKeyword =
-  | 'closest-corner'
-  | 'closest-side'
-  | 'farthest-corner'
-  | 'farthest-side';
-
-export interface RadialGradientResult {
-  repeating: boolean;
-  shape: 'circle' | 'ellipse';
-  size: PositionPropertyValue[];
-  position: {
-    x: PositionPropertyValue;
-    y: PositionPropertyValue;
-  };
-  color?: Color;
-  stops: ColorStop[];
-}
 
 const rgExtentKeywords = new Set<RgExtentKeyword>([
   'closest-corner',

@@ -1,18 +1,7 @@
-import { ConicGradientResult } from './conic';
-import { LinearGradientResult } from './linear';
-import { RadialGradientResult } from './radial';
-
 export interface ColorStop {
   color: string;
   offset?: { unit: string; value: number };
   hint?: { unit: string; value: number };
-}
-
-export type PositionKeyword = 'center' | 'left' | 'right' | 'top' | 'bottom';
-
-export interface PositionPropertyValue {
-  type: 'keyword' | 'length';
-  value: string;
 }
 
 export type XYZSpace = 'xyz' | 'xyz-d50' | 'xyz-d65';
@@ -32,6 +21,54 @@ export type HueInterpolationMethod = `${'shorter' | 'longer' | 'increasing' | 'd
 export interface Color {
   space: RectangularColorSpace | PolarColorSpace;
   method?: HueInterpolationMethod;
+}
+
+export interface LinearOrientation {
+  type: 'directional' | 'angular';
+  value: string;
+}
+
+export interface LinearGradientResult {
+  repeating: boolean;
+  orientation: LinearOrientation;
+  color?: Color;
+  stops: ColorStop[];
+}
+
+export type PositionKeyword = 'center' | 'left' | 'right' | 'top' | 'bottom';
+
+export type RgExtentKeyword =
+  | 'closest-corner'
+  | 'closest-side'
+  | 'farthest-corner'
+  | 'farthest-side';
+
+export interface PositionPropertyValue {
+  type: 'keyword' | 'length';
+  value: string;
+}
+
+export interface RadialGradientResult {
+  repeating: boolean;
+  shape: 'circle' | 'ellipse';
+  size: PositionPropertyValue[];
+  position: {
+    x: PositionPropertyValue;
+    y: PositionPropertyValue;
+  };
+  color?: Color;
+  stops: ColorStop[];
+}
+
+export interface ConicGradientResult {
+  repeating: boolean;
+  angle: string;
+  position: {
+    x: PositionPropertyValue;
+    y: PositionPropertyValue;
+  };
+  color?: Color;
+  stops: ColorStop[];
 }
 
 export type GradientType = 'linear' | 'radial' | 'conic';

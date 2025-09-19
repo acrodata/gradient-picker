@@ -1,17 +1,5 @@
-import { Color, ColorStop } from './type';
+import { LinearGradientResult, LinearOrientation } from './type';
 import { resolveColorInterp, resolveStops, split, splitByColorInterp } from './utils';
-
-interface LinearOrientation {
-  type: 'directional' | 'angular';
-  value: string;
-}
-
-export interface LinearGradientResult {
-  repeating: boolean;
-  orientation: LinearOrientation;
-  color?: Color;
-  stops: ColorStop[];
-}
 
 function normalizeDirectionalValue(v: string) {
   v = v.trim().replace(/\s+/g, ' ');
