@@ -9,9 +9,9 @@
 </gradient-form-group>
 
 @if (type === 'linear') {
-  <linear-gradient-picker [(ngModel)]="value" (ngModelChange)="onValueChange()" />
+  <linear-gradient-picker [(ngModel)]="gradient.linear" (ngModelChange)="onValueChange()" />
 } @else if (type === 'radial') {
-  <radial-gradient-picker [(ngModel)]="value" (ngModelChange)="onValueChange()" />
+  <radial-gradient-picker [(ngModel)]="gradient.radial" (ngModelChange)="onValueChange()" />
 } @else if (type === 'conic') {
-  <conic-gradient-picker [(ngModel)]="value" (ngModelChange)="onValueChange()" />
+  <conic-gradient-picker [(ngModel)]="gradient.conic" (ngModelChange)="onValueChange()" />
 }

@@ -1,3 +1,7 @@
+import { ConicGradientResult } from './conic';
+import { LinearGradientResult } from './linear';
+import { RadialGradientResult } from './radial';
+
 export interface ColorStop {
   color: string;
   offset?: { unit: string; value: number };
@@ -29,3 +33,7 @@ export interface Color {
   space: RectangularColorSpace | PolarColorSpace;
   method?: HueInterpolationMethod;
 }
+
+export type GradientType = 'linear' | 'radial' | 'conic';
+
+export type GradientResult = LinearGradientResult | RadialGradientResult | ConicGradientResult;

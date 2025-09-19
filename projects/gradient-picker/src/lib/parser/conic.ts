@@ -101,7 +101,7 @@ export function stringifyConicGradient(input: ConicGradientResult) {
   }
 
   const stopsStr = stops
-    .map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`.trim())
+    .map(s => `${s.color} ${s.offset?.value ?? ''}${s.offset?.unit ?? ''}`.trim())
     .join(', ');
 
   props.push(stopsStr);

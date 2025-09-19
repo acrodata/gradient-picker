@@ -1,5 +1,14 @@
 import { TinyColor } from '@ctrl/tinycolor';
-import { ColorStop, parseConicGradient, parseLinearGradient, parseRadialGradient } from './parser';
+import {
+  ColorStop,
+  GradientResult,
+  parseConicGradient,
+  parseLinearGradient,
+  parseRadialGradient,
+  stringifyConicGradient,
+  stringifyLinearGradient,
+  stringifyRadialGradient,
+} from './parser';
 
 /**
  * Reorder an element at a specified index by condition
@@ -232,6 +241,23 @@ export function parseGradient(input: string) {
     return parseConicGradient(input);
   } else {
     return null;
+  }
+}
+
+/**
+ * A unified function for stringify all gradient types.
+ *
+ * @param input
+ */
+export function stringifyGradient(input: GradientResult) {
+  if ('orientation' in input) {
+    return stringifyLinearGradient(input);
+  } else if ('shape' in input) {
+    return stringifyRadialGradient(input);
+  } else if ('angle' in input) {
+    return stringifyConicGradient(input);
+  } else {
+    return '';
   }
 }
 

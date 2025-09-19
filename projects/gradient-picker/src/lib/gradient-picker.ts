@@ -12,8 +12,9 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { ConicGradientPicker } from './conic-gradient-picker';
 import { GradientFormGroup, GradientInputField } from './form-controls';
 import { LinearGradientPicker } from './linear-gradient-picker';
+import { GradientType } from './parser';
 import { RadialGradientPicker } from './radial-gradient-picker';
-import { convertAngleToPercentage, parseGradient } from './utils';
+import { parseGradient, stringifyGradient } from './utils';
 
 @Component({
   selector: 'gradient-picker',
@@ -46,15 +47,21 @@ export class GradientPicker implements ControlValueAccessor {
 
   @Input({ transform: booleanAttribute }) disabled = false;
 
-  value = '';
-
   types = [
     { label: 'Linear', value: 'linear' },
     { label: 'Radial', value: 'radial' },
     { label: 'Conic', value: 'conic' },
   ];
 
-  type: 'linear' | 'radial' | 'conic' = 'linear';
+  type: GradientType = 'linear';
+
+  gradient = {
+    linear: 'linear-gradient(transparent, #000000)',
+    radial: 'radial-gradient(transparent, #000000)',
+    conic: 'conic-gradient(transparent, #000000)',
+  };
+
+  value = this.gradient[this.type];
 
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
@@ -69,7 +76,9 @@ export class GradientPicker implements ControlValueAccessor {
     } else if (value.includes('conic')) {
       this.type = 'conic';
     }
-    this.value = value;
+    if (value) {
+      this.value = this.gradient[this.type] = value;
+    }
     this.cdr.markForCheck();
   }
 
@@ -87,32 +96,19 @@ export class GradientPicker implements ControlValueAccessor {
   }
 
   onValueChange() {
+    this.value = this.gradient[this.type];
     this.onChange(this.value);
   }
 
   onTypeChange() {
-    const { color, stops } = parseGradient(this.value) || {};
+    // Preserve the color stops when switching types
+    const { repeating, color, stops } = parseGradient(this.value)!;
 
-    const props: string[] = [];
-
-    const stopsStr =
-      convertAngleToPercentage(stops || [])
-        .map(s => s.color + (s.offset ? ` ${s.offset.value}${s.offset.unit}` : ''))
-        .join(', ') || 'transparent, #000000';
-
-    if (color && color.space) {
-      props.push(`in ${color.space} ${color.method || ''}`.trim());
-    }
-
-    props.push(stopsStr);
-
-    if (this.type === 'linear') {
-      this.value = `linear-gradient(${props.join(', ')})`;
-    } else if (this.type === 'radial') {
-      this.value = `radial-gradient(${props.join(', ')})`;
-    } else if (this.type === 'conic') {
-      this.value = `conic-gradient(${props.join(', ')})`;
-    }
+    const result = parseGradient(this.gradient[this.type])!;
+    result.repeating = repeating;
+    result.color = color;
+    result.stops = stops;
+    this.gradient[this.type] = stringifyGradient(result);
 
     this.onValueChange();
   }

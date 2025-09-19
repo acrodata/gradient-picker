@@ -134,7 +134,7 @@ export function stringifyRadialGradient(input: RadialGradientResult) {
   }
 
   const stopsStr = stops
-    .map(s => `${s.color} ${s.offset?.value}${s.offset?.unit}`.trim())
+    .map(s => `${s.color} ${s.offset?.value ?? ''}${s.offset?.unit ?? ''}`.trim())
     .join(', ');
 
   return `${type}(${prefixArr.join(' ')}, ${stopsStr})`;
