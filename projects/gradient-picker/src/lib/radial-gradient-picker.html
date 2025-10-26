@@ -39,6 +39,22 @@
       />
     }
   }
+
+  <gradient-icon-button>
+    <button
+      type="button"
+      (click)="switchSizeType()"
+      title="Switch size type"
+      aria-label="Switch size type"
+    >
+      <svg viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M18.5 10c-.3 0-.5.2-.5.5V16c0 .6-.4 1-1 1H6.8l1.6-1.6c.2-.2.2-.5 0-.7s-.5-.2-.7 0l-2.5 2.5c-.2.2-.2.5 0 .7l2.5 2.5c.2.2.5.2.7 0s.2-.5 0-.7L6.8 18H17c1.1 0 2-.9 2-2v-5.5c0-.3-.2-.5-.5-.5m-13 4c.3 0 .5-.2.5-.5V8c0-.6.4-1 1-1h10.2l-1.6 1.6c-.2.2-.2.5 0 .7s.5.2.7 0l2.5-2.5c.2-.2.2-.5 0-.7l-2.5-2.5c-.2-.2-.5-.2-.7 0s-.2.5 0 .7L17.2 6H7c-1.1 0-2 .9-2 2v5.5c0 .3.2.5.5.5"
+        />
+      </svg>
+    </button>
+  </gradient-icon-button>
 </gradient-form-group>
 
 <gradient-form-group label="Position">
@@ -72,6 +88,22 @@
       (change)="onGradientChange()"
     />
   }
+
+  <gradient-icon-button>
+    <button
+      type="button"
+      (click)="switchPositionType()"
+      title="Switch position type"
+      aria-label="Switch position type"
+    >
+      <svg viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M18.5 10c-.3 0-.5.2-.5.5V16c0 .6-.4 1-1 1H6.8l1.6-1.6c.2-.2.2-.5 0-.7s-.5-.2-.7 0l-2.5 2.5c-.2.2-.2.5 0 .7l2.5 2.5c.2.2.5.2.7 0s.2-.5 0-.7L6.8 18H17c1.1 0 2-.9 2-2v-5.5c0-.3-.2-.5-.5-.5m-13 4c.3 0 .5-.2.5-.5V8c0-.6.4-1 1-1h10.2l-1.6 1.6c-.2.2-.2.5 0 .7s.5.2.7 0l2.5-2.5c.2-.2.2-.5 0-.7l-2.5-2.5c-.2-.2-.5-.2-.7 0s-.2.5 0 .7L17.2 6H7c-1.1 0-2 .9-2 2v5.5c0 .3.2.5.5.5"
+        />
+      </svg>
+    </button>
+  </gradient-icon-button>
 </gradient-form-group>
 
 @if (radialGradient.color) {

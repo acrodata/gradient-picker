@@ -130,4 +130,22 @@ export class ConicGradientPicker implements ControlValueAccessor {
     }
     this.onGradientChange();
   }
+
+  switchPositionType() {
+    const hasKeywordPosition =
+      this.conicGradient.position.x.type === 'keyword' ||
+      this.conicGradient.position.y.type === 'keyword';
+    if (hasKeywordPosition) {
+      this.conicGradient.position = {
+        x: { type: 'length', value: '50%' },
+        y: { type: 'length', value: '50%' },
+      };
+    } else {
+      this.conicGradient.position = {
+        x: { type: 'keyword', value: 'center' },
+        y: { type: 'keyword', value: 'center' },
+      };
+    }
+    this.onGradientChange();
+  }
 }

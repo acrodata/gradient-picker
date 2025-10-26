@@ -128,4 +128,11 @@ export class LinearGradientPicker implements ControlValueAccessor {
     }
     this.onGradientChange();
   }
+
+  switchOrientationType() {
+    const isAngularOrientation = this.linearGradient.orientation.type === 'angular';
+    this.linearGradient.orientation.type = isAngularOrientation ? 'directional' : 'angular';
+    this.linearGradient.orientation.value = isAngularOrientation ? 'bottom' : '180deg';
+    this.onGradientChange();
+  }
 }

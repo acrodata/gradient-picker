@@ -132,4 +132,35 @@ export class RadialGradientPicker implements ControlValueAccessor {
     }
     this.onGradientChange();
   }
+
+  switchSizeType() {
+    const hasKeywordSize = this.radialGradient.size.some(size => size.type === 'keyword');
+    if (hasKeywordSize) {
+      this.radialGradient.size = [
+        { type: 'length', value: '50%' },
+        { type: 'length', value: '50%' },
+      ];
+    } else {
+      this.radialGradient.size = [{ type: 'keyword', value: 'farthest-corner' }];
+    }
+    this.onGradientChange();
+  }
+
+  switchPositionType() {
+    const hasKeywordPosition =
+      this.radialGradient.position.x.type === 'keyword' ||
+      this.radialGradient.position.y.type === 'keyword';
+    if (hasKeywordPosition) {
+      this.radialGradient.position = {
+        x: { type: 'length', value: '50%' },
+        y: { type: 'length', value: '50%' },
+      };
+    } else {
+      this.radialGradient.position = {
+        x: { type: 'keyword', value: 'center' },
+        y: { type: 'keyword', value: 'center' },
+      };
+    }
+    this.onGradientChange();
+  }
 }
