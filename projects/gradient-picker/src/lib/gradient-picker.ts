@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ConicGradientPicker } from './conic-gradient-picker';
-import { GradientFormGroup, GradientInputField } from './form-controls';
+import { GradientFormGroup, GradientInputField, GradientRadioButton } from './form-controls';
 import { LinearGradientPicker } from './linear-gradient-picker';
 import { GradientType } from './parser';
 import { RadialGradientPicker } from './radial-gradient-picker';
@@ -26,6 +26,7 @@ import { parseGradient, stringifyGradient } from './utils';
     ConicGradientPicker,
     GradientFormGroup,
     GradientInputField,
+    GradientRadioButton,
   ],
   templateUrl: './gradient-picker.html',
   styleUrl: './gradient-picker.scss',

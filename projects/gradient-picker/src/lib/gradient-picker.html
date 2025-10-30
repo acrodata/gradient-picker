@@ -1,10 +1,11 @@
 <gradient-form-group label="Type">
   <gradient-input-field>
-    <select [(ngModel)]="type" (ngModelChange)="onTypeChange()">
-      @for (t of types; track $index) {
-        <option [value]="t.value">{{ t.label }}</option>
-      }
-    </select>
+    @for (t of types; track $index) {
+      <label gradientRadioButton>
+        <input type="radio" [value]="t.value" [(ngModel)]="type" (change)="onTypeChange()" />
+        <span>{{ t.label }}</span>
+      </label>
+    }
   </gradient-input-field>
 </gradient-form-group>
 

@@ -1,14 +1,22 @@
 .gradient-radio-button {
-  display: inline-flex;
-  align-items: center;
+  position: relative;
   flex: 1;
-  gap: 8px;
   padding: var(--gp-input-padding, 0 4px);
+  line-height: 24px;
+  text-align: center;
 
   input[type='radio'] {
-    flex: unset;
+    position: absolute;
     width: auto;
     height: auto;
     margin: 0;
+    appearance: none;
+  }
+
+  &:has(:checked) {
+    background-color: #fff;
+    outline: 1px solid var(--gp-input-outline-color, #e6e6e6);
+    outline-offset: -1px;
+    border-radius: var(--gp-input-shape, 4px);
   }
 }
