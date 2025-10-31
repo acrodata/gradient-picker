@@ -1,24 +1,8 @@
 <gradient-form-group label="Shape">
-  <gradient-input-field>
-    <label gradientRadioButton>
-      <input
-        type="radio"
-        value="ellipse"
-        [(ngModel)]="radialGradient.shape"
-        (change)="onGradientChange()"
-      />
-      <span>Ellipse</span>
-    </label>
-    <label gradientRadioButton>
-      <input
-        type="radio"
-        value="circle"
-        [(ngModel)]="radialGradient.shape"
-        (change)="onGradientChange()"
-      />
-      <span>Circle</span>
-    </label>
-  </gradient-input-field>
+  <gradient-radio-group [(ngModel)]="radialGradient.shape" (change)="onGradientChange()">
+    <gradient-radio-button value="ellipse">Ellipse</gradient-radio-button>
+    <gradient-radio-button value="circle">Circle</gradient-radio-button>
+  </gradient-radio-group>
 </gradient-form-group>
 
 <gradient-form-group label="Size">

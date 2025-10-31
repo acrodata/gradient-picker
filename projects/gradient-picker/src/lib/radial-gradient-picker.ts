@@ -15,6 +15,7 @@ import {
   GradientIconButton,
   GradientInputField,
   GradientRadioButton,
+  GradientRadioGroup,
   GradientUnitInput,
 } from './form-controls';
 import { GradientStops } from './gradient-stops';
@@ -39,6 +40,7 @@ import {
     GradientFormGroup,
     GradientUnitInput,
     GradientCheckbox,
+    GradientRadioGroup,
     GradientRadioButton,
     GradientIconButton,
   ],

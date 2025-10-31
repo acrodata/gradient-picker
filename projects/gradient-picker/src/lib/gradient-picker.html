@@ -1,12 +1,9 @@
 <gradient-form-group label="Type">
-  <gradient-input-field>
+  <gradient-radio-group [(ngModel)]="type" (ngModelChange)="onTypeChange()">
     @for (t of types; track $index) {
-      <label gradientRadioButton>
-        <input type="radio" [value]="t.value" [(ngModel)]="type" (change)="onTypeChange()" />
-        <span>{{ t.label }}</span>
-      </label>
+      <gradient-radio-button [value]="t.value">{{ t.label }}</gradient-radio-button>
     }
-  </gradient-input-field>
+  </gradient-radio-group>
 </gradient-form-group>
 
 @if (type === 'linear') {
