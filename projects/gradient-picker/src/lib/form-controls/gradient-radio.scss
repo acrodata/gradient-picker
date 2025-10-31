@@ -1,0 +1,44 @@
+.gradient-radio-group {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: var(--gp-input-background-color, #f5f5f5);
+  border-radius: var(--gp-input-shape, 4px);
+  color: var(--gp-container-text-color, rgba(0, 0, 0, 0.9));
+  font-size: var(--gp-container-text-size, 12px);
+  font-family: var(--gp-container-text-font, inherit);
+}
+
+.gradient-radio-button {
+  position: relative;
+  flex: 1;
+
+  input[type='radio'] {
+    position: absolute;
+    appearance: none;
+    clip: rect(0, 0, 0, 0); // fix Firefox focus issue
+
+    &:checked + label {
+      background-color: var(
+        --gp-radio-button-selected-background-color,
+        var(--gp-container-background-color, #fff)
+      );
+      outline-color: var(--gp-input-outline-color, #e6e6e6);
+    }
+
+    &:focus-visible + label {
+      outline-color: var(--gp-input-focus-outline-color, #4d90fe);
+    }
+  }
+
+  label {
+    display: block;
+    padding: var(--gp-input-padding, 0 4px);
+    line-height: var(--gp-input-height, 24px);
+    text-align: center;
+    outline: 1px solid transparent;
+    outline-offset: -1px;
+    border-radius: var(--gp-input-shape, 4px);
+  }
+}

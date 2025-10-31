@@ -8,7 +8,8 @@
   font-family: var(--gp-container-text-font, inherit);
 
   .gradient-input-field,
-  .gradient-unit-input {
+  .gradient-unit-input,
+  .gradient-radio-group {
     flex: 1;
   }
 }
