@@ -99,7 +99,7 @@ export class RadialGradientPicker implements ControlValueAccessor {
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
-  writeValue(value: string): void {
+  writeValue(value: any): void {
     this.value = value || 'radial-gradient(transparent, #000000)';
     this.radialGradient = parseRadialGradient(this.value);
     this.cdr.markForCheck();

@@ -106,7 +106,7 @@ export class GradientColorpicker implements ControlValueAccessor {
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
-  writeValue(value: string): void {
+  writeValue(value: any): void {
     if (value) {
       this.color = value;
       this.getFormat();

@@ -67,7 +67,7 @@ export class GradientPicker implements ControlValueAccessor {
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
-  writeValue(value: string): void {
+  writeValue(value: any): void {
     if (!value) {
       this.type = 'linear';
     } else if (value.includes('linear')) {

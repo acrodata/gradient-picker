@@ -93,7 +93,7 @@ export class LinearGradientPicker implements ControlValueAccessor {
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
-  writeValue(value: string): void {
+  writeValue(value: any): void {
     this.value = value || 'linear-gradient(transparent, #000000)';
     this.linearGradient = parseLinearGradient(this.value);
     this.cdr.markForCheck();

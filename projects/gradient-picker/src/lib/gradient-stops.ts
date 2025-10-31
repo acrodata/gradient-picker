@@ -100,7 +100,7 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
     this.getGradientColor();
   }
 
-  writeValue(value: ColorStop[]): void {
+  writeValue(value: any): void {
     if (Array.isArray(value)) {
       this.colorStops = value;
       this.getStops();

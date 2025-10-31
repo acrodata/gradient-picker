@@ -51,7 +51,7 @@ export class GradientUnitInput implements ControlValueAccessor {
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
-  writeValue(value: string): void {
+  writeValue(value: any): void {
     const vu = resolveLength(value);
     if (vu) {
       this.value = vu.value;
