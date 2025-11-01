@@ -103,7 +103,15 @@ export class GradientRadioGroup implements AfterContentInit, OnDestroy, ControlV
   }
   private _required = false;
 
-  @Input({ transform: booleanAttribute }) disabled = false;
+  @Input({ transform: booleanAttribute })
+  get disabled() {
+    return this._disabled;
+  }
+  set disabled(value: boolean) {
+    this._disabled = value;
+    this._markRadiosForCheck();
+  }
+  private _disabled = false;
 
   @Output() readonly change = new EventEmitter<GradientRadioChange>();
 
@@ -251,7 +259,7 @@ export class GradientRadioButton implements OnInit {
 
   @Input({ transform: booleanAttribute })
   get required() {
-    return this._required || this.radioGroup?.required || false;
+    return this._required || (this.radioGroup !== null && this.radioGroup.required);
   }
   set required(value: boolean) {
     if (value !== this._required) {
@@ -261,7 +269,14 @@ export class GradientRadioButton implements OnInit {
   }
   private _required = false;
 
-  @Input({ transform: booleanAttribute }) disabled = false;
+  @Input({ transform: booleanAttribute })
+  get disabled() {
+    return this._disabled || (this.radioGroup !== null && this.radioGroup.disabled);
+  }
+  set disabled(value: boolean) {
+    this._setDisabled(value);
+  }
+  private _disabled = false;
 
   @Output() readonly change = new EventEmitter<GradientRadioChange>();
 
@@ -295,5 +310,12 @@ export class GradientRadioButton implements OnInit {
 
   _markForCheck() {
     this._changeDetector.markForCheck();
+  }
+
+  protected _setDisabled(value: boolean) {
+    if (this._disabled !== value) {
+      this._disabled = value;
+      this._changeDetector.markForCheck();
+    }
   }
 }

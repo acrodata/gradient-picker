@@ -30,10 +30,15 @@
     &:focus-visible + label {
       outline-color: var(--gp-input-focus-outline-color, #4d90fe);
     }
+
+    &:disabled + label {
+      opacity: 0.32;
+    }
   }
 
   label {
     display: block;
+    min-width: 24px;
     padding: var(--gp-input-padding, 0 4px);
     line-height: var(--gp-input-height, 24px);
     text-align: center;
