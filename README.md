@@ -52,7 +52,11 @@ export class YourAppComponent {
 ```ts
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LinearGradientPicker, RadialGradientPicker, ConicGradientPicker } from '@acrodata/gradient-picker';
+import {
+  LinearGradientPicker,
+  RadialGradientPicker,
+  ConicGradientPicker,
+} from '@acrodata/gradient-picker';
 
 @Component({
   selector: 'your-app',
@@ -111,6 +115,7 @@ export class YourAppComponent {
 --gp-input-hover-outline-color
 --gp-input-focus-outline-color
 --gp-unit-select-hover-background-color
+--gp-radio-button-selected-background-color
 
 --gp-icon-button-shape
 --gp-icon-button-text-color
