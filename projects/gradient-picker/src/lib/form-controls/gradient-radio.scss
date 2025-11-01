@@ -20,10 +20,7 @@
     clip: rect(0, 0, 0, 0); // fix Firefox focus issue
 
     &:checked + label {
-      background-color: var(
-        --gp-radio-button-selected-background-color,
-        var(--gp-container-background-color, #fff)
-      );
+      background-color: var(--gp-radio-button-selected-background-color, #fff);
       outline-color: var(--gp-input-outline-color, #e6e6e6);
     }
 
