@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/@acrodata/gradient-picker.svg)](https://www.npmjs.com/package/@acrodata/gradient-picker)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/acrodata/gradient-picker/blob/main/LICENSE)
 
-![cover](https://repository-images.githubusercontent.com/895835449/3c634479-9634-4183-9766-8623d41c6885)
+![cover](https://repository-images.githubusercontent.com/895835449/b0ce0b7a-303d-4631-a064-d900384dabc7)
 
 A powerful and beautiful gradient picker.
 
