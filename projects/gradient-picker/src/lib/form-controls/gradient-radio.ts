@@ -1,4 +1,5 @@
 /* eslint-disable @angular-eslint/no-output-native */
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import {
   AfterContentInit,
   booleanAttribute,
@@ -74,6 +75,7 @@ export class GradientRadioGroup implements AfterContentInit, OnDestroy, ControlV
   }
   set value(newValue: any) {
     if (this._value !== newValue) {
+      // Set this before proceeding to ensure no circular loop occurs with selection.
       this._value = newValue;
 
       this._updateSelectedRadioFromValue();
@@ -180,6 +182,7 @@ export class GradientRadioGroup implements AfterContentInit, OnDestroy, ControlV
   }
 
   private _updateSelectedRadioFromValue(): void {
+    // If the value already matches the selected radio, do nothing.
     const isAlreadySelected = this._selected !== null && this._selected.value === this._value;
 
     if (this._radios && !isAlreadySelected) {
@@ -203,7 +206,7 @@ export class GradientRadioGroup implements AfterContentInit, OnDestroy, ControlV
       [id]="inputId"
       [name]="name"
       [attr.name]="name"
-      [value]="value"
+      [attr.value]="value"
       [checked]="checked"
       [disabled]="disabled"
       [required]="required"
@@ -220,8 +223,9 @@ export class GradientRadioGroup implements AfterContentInit, OnDestroy, ControlV
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GradientRadioButton implements OnInit {
+export class GradientRadioButton implements OnInit, OnDestroy {
   private _changeDetector = inject(ChangeDetectorRef);
+  private _radioDispatcher = inject(UniqueSelectionDispatcher);
 
   private _uniqueId = `gradient-radio-${++nextUniqueId}`;
 
@@ -236,6 +240,18 @@ export class GradientRadioButton implements OnInit {
   set checked(value: boolean) {
     if (this._checked !== value) {
       this._checked = value;
+      if (value && this.radioGroup && this.radioGroup.value !== this.value) {
+        this.radioGroup.selected = this;
+      } else if (!value && this.radioGroup && this.radioGroup.value === this.value) {
+        // When unchecking the selected radio button, update the selected radio
+        // property on the group.
+        this.radioGroup.selected = null;
+      }
+
+      if (value) {
+        // Notify all radio buttons with the same name to un-check.
+        this._radioDispatcher.notify(this.id, this.name);
+      }
       this._changeDetector.markForCheck();
     }
   }
@@ -250,7 +266,11 @@ export class GradientRadioButton implements OnInit {
       this._value = value;
       if (this.radioGroup !== null) {
         if (!this.checked) {
+          // Update checked when the value changed to match the radio group's value
           this.checked = this.radioGroup.value === value;
+        }
+        if (this.checked) {
+          this.radioGroup.selected = this;
         }
       }
     }
@@ -286,10 +306,30 @@ export class GradientRadioButton implements OnInit {
     return `${this.id || this._uniqueId}-input`;
   }
 
+  private _removeUniqueSelectionListener: () => void = () => {};
+
   ngOnInit(): void {
     if (this.radioGroup) {
+      // If the radio is inside a radio group, determine if it should be checked
+      this.checked = this.radioGroup.value === this._value;
+
+      if (this.checked) {
+        this.radioGroup.selected = this;
+      }
+
+      // Copy name from parent radio group
       this.name = this.radioGroup.name;
     }
+
+    this._removeUniqueSelectionListener = this._radioDispatcher.listen((id, name) => {
+      if (id !== this.id && name === this.name) {
+        this.checked = false;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._removeUniqueSelectionListener();
   }
 
   private _emitChangeEvent(): void {
@@ -299,12 +339,17 @@ export class GradientRadioButton implements OnInit {
   _onInputChange(event: Event) {
     event.stopPropagation();
 
-    this.checked = true;
-    this._emitChangeEvent();
+    if (!this.checked && !this.disabled) {
+      const groupValueChanged = this.radioGroup && this.value !== this.radioGroup.value;
+      this.checked = true;
+      this._emitChangeEvent();
 
-    if (this.radioGroup) {
-      this.radioGroup._onChange(this.value);
-      this.radioGroup._emitChangeEvent();
+      if (this.radioGroup) {
+        this.radioGroup._onChange(this.value);
+        if (groupValueChanged) {
+          this.radioGroup._emitChangeEvent();
+        }
+      }
     }
   }
 
