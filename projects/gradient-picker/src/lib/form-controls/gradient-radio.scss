@@ -21,11 +21,17 @@
 
     &:checked + label {
       background-color: var(--gp-radio-button-selected-background-color, #fff);
-      outline-color: var(--gp-input-outline-color, #e6e6e6);
+      outline-color: var(
+        --gp-radio-button-selected-outline-color,
+        var(--gp-input-outline-color, #e6e6e6)
+      );
     }
 
     &:focus-visible + label {
-      outline-color: var(--gp-input-focus-outline-color, #4d90fe);
+      outline-color: var(
+        --gp-radio-button-focus-outline-color,
+        var(--gp-input-focus-outline-color, #4d90fe)
+      );
     }
 
     &:disabled + label {

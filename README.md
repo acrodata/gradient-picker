@@ -114,8 +114,10 @@ export class YourAppComponent {
 --gp-input-outline-color
 --gp-input-hover-outline-color
 --gp-input-focus-outline-color
---gp-unit-select-hover-background-color
 --gp-radio-button-selected-background-color
+--gp-radio-button-selected-outline-color
+--gp-radio-button-focus-outline-color
+--gp-unit-select-hover-background-color
 
 --gp-icon-button-shape
 --gp-icon-button-text-color
