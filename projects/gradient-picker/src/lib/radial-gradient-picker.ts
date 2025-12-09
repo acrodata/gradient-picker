@@ -135,13 +135,29 @@ export class RadialGradientPicker implements ControlValueAccessor {
     this.onGradientChange();
   }
 
-  switchSizeType() {
-    const hasKeywordSize = this.radialGradient.size.some(size => size.type === 'keyword');
-    if (hasKeywordSize) {
+  correctSizeByShape() {
+    if (this.radialGradient.shape === 'ellipse') {
       this.radialGradient.size = [
         { type: 'length', value: '50%' },
         { type: 'length', value: '50%' },
       ];
+    } else {
+      this.radialGradient.size = [{ type: 'length', value: '50px' }];
+    }
+  }
+
+  switchShape() {
+    const hasLengthSize = this.radialGradient.size.some(size => size.type === 'length');
+    if (hasLengthSize) {
+      this.correctSizeByShape();
+    }
+    this.onGradientChange();
+  }
+
+  switchSizeType() {
+    const hasKeywordSize = this.radialGradient.size.some(size => size.type === 'keyword');
+    if (hasKeywordSize) {
+      this.correctSizeByShape();
     } else {
       this.radialGradient.size = [{ type: 'keyword', value: 'farthest-corner' }];
     }
