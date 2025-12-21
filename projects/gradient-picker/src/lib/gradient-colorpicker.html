@@ -5,9 +5,5 @@
   (overlayOutsideClick)="close()"
   (detach)="close()"
 >
-  <color-chrome
-    class="gradient-colorpicker-panel"
-    [color]="color"
-    (onChangeComplete)="onColorChange($event)"
-  />
+  <color-picker [color]="color" (colorChange)="onColorChange($event)" />
 </ng-template>

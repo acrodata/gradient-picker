@@ -1,3 +1,4 @@
+import { ColorPicker } from '@acrodata/color-picker';
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import {
   booleanAttribute,
@@ -12,9 +13,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { TinyColor } from '@ctrl/tinycolor';
-import { ColorEvent } from 'ngx-color';
-import { ColorChromeModule } from 'ngx-color/chrome';
 
 @Component({
   selector: 'gradient-colorpicker-toggle',
@@ -73,7 +71,7 @@ export class GradientColorpickerToggle implements OnInit {
 @Component({
   selector: 'gradient-colorpicker',
   standalone: true,
-  imports: [FormsModule, ColorChromeModule, CdkConnectedOverlay],
+  imports: [FormsModule, ColorPicker, CdkConnectedOverlay],
   templateUrl: './gradient-colorpicker.html',
   styleUrl: './gradient-colorpicker.scss',
   host: {
@@ -101,15 +99,12 @@ export class GradientColorpicker implements ControlValueAccessor {
 
   color = '';
 
-  format: 'hex' | 'rgb' | 'hsl' | 'hsv' = 'hex';
-
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
   writeValue(value: any): void {
     if (value) {
       this.color = value;
-      this.getFormat();
     }
     this.cdr.markForCheck();
   }
@@ -127,25 +122,8 @@ export class GradientColorpicker implements ControlValueAccessor {
     this.cdr.markForCheck();
   }
 
-  onColorChange(e: ColorEvent) {
-    this.color = {
-      hex: e.color.rgb.a === 1 ? e.color.hex : new TinyColor(e.color.rgb).toHex8String(),
-      rgb: new TinyColor(e.color.rgb).toRgbString(),
-      hsl: new TinyColor(e.color.hsl).toHslString(),
-      hsv: new TinyColor(e.color.hsv).toHsvString(),
-    }[this.format];
-    this.cdr.markForCheck();
-    this.onChange(this.color);
-  }
-
-  getFormat() {
-    const color = new TinyColor(this.color);
-    if (color.format === 'rgb' || color.format === 'hsl' || color.format === 'hsv') {
-      this.format = color.format;
-    } else {
-      this.format = 'hex';
-    }
-    this.cdr.markForCheck();
+  onColorChange(color: string) {
+    this.onChange(color);
   }
 
   open() {
