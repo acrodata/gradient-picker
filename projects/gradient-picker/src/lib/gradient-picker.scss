@@ -18,11 +18,12 @@
   width: var(--gp-container-width, 240px);
   padding: var(--gp-container-vertical-padding, 8px) 0;
   margin: var(--gp-container-margin, 0);
+  color: var(--gp-container-text-color);
+  background-color: var(--gp-container-background-color);
+  border-radius: var(--gp-container-shape, 8px);
   box-shadow: var(--gp-container-elevation-shadow,
       inset 0 0 1px 0 rgba(255, 255, 255, 0.64),
       0 2px 4px 0 rgba(0, 0, 0, 0.16),
       0 8px 16px 0 rgba(0, 0, 0, 0.12),
       0 0 1px 0 rgba(0, 0, 0, 0.12));
-  background-color: var(--gp-container-background-color);
-  border-radius: var(--gp-container-shape, 8px);
 }
