@@ -1,0 +1,35 @@
+main {
+  max-width: 800px;
+  padding: 0 16px;
+  margin: 0 auto;
+  overflow: auto;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  h2 {
+    flex: 1;
+  }
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.04);
+  border: none;
+  border-radius: 50%;
+  color: inherit;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background: rgba(0, 0, 0, 0.12);
+  }
+}

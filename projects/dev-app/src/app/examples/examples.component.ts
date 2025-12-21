@@ -76,16 +76,6 @@ export class ExamplesComponent {
 
   isOpen = false;
 
-  theme: 'light' | 'dark' = 'light';
-
-  onThemeChange() {
-    if (this.theme === 'light') {
-      document.querySelector('html')!.classList.remove('theme-dark');
-    } else if (this.theme === 'dark') {
-      document.querySelector('html')!.classList.add('theme-dark');
-    }
-  }
-
   onColorStopsChange(e: ColorStop[]) {
     // console.log(e);
   }

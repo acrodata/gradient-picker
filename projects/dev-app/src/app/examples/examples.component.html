@@ -1,12 +1,3 @@
-<label>
-  <input type="radio" value="light" [(ngModel)]="theme" (ngModelChange)="onThemeChange()" />
-  light
-</label>
-<label>
-  <input type="radio" value="dark" [(ngModel)]="theme" (ngModelChange)="onThemeChange()" />
-  dark
-</label>
-
 <h2>Gradient stops</h2>
 
 <gradient-stops [(colorStops)]="colorStops" (colorStopsChange)="onColorStopsChange($event)" />

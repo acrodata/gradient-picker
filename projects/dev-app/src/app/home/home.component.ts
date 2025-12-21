@@ -19,16 +19,4 @@ export class HomeComponent {
     'linear-gradient(0.5turn, #4285f4, #34a853, #fbbc05, #ea4335)',
     'linear-gradient(45deg, #5fc9f8, #fecb2e, #fd9426, #fc3158, #147efb, #53d769)',
   ];
-
-  lightTheme = true;
-
-  toggleTheme() {
-    this.lightTheme = !this.lightTheme;
-
-    if (this.lightTheme) {
-      document.querySelector('html')!.classList.remove('theme-dark');
-    } else {
-      document.querySelector('html')!.classList.add('theme-dark');
-    }
-  }
 }

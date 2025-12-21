@@ -9,5 +9,15 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'dev-app';
+  lightTheme = true;
+
+  toggleTheme() {
+    this.lightTheme = !this.lightTheme;
+
+    if (this.lightTheme) {
+      document.querySelector('html')!.classList.remove('theme-dark');
+    } else {
+      document.querySelector('html')!.classList.add('theme-dark');
+    }
+  }
 }
