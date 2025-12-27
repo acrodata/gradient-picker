@@ -5,5 +5,5 @@
   (overlayOutsideClick)="close()"
   (detach)="close()"
 >
-  <color-picker [color]="color" (colorChange)="onColorChange($event)" />
+  <color-picker [value]="color" (valueChange)="onColorChange($event)" />
 </ng-template>
