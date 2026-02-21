@@ -31,7 +31,6 @@ import {
 
 @Component({
   selector: 'conic-gradient-picker',
-  standalone: true,
   imports: [
     FormsModule,
     GradientStops,

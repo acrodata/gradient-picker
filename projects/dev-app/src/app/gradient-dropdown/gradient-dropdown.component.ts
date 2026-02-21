@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-gradient-dropdown',
-  standalone: true,
   imports: [FormsModule, GradientPicker, CdkConnectedOverlay, CdkOverlayOrigin],
   templateUrl: './gradient-dropdown.component.html',
   styleUrl: './gradient-dropdown.component.scss',

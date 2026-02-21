@@ -18,7 +18,6 @@ import { parseGradient, stringifyGradient } from './utils';
 
 @Component({
   selector: 'gradient-picker',
-  standalone: true,
   imports: [
     FormsModule,
     LinearGradientPicker,

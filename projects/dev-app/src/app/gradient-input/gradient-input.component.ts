@@ -4,7 +4,6 @@ import { GradientDropdownComponent } from '../gradient-dropdown/gradient-dropdow
 
 @Component({
   selector: 'app-gradient-input',
-  standalone: true,
   imports: [FormsModule, GradientDropdownComponent],
   templateUrl: './gradient-input.component.html',
   styleUrl: './gradient-input.component.scss',

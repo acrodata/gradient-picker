@@ -38,7 +38,6 @@ let uniqueIdCounter = 0;
 
 @Component({
   selector: 'gradient-stops',
-  standalone: true,
   imports: [
     FormsModule,
     CdkDrag,

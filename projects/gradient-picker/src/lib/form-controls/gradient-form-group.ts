@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@a
 
 @Component({
   selector: 'gradient-form-group',
-  standalone: true,
   imports: [],
   template: `
     @if (label) {

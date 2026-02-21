@@ -28,7 +28,6 @@ import {
 
 @Component({
   selector: 'linear-gradient-picker',
-  standalone: true,
   imports: [
     FormsModule,
     GradientStops,

@@ -16,7 +16,6 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 
 @Component({
   selector: 'gradient-colorpicker-toggle',
-  standalone: true,
   imports: [],
   template: `
     <button
@@ -70,7 +69,6 @@ export class GradientColorpickerToggle implements OnInit {
 
 @Component({
   selector: 'gradient-colorpicker',
-  standalone: true,
   imports: [FormsModule, ColorPicker, CdkConnectedOverlay],
   templateUrl: './gradient-colorpicker.html',
   styleUrl: './gradient-colorpicker.scss',

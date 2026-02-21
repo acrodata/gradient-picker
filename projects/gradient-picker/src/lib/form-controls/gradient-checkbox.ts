@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 
 @Component({
   selector: '[gradientCheckbox]',
-  standalone: true,
   imports: [],
   template: `
     <ng-content />

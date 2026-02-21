@@ -13,7 +13,6 @@ import { resolveLength } from '../parser/utils';
 
 @Component({
   selector: 'gradient-unit-input',
-  standalone: true,
   imports: [FormsModule],
   template: `
     <input type="number" [(ngModel)]="value" (change)="onValueChange()" />

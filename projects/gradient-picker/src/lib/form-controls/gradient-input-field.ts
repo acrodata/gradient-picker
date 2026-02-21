@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 
 @Component({
   selector: 'gradient-input-field',
-  standalone: true,
   imports: [],
   template: `
     <ng-content />

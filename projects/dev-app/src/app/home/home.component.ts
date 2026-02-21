@@ -6,7 +6,6 @@ import { GradientInputComponent } from '../gradient-input/gradient-input.compone
 
 @Component({
   selector: 'app-home',
-  standalone: true,
   imports: [FormsModule, GradientPicker, GradientDropdownComponent, GradientInputComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

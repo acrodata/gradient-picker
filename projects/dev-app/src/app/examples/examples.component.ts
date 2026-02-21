@@ -15,7 +15,6 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-examples',
-  standalone: true,
   imports: [
     FormsModule,
     GradientStops,

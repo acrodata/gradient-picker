@@ -32,7 +32,6 @@ import {
 
 @Component({
   selector: 'radial-gradient-picker',
-  standalone: true,
   imports: [
     FormsModule,
     GradientStops,

@@ -2,7 +2,6 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/
 
 @Component({
   selector: 'gradient-icon-button',
-  standalone: true,
   imports: [],
   template: `
     <ng-content />
