@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@acrodata/color-picker@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@acrodata/color-picker/-/color-picker-1.3.0.tgz#80b616dc1ef463259b397b6b7fc4c7aa35378b48"
-  integrity sha512-Ee6gLthLvcPTne6poeSnhiQj+tBH05tp/nnF1ruuPcJknja1ab2WFjha6B9u1D4blYijRJWztepuXIdAsmDxcw==
+"@acrodata/color-picker@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@acrodata/color-picker/-/color-picker-1.4.0.tgz#eb5b5f6ea6951ab5c02cc6a232a2f4ed4ca1a7d7"
+  integrity sha512-Tn0YhEePMuf4EP9uK1WAfn3Jm43g3s5wFsarbCq7/oMtvgo+BPdzPMnVepPmf8C/J/pmZp64cmaEw0lgqYgJsg==
   dependencies:
     "@ctrl/tinycolor" "^4.2.0"
     tslib "^2.3.0"
