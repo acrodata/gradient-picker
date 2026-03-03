@@ -12,6 +12,7 @@ import {
   inject,
   Input,
   OnChanges,
+  OnDestroy,
   Output,
   SimpleChanges,
   ViewChild,
@@ -62,7 +63,7 @@ let uniqueIdCounter = 0;
     },
   ],
 })
-export class GradientStops implements ControlValueAccessor, AfterViewInit, OnChanges {
+export class GradientStops implements ControlValueAccessor, OnChanges, AfterViewInit, OnDestroy {
   private cdr = inject(ChangeDetectorRef);
   private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
@@ -84,6 +85,8 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
 
   selectedStop?: SliderColorStop;
 
+  private observer?: ResizeObserver;
+
   private onChange: (value: ColorStop[]) => void = () => {};
   private onTouched: () => void = () => {};
 
@@ -95,8 +98,16 @@ export class GradientStops implements ControlValueAccessor, AfterViewInit, OnCha
   }
 
   ngAfterViewInit(): void {
-    this.getStops();
-    this.getGradientColor();
+    this.observer = new ResizeObserver(() => {
+      this.getStops();
+      this.getGradientColor();
+    });
+    this.observer.observe(this.track!.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+    this.observer = undefined;
   }
 
   writeValue(value: any): void {
