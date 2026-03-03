@@ -3,9 +3,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   forwardRef,
   inject,
   Input,
+  Output,
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -55,15 +57,28 @@ import {
 export class LinearGradientPicker implements ControlValueAccessor {
   private cdr = inject(ChangeDetectorRef);
 
+  @Input()
+  get value() {
+    return this._value;
+  }
+  set value(newVal: string) {
+    if (newVal !== this._value) {
+      this._value = newVal || 'linear-gradient(transparent, #000000)';
+      this.linearGradient = parseLinearGradient(this._value);
+      this.cdr.markForCheck();
+    }
+  }
+  private _value = '';
+
+  @Output() valueChange = new EventEmitter<string>();
+
   @Input({ transform: booleanAttribute }) disabled = false;
 
   linearGradient: LinearGradientResult = {
     repeating: false,
-    orientation: { type: 'directional', value: '' },
-    stops: [{ color: '#000000' }],
+    orientation: { type: 'directional', value: 'bottom' },
+    stops: [{ color: 'transparent' }, { color: '#000000' }],
   };
-
-  value = '';
 
   angleUnits = angleUnits;
 
@@ -93,9 +108,7 @@ export class LinearGradientPicker implements ControlValueAccessor {
   private onTouched: () => void = () => {};
 
   writeValue(value: any): void {
-    this.value = value || 'linear-gradient(transparent, #000000)';
-    this.linearGradient = parseLinearGradient(this.value);
-    this.cdr.markForCheck();
+    this.value = value;
   }
 
   registerOnChange(fn: (value: string) => void): void {
@@ -112,8 +125,9 @@ export class LinearGradientPicker implements ControlValueAccessor {
   }
 
   onGradientChange() {
-    this.value = stringifyLinearGradient(this.linearGradient);
-    this.onChange(this.value);
+    this._value = stringifyLinearGradient(this.linearGradient);
+    this.valueChange.emit(this._value);
+    this.onChange(this._value);
   }
 
   reverseStops() {

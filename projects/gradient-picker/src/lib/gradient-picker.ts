@@ -3,9 +3,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   forwardRef,
   inject,
   Input,
+  Output,
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -45,8 +47,6 @@ import { parseGradient, stringifyGradient } from './utils';
 export class GradientPicker implements ControlValueAccessor {
   private cdr = inject(ChangeDetectorRef);
 
-  @Input({ transform: booleanAttribute }) disabled = false;
-
   types = [
     { label: 'Linear', value: 'linear' },
     { label: 'Radial', value: 'radial' },
@@ -61,25 +61,36 @@ export class GradientPicker implements ControlValueAccessor {
     conic: 'conic-gradient(transparent, #000000)',
   };
 
-  value = this.gradient[this.type];
+  @Input()
+  get value() {
+    return this._value;
+  }
+  set value(newVal: string) {
+    if (newVal !== this._value) {
+      if (!newVal) {
+        this.type = 'linear';
+      } else if (newVal.includes('linear')) {
+        this.type = 'linear';
+      } else if (newVal.includes('radial')) {
+        this.type = 'radial';
+      } else if (newVal.includes('conic')) {
+        this.type = 'conic';
+      }
+      this._value = this.gradient[this.type] = newVal || 'linear-gradient(transparent, #000000)';
+      this.cdr.markForCheck();
+    }
+  }
+  private _value = this.gradient[this.type];
+
+  @Output() valueChange = new EventEmitter<string>();
+
+  @Input({ transform: booleanAttribute }) disabled = false;
 
   private onChange: (value: string) => void = () => {};
   private onTouched: () => void = () => {};
 
   writeValue(value: any): void {
-    if (!value) {
-      this.type = 'linear';
-    } else if (value.includes('linear')) {
-      this.type = 'linear';
-    } else if (value.includes('radial')) {
-      this.type = 'radial';
-    } else if (value.includes('conic')) {
-      this.type = 'conic';
-    }
-    if (value) {
-      this.value = this.gradient[this.type] = value;
-    }
-    this.cdr.markForCheck();
+    this.value = value;
   }
 
   registerOnChange(fn: (value: string) => void): void {
@@ -96,8 +107,9 @@ export class GradientPicker implements ControlValueAccessor {
   }
 
   onValueChange() {
-    this.value = this.gradient[this.type];
-    this.onChange(this.value);
+    this._value = this.gradient[this.type];
+    this.valueChange.emit(this._value);
+    this.onChange(this._value);
   }
 
   onTypeChange() {

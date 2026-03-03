@@ -3,9 +3,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   forwardRef,
   inject,
   Input,
+  Output,
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -61,20 +63,33 @@ import {
 export class RadialGradientPicker implements ControlValueAccessor {
   private cdr = inject(ChangeDetectorRef);
 
+  @Input()
+  get value() {
+    return this._value;
+  }
+  set value(newVal: string) {
+    if (newVal !== this._value) {
+      this._value = newVal || 'radial-gradient(transparent, #000000)';
+      this.radialGradient = parseRadialGradient(this.value);
+      this.cdr.markForCheck();
+    }
+  }
+  private _value = '';
+
+  @Output() valueChange = new EventEmitter<string>();
+
   @Input({ transform: booleanAttribute }) disabled = false;
 
   radialGradient: RadialGradientResult = {
     repeating: false,
     shape: 'ellipse',
-    size: [],
+    size: [{ type: 'keyword', value: 'farthest-corner' }],
     position: {
       x: { type: 'keyword', value: 'center' },
       y: { type: 'keyword', value: 'center' },
     },
-    stops: [{ color: '#000000' }],
+    stops: [{ color: 'transparent' }, { color: '#000000' }],
   };
-
-  value = '';
 
   sizeKeywords = ['farthest-corner', 'farthest-side', 'closest-corner', 'closest-side'];
 
@@ -99,9 +114,7 @@ export class RadialGradientPicker implements ControlValueAccessor {
   private onTouched: () => void = () => {};
 
   writeValue(value: any): void {
-    this.value = value || 'radial-gradient(transparent, #000000)';
-    this.radialGradient = parseRadialGradient(this.value);
-    this.cdr.markForCheck();
+    this.value = value;
   }
 
   registerOnChange(fn: (value: string) => void): void {
@@ -118,8 +131,9 @@ export class RadialGradientPicker implements ControlValueAccessor {
   }
 
   onGradientChange() {
-    this.value = stringifyRadialGradient(this.radialGradient);
-    this.onChange(this.value);
+    this._value = stringifyRadialGradient(this.radialGradient);
+    this.valueChange.emit(this._value);
+    this.onChange(this._value);
   }
 
   reverseStops() {
