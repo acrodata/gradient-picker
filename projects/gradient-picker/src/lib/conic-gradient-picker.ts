@@ -1,4 +1,9 @@
 import {
+  ConicGradientResult,
+  parseConicGradient,
+  stringifyConicGradient,
+} from '@acrodata/gradient-parser';
+import {
   booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -19,7 +24,6 @@ import {
   GradientUnitInput,
 } from './form-controls';
 import { GradientStops } from './gradient-stops';
-import { ConicGradientResult, parseConicGradient, stringifyConicGradient } from './parser';
 import {
   angleUnits,
   hueInterpolationMethods,

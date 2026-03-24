@@ -1,4 +1,9 @@
 import {
+  parseRadialGradient,
+  RadialGradientResult,
+  stringifyRadialGradient,
+} from '@acrodata/gradient-parser';
+import {
   booleanAttribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -21,7 +26,6 @@ import {
   GradientUnitInput,
 } from './form-controls';
 import { GradientStops } from './gradient-stops';
-import { parseRadialGradient, RadialGradientResult, stringifyRadialGradient } from './parser';
 import {
   hueInterpolationMethods,
   lengthUnits,

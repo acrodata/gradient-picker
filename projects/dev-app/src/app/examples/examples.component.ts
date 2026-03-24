@@ -1,5 +1,5 @@
+import { ColorStop } from '@acrodata/gradient-parser';
 import {
-  ColorStop,
   ConicGradientPicker,
   GradientColorpicker,
   GradientColorpickerToggle,

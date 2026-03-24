@@ -1,3 +1,4 @@
+import { resolveLength } from '@acrodata/gradient-parser';
 import {
   booleanAttribute,
   ChangeDetectionStrategy,
@@ -9,7 +10,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { resolveLength } from '../parser/utils';
 
 @Component({
   selector: 'gradient-unit-input',

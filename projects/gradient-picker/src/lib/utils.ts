@@ -1,4 +1,3 @@
-import { TinyColor } from '@ctrl/tinycolor';
 import {
   ColorStop,
   GradientResult,
@@ -8,7 +7,8 @@ import {
   stringifyConicGradient,
   stringifyLinearGradient,
   stringifyRadialGradient,
-} from './parser';
+} from '@acrodata/gradient-parser';
+import { TinyColor } from '@ctrl/tinycolor';
 
 /**
  * Reorder an element at a specified index by condition

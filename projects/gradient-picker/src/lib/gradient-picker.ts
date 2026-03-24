@@ -1,3 +1,4 @@
+import { GradientType } from '@acrodata/gradient-parser';
 import {
   booleanAttribute,
   ChangeDetectionStrategy,
@@ -14,7 +15,6 @@ import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/f
 import { ConicGradientPicker } from './conic-gradient-picker';
 import { GradientFormGroup, GradientRadioButton, GradientRadioGroup } from './form-controls';
 import { LinearGradientPicker } from './linear-gradient-picker';
-import { GradientType } from './parser';
 import { RadialGradientPicker } from './radial-gradient-picker';
 import { parseGradient, stringifyGradient } from './utils';
 

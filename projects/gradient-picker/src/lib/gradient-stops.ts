@@ -1,3 +1,4 @@
+import { ColorStop } from '@acrodata/gradient-parser';
 import { CdkDrag, CdkDragEnd, CdkDragMove } from '@angular/cdk/drag-drop';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import {
@@ -21,7 +22,6 @@ import {
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { GradientIconButton, GradientInputField } from './form-controls';
 import { GradientColorpicker, GradientColorpickerToggle } from './gradient-colorpicker';
-import { ColorStop } from './parser';
 import {
   convertAngleToPercentage,
   fillUndefinedOffsets,
