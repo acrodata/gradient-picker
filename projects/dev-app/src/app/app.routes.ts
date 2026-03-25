@@ -10,5 +10,10 @@ export const routes: Routes = [
     path: 'examples',
     loadComponent: () => import('./examples/examples.component').then(m => m.ExamplesComponent),
   },
+  {
+    path: 'gradient-parser',
+    loadComponent: () =>
+      import('./gradient-parser/gradient-parser.component').then(m => m.GradientParserComponent),
+  },
   { path: '**', redirectTo: 'home' },
 ];
