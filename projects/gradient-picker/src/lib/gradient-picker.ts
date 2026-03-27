@@ -1,4 +1,4 @@
-import { GradientType } from '@acrodata/gradient-parser';
+import { GradientType, parseGradient, stringifyGradient } from '@acrodata/gradient-parser';
 import {
   booleanAttribute,
   ChangeDetectionStrategy,
@@ -16,7 +16,6 @@ import { ConicGradientPicker } from './conic-gradient-picker';
 import { GradientFormGroup, GradientRadioButton, GradientRadioGroup } from './form-controls';
 import { LinearGradientPicker } from './linear-gradient-picker';
 import { RadialGradientPicker } from './radial-gradient-picker';
-import { parseGradient, stringifyGradient } from './utils';
 
 @Component({
   selector: 'gradient-picker',

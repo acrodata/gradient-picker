@@ -1,4 +1,4 @@
-import { ColorStop } from '@acrodata/gradient-parser';
+import { ColorStop, parseGradient } from '@acrodata/gradient-parser';
 import {
   ConicGradientPicker,
   GradientColorpicker,
@@ -6,7 +6,6 @@ import {
   GradientPicker,
   GradientStops,
   LinearGradientPicker,
-  parseGradient,
   RadialGradientPicker,
 } from '@acrodata/gradient-picker';
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';

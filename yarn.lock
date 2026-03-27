@@ -10,10 +10,10 @@
     "@ctrl/tinycolor" "^4.2.0"
     tslib "^2.3.0"
 
-"@acrodata/gradient-parser@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@acrodata/gradient-parser/-/gradient-parser-1.0.0.tgz#4ade457240f02b00bb9ba94bfc290b3080ffb4cb"
-  integrity sha512-ljS9XNbJJw2ChuLgwiJnTvZ/DwsywkE4Xc46UNu/gHav745AZK93QMyVXNgWahM3kT8p2SqSbduJiq/skcP7tA==
+"@acrodata/gradient-parser@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@acrodata/gradient-parser/-/gradient-parser-1.1.0.tgz#4760da09b6196b799d46a41acbc8f1df41ab732f"
+  integrity sha512-hzVPlyrlMTp7RRrND4WO+xJxsgEWFvmuzpi75B72QHf3SIlMxkU4jFDnSQO1PVG4VBHYr3DAkBKUAANt3IGLLQ==
   dependencies:
     tslib "^2.3.0"
 

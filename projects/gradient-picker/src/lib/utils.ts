@@ -1,13 +1,4 @@
-import {
-  ColorStop,
-  GradientResult,
-  parseConicGradient,
-  parseLinearGradient,
-  parseRadialGradient,
-  stringifyConicGradient,
-  stringifyLinearGradient,
-  stringifyRadialGradient,
-} from '@acrodata/gradient-parser';
+import { ColorStop } from '@acrodata/gradient-parser';
 import { TinyColor } from '@ctrl/tinycolor';
 
 /**
@@ -225,40 +216,6 @@ export function convertAngleToPercentage(stops: ColorStop[]) {
     }
     return stop;
   });
-}
-
-/**
- * A unified function for parsing all gradient types.
- *
- * @param input
- */
-export function parseGradient(input: string) {
-  if (input.includes('linear')) {
-    return parseLinearGradient(input);
-  } else if (input.includes('radial')) {
-    return parseRadialGradient(input);
-  } else if (input.includes('conic')) {
-    return parseConicGradient(input);
-  } else {
-    return null;
-  }
-}
-
-/**
- * A unified function for stringify all gradient types.
- *
- * @param input
- */
-export function stringifyGradient(input: GradientResult) {
-  if ('orientation' in input) {
-    return stringifyLinearGradient(input);
-  } else if ('shape' in input) {
-    return stringifyRadialGradient(input);
-  } else if ('angle' in input) {
-    return stringifyConicGradient(input);
-  } else {
-    return '';
-  }
 }
 
 export const angleUnits = ['deg', 'rad', 'turn', 'grad'];

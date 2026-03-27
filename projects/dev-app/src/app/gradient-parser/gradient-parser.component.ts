@@ -1,4 +1,4 @@
-import { parseGradient } from '@acrodata/gradient-picker';
+import { parseGradient } from '@acrodata/gradient-parser';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -25,9 +25,10 @@ export class GradientParserComponent implements OnInit {
   ];
 
   onGradientChange(gradient: { input: string; result: string }) {
-    gradient.result = JSON.stringify(parseGradient(gradient.input), null, 2);
+    const parsedResult = parseGradient(gradient.input);
+    gradient.result = JSON.stringify(parsedResult, null, 2);
     // Log the parsed gradient object
-    console.log(parseGradient(gradient.input));
+    console.log(parsedResult);
   }
 
   ngOnInit(): void {
