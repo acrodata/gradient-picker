@@ -1,6 +1,6 @@
 {
   "name": "@acrodata/gradient-picker",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "description": "A powerful and beautiful gradient picker.",
   "publishConfig": {
     "access": "public"
@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@acrodata/color-picker": "^1.4.0",
+    "@acrodata/gradient-parser": "^1.1.0",
     "tslib": "^2.3.0"
   },
   "sideEffects": false
