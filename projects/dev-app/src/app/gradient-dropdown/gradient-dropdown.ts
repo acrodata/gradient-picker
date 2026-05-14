@@ -6,10 +6,10 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-gradient-dropdown',
   imports: [FormsModule, GradientPicker, CdkConnectedOverlay, CdkOverlayOrigin],
-  templateUrl: './gradient-dropdown.component.html',
-  styleUrl: './gradient-dropdown.component.scss',
+  templateUrl: './gradient-dropdown.html',
+  styleUrl: './gradient-dropdown.scss',
 })
-export class GradientDropdownComponent {
+export class GradientDropdown {
   @Input() value = '';
 
   @Output() valueChange = new EventEmitter<string>();

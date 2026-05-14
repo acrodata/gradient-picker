@@ -5,10 +5,10 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-gradient-parser',
   imports: [FormsModule],
-  templateUrl: './gradient-parser.component.html',
-  styleUrl: './gradient-parser.component.scss',
+  templateUrl: './gradient-parser.html',
+  styleUrl: './gradient-parser.scss',
 })
-export class GradientParserComponent implements OnInit {
+export class GradientParser implements OnInit {
   gradients = [
     {
       input: `linear-gradient(90deg, red 0%, green 50%, blue 100%)`,

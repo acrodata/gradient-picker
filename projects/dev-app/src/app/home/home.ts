@@ -1,16 +1,16 @@
 import { GradientPicker } from '@acrodata/gradient-picker';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { GradientDropdownComponent } from '../gradient-dropdown/gradient-dropdown.component';
-import { GradientInputComponent } from '../gradient-input/gradient-input.component';
+import { GradientDropdown } from '../gradient-dropdown/gradient-dropdown';
+import { GradientInput } from '../gradient-input/gradient-input';
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, GradientPicker, GradientDropdownComponent, GradientInputComponent],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  imports: [FormsModule, GradientPicker, GradientDropdown, GradientInput],
+  templateUrl: './home.html',
+  styleUrl: './home.scss',
 })
-export class HomeComponent {
+export class Home {
   gradient = 'linear-gradient(to right, #03001e, #7303c0, #ec38bc, #fdeff9)';
 
   gradients = [

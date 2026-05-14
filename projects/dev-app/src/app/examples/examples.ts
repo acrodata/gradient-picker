@@ -26,10 +26,10 @@ import { FormsModule } from '@angular/forms';
     CdkOverlayOrigin,
     CdkConnectedOverlay,
   ],
-  templateUrl: './examples.component.html',
-  styleUrl: './examples.component.scss',
+  templateUrl: './examples.html',
+  styleUrl: './examples.scss',
 })
-export class ExamplesComponent {
+export class Examples {
   colorStops = [
     { color: '#FF0000', offset: { value: 0, unit: '%' } },
     { color: '#00FF00', offset: { value: 50, unit: '%' } },
