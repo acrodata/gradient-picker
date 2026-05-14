@@ -3,7 +3,7 @@
     <gradient-picker [(ngModel)]="gradient" />
   </div>
 
-  <div class="gradient-preview" [style.background]="gradient"></div>
+  <div class="gradient-preview" [style.background]="gradient()"></div>
 
   <textarea
     class="gradient-text"

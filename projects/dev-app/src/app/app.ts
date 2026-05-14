@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -8,12 +8,12 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.scss',
 })
 export class App {
-  lightTheme = true;
+  lightTheme = signal(true);
 
   toggleTheme() {
-    this.lightTheme = !this.lightTheme;
+    this.lightTheme.update(v => !v);
 
-    if (this.lightTheme) {
+    if (this.lightTheme()) {
       document.querySelector('html')!.classList.remove('theme-dark');
     } else {
       document.querySelector('html')!.classList.add('theme-dark');

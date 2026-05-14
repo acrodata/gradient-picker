@@ -9,7 +9,7 @@ import {
   RadialGradientPicker,
 } from '@acrodata/gradient-picker';
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -36,9 +36,9 @@ export class Examples {
     { color: '#0000FF', offset: { value: 100, unit: '%' } },
   ];
 
-  color = '#FF0000';
+  color = signal('#FF0000');
 
-  hideColorInput = false;
+  hideColorInput = signal(false);
 
   linearGradients = [
     '',
@@ -47,7 +47,7 @@ export class Examples {
     'linear-gradient(to left, #333, #333 50%, #eee 75%, #333 75%)',
     'linear-gradient(217deg, rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0) 70.71%)',
   ];
-  linearGradient = '';
+  linearGradient = signal('');
 
   radialGradients = [
     '',
@@ -57,7 +57,7 @@ export class Examples {
     'radial-gradient(ellipse at top, #e66465, transparent)',
     'radial-gradient(ellipse 50% 50px, red, yellow 10%, #1e90ff 50%, beige)',
   ];
-  radialGradient = '';
+  radialGradient = signal('');
 
   conicGradients = [
     '',
@@ -66,19 +66,27 @@ export class Examples {
     'conic-gradient(from 3.1416rad at 10% 50%, #e66465, #9198e5)',
     'conic-gradient(red 6deg, orange 6deg 18deg, yellow 18deg 45deg, green 45deg 110deg, blue 110deg 200deg, purple 200deg)',
   ];
-  conicGradient = '';
+  conicGradient = signal('');
 
   gradients = this.linearGradients.concat(this.radialGradients, this.conicGradients);
 
-  gradient = '';
+  gradient = signal('');
 
-  isOpen = false;
+  isOpen = signal(false);
 
   onColorStopsChange(e: ColorStop[]) {
-    // console.log(e);
+    console.log(e);
   }
 
   parseGradient(value: string) {
     console.log(parseGradient(value));
+  }
+
+  toggleMenu() {
+    this.isOpen.update(v => !v);
+  }
+
+  closeMenu() {
+    this.isOpen.set(false);
   }
 }

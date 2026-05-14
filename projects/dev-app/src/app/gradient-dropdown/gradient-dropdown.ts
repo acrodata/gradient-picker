@@ -1,6 +1,6 @@
 import { GradientPicker } from '@acrodata/gradient-picker';
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -10,13 +10,15 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './gradient-dropdown.scss',
 })
 export class GradientDropdown {
-  @Input() value = '';
+  readonly value = model('');
 
-  @Output() valueChange = new EventEmitter<string>();
+  isOpen = signal(false);
 
-  isOpen = false;
+  toggleMenu() {
+    this.isOpen.update(v => !v);
+  }
 
-  onValueChange() {
-    this.valueChange.emit(this.value);
+  closeMenu() {
+    this.isOpen.set(false);
   }
 }

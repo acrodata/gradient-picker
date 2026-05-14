@@ -1,5 +1,5 @@
 import { parseGradient } from '@acrodata/gradient-parser';
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -8,30 +8,20 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './gradient-parser.html',
   styleUrl: './gradient-parser.scss',
 })
-export class GradientParser implements OnInit {
-  gradients = [
-    {
-      input: `linear-gradient(90deg, red 0%, green 50%, blue 100%)`,
-      result: '',
-    },
-    {
-      input: `radial-gradient(circle at center, red 0%, green 50%, blue 100%)`,
-      result: '',
-    },
-    {
-      input: `conic-gradient(red 0deg, green 120deg, blue 240deg)`,
-      result: '',
-    },
+export class GradientParser {
+  private gradients = [
+    `linear-gradient(90deg, red 0%, green 50%, blue 100%)`,
+    `radial-gradient(circle at center, red 0%, green 50%, blue 100%)`,
+    `conic-gradient(red 0deg, green 120deg, blue 240deg)`,
   ];
 
-  onGradientChange(gradient: { input: string; result: string }) {
-    const parsedResult = parseGradient(gradient.input);
-    gradient.result = JSON.stringify(parsedResult, null, 2);
-    // Log the parsed gradient object
-    console.log(parsedResult);
-  }
-
-  ngOnInit(): void {
-    this.gradients.forEach(g => this.onGradientChange(g));
-  }
+  gradientData = signal(
+    this.gradients.map(g => {
+      const gradient = signal(g);
+      return {
+        input: gradient,
+        result: computed(() => JSON.stringify(parseGradient(gradient()), null, 2)),
+      };
+    })
+  );
 }

@@ -1,5 +1,5 @@
 import { GradientPicker } from '@acrodata/gradient-picker';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GradientDropdown } from '../gradient-dropdown/gradient-dropdown';
 import { GradientInput } from '../gradient-input/gradient-input';
@@ -11,7 +11,7 @@ import { GradientInput } from '../gradient-input/gradient-input';
   styleUrl: './home.scss',
 })
 export class Home {
-  gradient = 'linear-gradient(to right, #03001e, #7303c0, #ec38bc, #fdeff9)';
+  gradient = signal('linear-gradient(to right, #03001e, #7303c0, #ec38bc, #fdeff9)');
 
   gradients = [
     'linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C)',

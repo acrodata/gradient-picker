@@ -1,6 +1,6 @@
-@for (g of gradients; track $index) {
+@for (g of gradientData(); track $index) {
   <section>
-    <textarea [(ngModel)]="g.input" (change)="onGradientChange(g)"></textarea>
-    <textarea [value]="g.result" readonly></textarea>
+    <textarea [(ngModel)]="g.input" [ngModelOptions]="{ updateOn: 'blur' }"></textarea>
+    <textarea [value]="g.result()" readonly></textarea>
   </section>
 }

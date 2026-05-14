@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GradientDropdown } from '../gradient-dropdown/gradient-dropdown';
 
@@ -9,5 +9,5 @@ import { GradientDropdown } from '../gradient-dropdown/gradient-dropdown';
   styleUrl: './gradient-input.scss',
 })
 export class GradientInput {
-  @Input() value = '';
+  readonly value = model('');
 }
