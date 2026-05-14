@@ -291,7 +291,7 @@ export class GradientStops implements ControlValueAccessor, OnChanges, AfterView
     });
     this.colorStops.sort(this.sortFn);
     this.onChange(this.colorStops);
-    this.colorStopsChange.next(this.colorStops);
+    this.colorStopsChange.emit(this.colorStops);
   }
 
   /** Move selected stop by arrow keys. */
