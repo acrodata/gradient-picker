@@ -12,6 +12,12 @@ A powerful and beautiful gradient picker.
 [Documentation](https://github.com/acrodata/gradient-picker?tab=readme-ov-file#usage) |
 [Playground](https://acrodata.github.io/gradient-picker/)
 
+## Compatibility
+
+| Angular | @acrodata/gradient-picker |
+| ------- | ------------------------- |
+| >=17    | 0.x                       |
+
 ## Features
 
 - Full CSS gradient syntax support
